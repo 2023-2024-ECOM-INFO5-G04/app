@@ -1,0 +1,27 @@
+{
+  "ecom23App": {
+    "rappel": {
+      "home": {
+        "title": "Rappels",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Genera un nuovo Rappel",
+        "createOrEditLabel": "Genera o modifica un Rappel",
+        "notFound": "No Rappels found"
+      },
+      "created": "&Egrave; stato generato un nuovo Rappel con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Rappel identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Rappel con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Rappel {{ id }}?"
+      },
+      "detail": {
+        "title": "Rappel"
+      },
+      "id": "ID",
+      "date": "Date",
+      "commentaire": "Commentaire",
+      "effectue": "Effectue",
+      "medecin": "Medecin"
+    }
+  }
+}

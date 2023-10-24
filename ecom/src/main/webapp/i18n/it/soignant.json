@@ -1,0 +1,31 @@
+{
+  "ecom23App": {
+    "soignant": {
+      "home": {
+        "title": "Soignants",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Genera un nuovo Soignant",
+        "createOrEditLabel": "Genera o modifica un Soignant",
+        "notFound": "No Soignants found"
+      },
+      "created": "&Egrave; stato generato un nuovo Soignant con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Soignant identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Soignant con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Soignant {{ id }}?"
+      },
+      "detail": {
+        "title": "Soignant"
+      },
+      "id": "ID",
+      "idS": "Id S",
+      "nomS": "Nom S",
+      "prenomS": "Prenom S",
+      "metier": "Metier",
+      "compte": "Compte",
+      "servicesoignant": "Servicesoignant",
+      "patients": "Patients",
+      "taches": "Taches"
+    }
+  }
+}

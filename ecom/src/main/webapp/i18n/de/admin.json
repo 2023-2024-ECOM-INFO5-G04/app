@@ -1,0 +1,27 @@
+{
+  "ecom23App": {
+    "admin": {
+      "home": {
+        "title": "Admins",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Admin erstellen",
+        "createOrEditLabel": "Admin erstellen oder bearbeiten",
+        "notFound": "Keine Admins gefunden"
+      },
+      "created": "Admin erstellt mit ID {{ param }}",
+      "updated": "Admin aktualisiert mit ID {{ param }}",
+      "deleted": "Admin gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Admin {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Admin"
+      },
+      "id": "ID",
+      "idA": "Id A",
+      "nomA": "Nom A",
+      "prenomA": "Prenom A",
+      "compte": "Compte"
+    }
+  }
+}

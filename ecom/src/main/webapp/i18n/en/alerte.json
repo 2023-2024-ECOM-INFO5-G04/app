@@ -1,0 +1,27 @@
+{
+  "ecom23App": {
+    "alerte": {
+      "home": {
+        "title": "Alertes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Alerte",
+        "createOrEditLabel": "Create or edit a Alerte",
+        "notFound": "No Alertes found"
+      },
+      "created": "A new Alerte is created with identifier {{ param }}",
+      "updated": "A Alerte is updated with identifier {{ param }}",
+      "deleted": "A Alerte is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Alerte {{ id }}?"
+      },
+      "detail": {
+        "title": "Alerte"
+      },
+      "id": "ID",
+      "date": "Date",
+      "commentaire": "Commentaire",
+      "denutrition": "Denutrition",
+      "patient": "Patient"
+    }
+  }
+}

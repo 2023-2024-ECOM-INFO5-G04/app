@@ -1,0 +1,1 @@
+org.springframework.test.context.ContextCustomizerFactory = fr.polytech.g4.ecom23.config.TestContainersSpringContextCustomizerFactory

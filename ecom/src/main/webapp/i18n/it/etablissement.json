@@ -1,0 +1,29 @@
+{
+  "ecom23App": {
+    "etablissement": {
+      "home": {
+        "title": "Etablissements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Genera un nuovo Etablissement",
+        "createOrEditLabel": "Genera o modifica un Etablissement",
+        "notFound": "No Etablissements found"
+      },
+      "created": "&Egrave; stato generato un nuovo Etablissement con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Etablissement identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Etablissement con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Etablissement {{ id }}?"
+      },
+      "detail": {
+        "title": "Etablissement"
+      },
+      "id": "ID",
+      "idE": "Id E",
+      "nomE": "Nom E",
+      "adresse": "Adresse",
+      "telephone": "Telephone",
+      "patient": "Patient",
+      "medecin": "Medecin"
+    }
+  }
+}

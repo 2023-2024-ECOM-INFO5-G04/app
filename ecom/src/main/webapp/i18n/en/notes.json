@@ -1,0 +1,26 @@
+{
+  "ecom23App": {
+    "notes": {
+      "home": {
+        "title": "Notes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Notes",
+        "createOrEditLabel": "Create or edit a Notes",
+        "notFound": "No Notes found"
+      },
+      "created": "A new Notes is created with identifier {{ param }}",
+      "updated": "A Notes is updated with identifier {{ param }}",
+      "deleted": "A Notes is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Notes {{ id }}?"
+      },
+      "detail": {
+        "title": "Notes"
+      },
+      "id": "ID",
+      "commentaire": "Commentaire",
+      "patient": "Patient",
+      "medecin": "Medecin"
+    }
+  }
+}

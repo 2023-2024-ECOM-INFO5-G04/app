@@ -1,0 +1,30 @@
+{
+  "ecom23App": {
+    "suividonnees": {
+      "home": {
+        "title": "Suividonnees",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Suividonnees erstellen",
+        "createOrEditLabel": "Suividonnees erstellen oder bearbeiten",
+        "notFound": "Keine Suividonnees gefunden"
+      },
+      "created": "Suividonnees erstellt mit ID {{ param }}",
+      "updated": "Suividonnees aktualisiert mit ID {{ param }}",
+      "deleted": "Suividonnees gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Suividonnees {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Suividonnees"
+      },
+      "id": "ID",
+      "idSD": "Id SD",
+      "date": "Date",
+      "poids": "Poids",
+      "massecorporelle": "Massecorporelle",
+      "quantitepoidsaliments": "Quantitepoidsaliments",
+      "quantitecaloriesaliments": "Quantitecaloriesaliments",
+      "patient": "Patient"
+    }
+  }
+}

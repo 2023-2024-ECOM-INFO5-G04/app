@@ -1,0 +1,568 @@
+package fr.polytech.g4.ecom23.web.rest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import fr.polytech.g4.ecom23.IntegrationTest;
+import fr.polytech.g4.ecom23.domain.Etablissement;
+import fr.polytech.g4.ecom23.domain.Patient;
+import fr.polytech.g4.ecom23.repository.PatientRepository;
+import fr.polytech.g4.ecom23.service.PatientService;
+import fr.polytech.g4.ecom23.service.dto.PatientDTO;
+import fr.polytech.g4.ecom23.service.mapper.PatientMapper;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
+import javax.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Integration tests for the {@link PatientResource} REST controller.
+ */
+@IntegrationTest
+@ExtendWith(MockitoExtension.class)
+@AutoConfigureMockMvc
+@WithMockUser
+class PatientResourceIT {
+
+    private static final Long DEFAULT_ID_P = 1L;
+    private static final Long UPDATED_ID_P = 2L;
+
+    private static final String DEFAULT_NOM_P = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_P = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PRENOM_P = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM_P = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_AGE = 1;
+    private static final Integer UPDATED_AGE = 2;
+
+    private static final LocalDate DEFAULT_DATEARRIVEE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATEARRIVEE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Float DEFAULT_POIDSACTUEL = 1F;
+    private static final Float UPDATED_POIDSACTUEL = 2F;
+
+    private static final Float DEFAULT_ALBUMINE = 1F;
+    private static final Float UPDATED_ALBUMINE = 2F;
+
+    private static final Float DEFAULT_TAILLE = 1F;
+    private static final Float UPDATED_TAILLE = 2F;
+
+    private static final String ENTITY_API_URL = "/api/patients";
+    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+
+    private static Random random = new Random();
+    private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
+
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Mock
+    private PatientRepository patientRepositoryMock;
+
+    @Autowired
+    private PatientMapper patientMapper;
+
+    @Mock
+    private PatientService patientServiceMock;
+
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private MockMvc restPatientMockMvc;
+
+    private Patient patient;
+
+    /**
+     * Create an entity for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static Patient createEntity(EntityManager em) {
+        Patient patient = new Patient()
+            .idP(DEFAULT_ID_P)
+            .nomP(DEFAULT_NOM_P)
+            .prenomP(DEFAULT_PRENOM_P)
+            .age(DEFAULT_AGE)
+            .datearrivee(DEFAULT_DATEARRIVEE)
+            .poidsactuel(DEFAULT_POIDSACTUEL)
+            .albumine(DEFAULT_ALBUMINE)
+            .taille(DEFAULT_TAILLE);
+        // Add required entity
+        Etablissement etablissement;
+        if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
+            etablissement = EtablissementResourceIT.createEntity(em);
+            em.persist(etablissement);
+            em.flush();
+        } else {
+            etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
+        }
+        patient.setInfrastructure(etablissement);
+        return patient;
+    }
+
+    /**
+     * Create an updated entity for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static Patient createUpdatedEntity(EntityManager em) {
+        Patient patient = new Patient()
+            .idP(UPDATED_ID_P)
+            .nomP(UPDATED_NOM_P)
+            .prenomP(UPDATED_PRENOM_P)
+            .age(UPDATED_AGE)
+            .datearrivee(UPDATED_DATEARRIVEE)
+            .poidsactuel(UPDATED_POIDSACTUEL)
+            .albumine(UPDATED_ALBUMINE)
+            .taille(UPDATED_TAILLE);
+        // Add required entity
+        Etablissement etablissement;
+        if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
+            etablissement = EtablissementResourceIT.createUpdatedEntity(em);
+            em.persist(etablissement);
+            em.flush();
+        } else {
+            etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
+        }
+        patient.setInfrastructure(etablissement);
+        return patient;
+    }
+
+    @BeforeEach
+    public void initTest() {
+        patient = createEntity(em);
+    }
+
+    @Test
+    @Transactional
+    void createPatient() throws Exception {
+        int databaseSizeBeforeCreate = patientRepository.findAll().size();
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+        restPatientMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isCreated());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeCreate + 1);
+        Patient testPatient = patientList.get(patientList.size() - 1);
+        assertThat(testPatient.getIdP()).isEqualTo(DEFAULT_ID_P);
+        assertThat(testPatient.getNomP()).isEqualTo(DEFAULT_NOM_P);
+        assertThat(testPatient.getPrenomP()).isEqualTo(DEFAULT_PRENOM_P);
+        assertThat(testPatient.getAge()).isEqualTo(DEFAULT_AGE);
+        assertThat(testPatient.getDatearrivee()).isEqualTo(DEFAULT_DATEARRIVEE);
+        assertThat(testPatient.getPoidsactuel()).isEqualTo(DEFAULT_POIDSACTUEL);
+        assertThat(testPatient.getAlbumine()).isEqualTo(DEFAULT_ALBUMINE);
+        assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
+    }
+
+    @Test
+    @Transactional
+    void createPatientWithExistingId() throws Exception {
+        // Create the Patient with an existing ID
+        patient.setId(1L);
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        int databaseSizeBeforeCreate = patientRepository.findAll().size();
+
+        // An entity with an existing ID cannot be created, so this API call must fail
+        restPatientMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isBadRequest());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkIdPIsRequired() throws Exception {
+        int databaseSizeBeforeTest = patientRepository.findAll().size();
+        // set the field null
+        patient.setIdP(null);
+
+        // Create the Patient, which fails.
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        restPatientMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void getAllPatients() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList
+        restPatientMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
+            .andExpect(jsonPath("$.[*].idP").value(hasItem(DEFAULT_ID_P.intValue())))
+            .andExpect(jsonPath("$.[*].nomP").value(hasItem(DEFAULT_NOM_P)))
+            .andExpect(jsonPath("$.[*].prenomP").value(hasItem(DEFAULT_PRENOM_P)))
+            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
+            .andExpect(jsonPath("$.[*].datearrivee").value(hasItem(DEFAULT_DATEARRIVEE.toString())))
+            .andExpect(jsonPath("$.[*].poidsactuel").value(hasItem(DEFAULT_POIDSACTUEL.doubleValue())))
+            .andExpect(jsonPath("$.[*].albumine").value(hasItem(DEFAULT_ALBUMINE.doubleValue())))
+            .andExpect(jsonPath("$.[*].taille").value(hasItem(DEFAULT_TAILLE.doubleValue())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPatientsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(patientServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPatientMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(patientServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPatientsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(patientServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPatientMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(patientRepositoryMock, times(1)).findAll(any(Pageable.class));
+    }
+
+    @Test
+    @Transactional
+    void getPatient() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get the patient
+        restPatientMockMvc
+            .perform(get(ENTITY_API_URL_ID, patient.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.id").value(patient.getId().intValue()))
+            .andExpect(jsonPath("$.idP").value(DEFAULT_ID_P.intValue()))
+            .andExpect(jsonPath("$.nomP").value(DEFAULT_NOM_P))
+            .andExpect(jsonPath("$.prenomP").value(DEFAULT_PRENOM_P))
+            .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
+            .andExpect(jsonPath("$.datearrivee").value(DEFAULT_DATEARRIVEE.toString()))
+            .andExpect(jsonPath("$.poidsactuel").value(DEFAULT_POIDSACTUEL.doubleValue()))
+            .andExpect(jsonPath("$.albumine").value(DEFAULT_ALBUMINE.doubleValue()))
+            .andExpect(jsonPath("$.taille").value(DEFAULT_TAILLE.doubleValue()));
+    }
+
+    @Test
+    @Transactional
+    void getNonExistingPatient() throws Exception {
+        // Get the patient
+        restPatientMockMvc.perform(get(ENTITY_API_URL_ID, Long.MAX_VALUE)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Transactional
+    void putExistingPatient() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+
+        // Update the patient
+        Patient updatedPatient = patientRepository.findById(patient.getId()).get();
+        // Disconnect from session so that the updates on updatedPatient are not directly saved in db
+        em.detach(updatedPatient);
+        updatedPatient
+            .idP(UPDATED_ID_P)
+            .nomP(UPDATED_NOM_P)
+            .prenomP(UPDATED_PRENOM_P)
+            .age(UPDATED_AGE)
+            .datearrivee(UPDATED_DATEARRIVEE)
+            .poidsactuel(UPDATED_POIDSACTUEL)
+            .albumine(UPDATED_ALBUMINE)
+            .taille(UPDATED_TAILLE);
+        PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
+
+        restPatientMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, patientDTO.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+        Patient testPatient = patientList.get(patientList.size() - 1);
+        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
+        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
+        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testPatient.getDatearrivee()).isEqualTo(UPDATED_DATEARRIVEE);
+        assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
+        assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
+        assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
+    }
+
+    @Test
+    @Transactional
+    void putNonExistingPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, patientDTO.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void putWithIdMismatchPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(
+                put(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void putWithMissingIdPathParamPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdatePatientWithPatch() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+
+        // Update the patient using partial update
+        Patient partialUpdatedPatient = new Patient();
+        partialUpdatedPatient.setId(patient.getId());
+
+        partialUpdatedPatient
+            .idP(UPDATED_ID_P)
+            .nomP(UPDATED_NOM_P)
+            .prenomP(UPDATED_PRENOM_P)
+            .age(UPDATED_AGE)
+            .poidsactuel(UPDATED_POIDSACTUEL);
+
+        restPatientMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedPatient.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedPatient))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+        Patient testPatient = patientList.get(patientList.size() - 1);
+        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
+        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
+        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testPatient.getDatearrivee()).isEqualTo(DEFAULT_DATEARRIVEE);
+        assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
+        assertThat(testPatient.getAlbumine()).isEqualTo(DEFAULT_ALBUMINE);
+        assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdatePatientWithPatch() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+
+        // Update the patient using partial update
+        Patient partialUpdatedPatient = new Patient();
+        partialUpdatedPatient.setId(patient.getId());
+
+        partialUpdatedPatient
+            .idP(UPDATED_ID_P)
+            .nomP(UPDATED_NOM_P)
+            .prenomP(UPDATED_PRENOM_P)
+            .age(UPDATED_AGE)
+            .datearrivee(UPDATED_DATEARRIVEE)
+            .poidsactuel(UPDATED_POIDSACTUEL)
+            .albumine(UPDATED_ALBUMINE)
+            .taille(UPDATED_TAILLE);
+
+        restPatientMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, partialUpdatedPatient.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedPatient))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+        Patient testPatient = patientList.get(patientList.size() - 1);
+        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
+        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
+        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testPatient.getDatearrivee()).isEqualTo(UPDATED_DATEARRIVEE);
+        assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
+        assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
+        assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
+    }
+
+    @Test
+    @Transactional
+    void patchNonExistingPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, patientDTO.getId())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithIdMismatchPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID, count.incrementAndGet())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void patchWithMissingIdPathParamPatient() throws Exception {
+        int databaseSizeBeforeUpdate = patientRepository.findAll().size();
+        patient.setId(count.incrementAndGet());
+
+        // Create the Patient
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+        // If url ID doesn't match entity ID, it will throw BadRequestAlertException
+        restPatientMockMvc
+            .perform(
+                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(patientDTO))
+            )
+            .andExpect(status().isMethodNotAllowed());
+
+        // Validate the Patient in the database
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    void deletePatient() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        int databaseSizeBeforeDelete = patientRepository.findAll().size();
+
+        // Delete the patient
+        restPatientMockMvc
+            .perform(delete(ENTITY_API_URL_ID, patient.getId()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
+
+        // Validate the database contains one less item
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "ecom23App": {
+    "servicesoignant": {
+      "home": {
+        "title": "Servicesoignants",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Servicesoignant",
+        "createOrEditLabel": "Create or edit a Servicesoignant",
+        "notFound": "No Servicesoignants found"
+      },
+      "created": "A new Servicesoignant is created with identifier {{ param }}",
+      "updated": "A Servicesoignant is updated with identifier {{ param }}",
+      "deleted": "A Servicesoignant is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Servicesoignant {{ id }}?"
+      },
+      "detail": {
+        "title": "Servicesoignant"
+      },
+      "id": "ID",
+      "idSer": "Id Ser",
+      "type": "Type",
+      "nbsoignants": "Nbsoignants",
+      "infrastructure": "Infrastructure",
+      "soignant": "Soignant",
+      "taches": "Taches"
+    }
+  }
+}

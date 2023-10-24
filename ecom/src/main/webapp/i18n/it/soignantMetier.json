@@ -1,0 +1,9 @@
+{
+  "ecom23App": {
+    "SoignantMetier": {
+      "null": "",
+      "Aidesoignant": "Aidesoignant",
+      "Infirmier": "Infirmier"
+    }
+  }
+}

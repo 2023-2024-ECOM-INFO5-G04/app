@@ -1,0 +1,97 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162349",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "patient",
+  "fields": [
+    {
+      "fieldName": "idP",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nomP",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomP",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "age",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "datearrivee",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "poidsactuel",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "albumine",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "taille",
+      "fieldType": "Float"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Patient",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "alerte",
+      "otherEntityRelationshipName": "patient",
+      "ownerSide": true,
+      "relationshipName": "alerte",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "notes",
+      "otherEntityRelationshipName": "medecin",
+      "relationshipName": "notes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "idE",
+      "otherEntityName": "etablissement",
+      "otherEntityRelationshipName": "patient",
+      "relationshipName": "infrastructure",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "suividonnees",
+      "otherEntityRelationshipName": "patient",
+      "relationshipName": "suividonnees",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "tache",
+      "otherEntityRelationshipName": "patient",
+      "relationshipName": "taches",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "medecin",
+      "otherEntityRelationshipName": "patients",
+      "ownerSide": false,
+      "relationshipName": "medecin",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "soignant",
+      "otherEntityRelationshipName": "patients",
+      "ownerSide": false,
+      "relationshipName": "soignants",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

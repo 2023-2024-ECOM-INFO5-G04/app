@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162348",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "compte",
+  "fields": [
+    {
+      "fieldName": "nomutilisateur",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "motdepasse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "Role",
+      "fieldValues": "Medecin,Soignant,Admin"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Compte",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "soignant",
+      "otherEntityRelationshipName": "compte",
+      "ownerSide": false,
+      "relationshipName": "soignant",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "medecin",
+      "otherEntityRelationshipName": "compte",
+      "ownerSide": false,
+      "relationshipName": "medecin",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "admin",
+      "otherEntityRelationshipName": "compte",
+      "ownerSide": false,
+      "relationshipName": "admin",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,49 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162342",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "servicesoignant",
+  "fields": [
+    {
+      "fieldName": "idSer",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nbsoignants",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Servicesoignant",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "idE",
+      "otherEntityName": "etablissement",
+      "relationshipName": "infrastructure",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "soignant",
+      "otherEntityRelationshipName": "servicesoignant",
+      "relationshipName": "soignant",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "tache",
+      "otherEntityRelationshipName": "servicesoignant",
+      "relationshipName": "taches",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Soignant.
+    -->
+    <changeSet id="20231024162343-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="compte_id"
+                                 baseTableName="soignant"
+                                 constraintName="fk_soignant__compte_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compte"/>
+
+        <addForeignKeyConstraint baseColumnNames="servicesoignant_id"
+                                 baseTableName="soignant"
+                                 constraintName="fk_soignant__servicesoignant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="servicesoignant"/>
+
+        <addForeignKeyConstraint baseColumnNames="soignant_id"
+                                 baseTableName="rel_soignant__patients"
+                                 constraintName="fk_rel_soignant__patients__soignant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="soignant"/>
+
+        <addForeignKeyConstraint baseColumnNames="patients_id"
+                                 baseTableName="rel_soignant__patients"
+                                 constraintName="fk_rel_soignant__patients__patients_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="patient"/>
+    </changeSet>
+</databaseChangeLog>

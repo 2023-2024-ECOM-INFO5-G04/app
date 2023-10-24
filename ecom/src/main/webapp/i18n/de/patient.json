@@ -1,0 +1,38 @@
+{
+  "ecom23App": {
+    "patient": {
+      "home": {
+        "title": "Patients",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Patient erstellen",
+        "createOrEditLabel": "Patient erstellen oder bearbeiten",
+        "notFound": "Keine Patients gefunden"
+      },
+      "created": "Patient erstellt mit ID {{ param }}",
+      "updated": "Patient aktualisiert mit ID {{ param }}",
+      "deleted": "Patient gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Patient {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Patient"
+      },
+      "id": "ID",
+      "idP": "Id P",
+      "nomP": "Nom P",
+      "prenomP": "Prenom P",
+      "age": "Age",
+      "datearrivee": "Datearrivee",
+      "poidsactuel": "Poidsactuel",
+      "albumine": "Albumine",
+      "taille": "Taille",
+      "alerte": "Alerte",
+      "notes": "Notes",
+      "infrastructure": "Infrastructure",
+      "suividonnees": "Suividonnees",
+      "taches": "Taches",
+      "medecin": "Medecin",
+      "soignants": "Soignants"
+    }
+  }
+}

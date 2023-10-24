@@ -1,0 +1,26 @@
+{
+  "ecom23App": {
+    "notes": {
+      "home": {
+        "title": "Notes",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Notes erstellen",
+        "createOrEditLabel": "Notes erstellen oder bearbeiten",
+        "notFound": "Keine Notes gefunden"
+      },
+      "created": "Notes erstellt mit ID {{ param }}",
+      "updated": "Notes aktualisiert mit ID {{ param }}",
+      "deleted": "Notes gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Notes {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Notes"
+      },
+      "id": "ID",
+      "commentaire": "Commentaire",
+      "patient": "Patient",
+      "medecin": "Medecin"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "ecom23App": {
+    "notes": {
+      "home": {
+        "title": "Notes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Notes",
+        "createOrEditLabel": "Créer ou éditer un Notes",
+        "notFound": "Aucun Notes trouvé"
+      },
+      "created": "Un nouveau Notes a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Notes avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Notes avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Notes {{ id }} ?"
+      },
+      "detail": {
+        "title": "Notes"
+      },
+      "id": "ID",
+      "commentaire": "Commentaire",
+      "patient": "Patient",
+      "medecin": "Medecin"
+    }
+  }
+}

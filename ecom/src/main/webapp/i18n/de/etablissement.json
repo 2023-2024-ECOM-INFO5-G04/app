@@ -1,0 +1,29 @@
+{
+  "ecom23App": {
+    "etablissement": {
+      "home": {
+        "title": "Etablissements",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Etablissement erstellen",
+        "createOrEditLabel": "Etablissement erstellen oder bearbeiten",
+        "notFound": "Keine Etablissements gefunden"
+      },
+      "created": "Etablissement erstellt mit ID {{ param }}",
+      "updated": "Etablissement aktualisiert mit ID {{ param }}",
+      "deleted": "Etablissement gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Etablissement {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Etablissement"
+      },
+      "id": "ID",
+      "idE": "Id E",
+      "nomE": "Nom E",
+      "adresse": "Adresse",
+      "telephone": "Telephone",
+      "patient": "Patient",
+      "medecin": "Medecin"
+    }
+  }
+}

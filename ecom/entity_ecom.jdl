@@ -1,0 +1,124 @@
+enum Role{
+	Medecin, Soignant, Admin
+}
+
+enum SoignantMetier{
+	Aidesoignant, Infirmier
+}
+
+entity Etablissement{
+	idE Long required unique
+    nomE String
+    adresse String
+    telephone String minlength(10) maxlength(14)   
+}
+
+entity Servicesoignant{
+    idSer Long required unique
+    type String
+    nbsoignants String
+}
+
+entity Soignant{
+	idS Long required unique
+    nomS String
+    prenomS String
+    metier SoignantMetier
+}
+
+entity Admin{
+	idA Long required unique
+    nomA String
+    prenomA String
+}
+
+entity Tache{
+    date LocalDate
+    commentaire String
+    effectuee Boolean
+}
+
+entity Medecin{
+    idM Long required unique
+    nomM String
+    prenomM String
+}
+
+entity Rappel{
+    date LocalDate
+    commentaire String
+    effectue Boolean
+}
+
+entity Compte{
+    nomutilisateur String
+    motdepasse String
+    role Role
+}
+
+entity Patient {
+	idP Long required unique
+    nomP String
+    prenomP String
+    age Integer
+    datearrivee LocalDate
+    poidsactuel Float
+    albumine Float
+    taille Float
+}
+
+entity Alerte{
+	date LocalDate
+    commentaire String
+  	denutrition Boolean
+}
+
+entity Suividonnees{
+	idSD Long required unique
+    date LocalDate required
+    poids Float
+    massecorporelle Float
+    quantitepoidsaliments Float
+    quantitecaloriesaliments Float
+}
+
+entity Notes{
+	commentaire String
+}
+
+relationship ManyToOne {
+    Patient{infrastructure(idE) required} to Etablissement{patient}
+    Servicesoignant{infrastructure(idE) required} to Etablissement
+    Suividonnees{patient(idP) required} to Patient{suividonnees}
+    Tache{patient(idP) required} to Patient{taches}
+    Soignant{servicesoignant(idSer) required} to Servicesoignant{soignant}
+    Tache{servicesoignant } to Servicesoignant{taches}
+    Tache{soigant } to Soignant{taches}
+}
+
+relationship ManyToMany{
+	Medecin{patients} to Patient{medecin}
+    Soignant{patients} to Patient{soignants}
+    Medecin{etablissement} to Etablissement{medecin}
+}
+
+relationship OneToMany {
+	Medecin{taches} to Tache{medecin}
+    Medecin{alertes} to Rappel{medecin}
+}
+
+relationship OneToMany {
+    Medecin{notes} to Notes{patient}
+    Patient{notes} to Notes{medecin}
+}
+
+relationship OneToOne {
+	Soignant{compte} to Compte{soignant}
+    Medecin{compte} to Compte{medecin}
+    Admin{compte} to Compte{admin}
+    Patient{alerte} to Alerte{patient(idP) required}
+}
+
+
+dto * with mapstruct
+service * with serviceImpl

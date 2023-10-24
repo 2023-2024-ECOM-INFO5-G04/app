@@ -1,0 +1,30 @@
+{
+  "ecom23App": {
+    "suividonnees": {
+      "home": {
+        "title": "Suividonnees",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Genera un nuovo Suividonnees",
+        "createOrEditLabel": "Genera o modifica un Suividonnees",
+        "notFound": "No Suividonnees found"
+      },
+      "created": "&Egrave; stato generato un nuovo Suividonnees con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Suividonnees identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Suividonnees con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Suividonnees {{ id }}?"
+      },
+      "detail": {
+        "title": "Suividonnees"
+      },
+      "id": "ID",
+      "idSD": "Id SD",
+      "date": "Date",
+      "poids": "Poids",
+      "massecorporelle": "Massecorporelle",
+      "quantitepoidsaliments": "Quantitepoidsaliments",
+      "quantitecaloriesaliments": "Quantitecaloriesaliments",
+      "patient": "Patient"
+    }
+  }
+}

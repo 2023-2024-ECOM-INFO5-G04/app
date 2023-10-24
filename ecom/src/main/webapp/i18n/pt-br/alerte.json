@@ -1,0 +1,27 @@
+{
+  "ecom23App": {
+    "alerte": {
+      "home": {
+        "title": "Alertes",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Alerte",
+        "createOrEditLabel": "Criar ou editar Alerte",
+        "notFound": "Nenhum Alerte encontrado"
+      },
+      "created": "Um novo Alerte foi criado com o identificador {{ param }}",
+      "updated": "Um Alerte foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Alerte foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Alerte {{ id }}?"
+      },
+      "detail": {
+        "title": "Alerte"
+      },
+      "id": "ID",
+      "date": "Date",
+      "commentaire": "Commentaire",
+      "denutrition": "Denutrition",
+      "patient": "Patient"
+    }
+  }
+}

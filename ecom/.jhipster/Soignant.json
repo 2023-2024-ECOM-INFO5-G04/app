@@ -1,0 +1,63 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162343",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "soignant",
+  "fields": [
+    {
+      "fieldName": "idS",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nomS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "metier",
+      "fieldType": "SoignantMetier",
+      "fieldValues": "Aidesoignant,Infirmier"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Soignant",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "compte",
+      "otherEntityRelationshipName": "soignant",
+      "ownerSide": true,
+      "relationshipName": "compte",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "idSer",
+      "otherEntityName": "servicesoignant",
+      "otherEntityRelationshipName": "soignant",
+      "relationshipName": "servicesoignant",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "soignants",
+      "ownerSide": true,
+      "relationshipName": "patients",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "tache",
+      "otherEntityRelationshipName": "soigant",
+      "relationshipName": "taches",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162352",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "notes",
+  "fields": [
+    {
+      "fieldName": "commentaire",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Notes",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "medecin",
+      "otherEntityRelationshipName": "notes",
+      "relationshipName": "patient",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "notes",
+      "relationshipName": "medecin",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

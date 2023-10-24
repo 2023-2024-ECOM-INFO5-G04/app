@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162351",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "suividonnees",
+  "fields": [
+    {
+      "fieldName": "idSD",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "poids",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "massecorporelle",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "quantitepoidsaliments",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "quantitecaloriesaliments",
+      "fieldType": "Float"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Suividonnees",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "idP",
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "suividonnees",
+      "relationshipName": "patient",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

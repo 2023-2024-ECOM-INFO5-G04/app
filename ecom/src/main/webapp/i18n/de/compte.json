@@ -1,0 +1,29 @@
+{
+  "ecom23App": {
+    "compte": {
+      "home": {
+        "title": "Comptes",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Compte erstellen",
+        "createOrEditLabel": "Compte erstellen oder bearbeiten",
+        "notFound": "Keine Comptes gefunden"
+      },
+      "created": "Compte erstellt mit ID {{ param }}",
+      "updated": "Compte aktualisiert mit ID {{ param }}",
+      "deleted": "Compte gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Compte {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Compte"
+      },
+      "id": "ID",
+      "nomutilisateur": "Nomutilisateur",
+      "motdepasse": "Motdepasse",
+      "role": "Role",
+      "soignant": "Soignant",
+      "medecin": "Medecin",
+      "admin": "Admin"
+    }
+  }
+}

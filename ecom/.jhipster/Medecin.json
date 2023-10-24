@@ -1,0 +1,69 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162346",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "medecin",
+  "fields": [
+    {
+      "fieldName": "idM",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nomM",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenomM",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Medecin",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "compte",
+      "otherEntityRelationshipName": "medecin",
+      "ownerSide": true,
+      "relationshipName": "compte",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "tache",
+      "otherEntityRelationshipName": "medecin",
+      "relationshipName": "taches",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "rappel",
+      "otherEntityRelationshipName": "medecin",
+      "relationshipName": "alertes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "notes",
+      "otherEntityRelationshipName": "patient",
+      "relationshipName": "notes",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "medecin",
+      "ownerSide": true,
+      "relationshipName": "patients",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "etablissement",
+      "otherEntityRelationshipName": "medecin",
+      "ownerSide": true,
+      "relationshipName": "etablissement",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

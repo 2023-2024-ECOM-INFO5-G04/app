@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Medecin.
+    -->
+    <changeSet id="20231024162346-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="compte_id"
+                                 baseTableName="medecin"
+                                 constraintName="fk_medecin__compte_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compte"/>
+
+        <addForeignKeyConstraint baseColumnNames="medecin_id"
+                                 baseTableName="rel_medecin__patients"
+                                 constraintName="fk_rel_medecin__patients__medecin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medecin"/>
+
+        <addForeignKeyConstraint baseColumnNames="patients_id"
+                                 baseTableName="rel_medecin__patients"
+                                 constraintName="fk_rel_medecin__patients__patients_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="patient"/>
+
+        <addForeignKeyConstraint baseColumnNames="medecin_id"
+                                 baseTableName="rel_medecin__etablissement"
+                                 constraintName="fk_rel_medecin__etablissement__medecin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medecin"/>
+
+        <addForeignKeyConstraint baseColumnNames="etablissement_id"
+                                 baseTableName="rel_medecin__etablissement"
+                                 constraintName="fk_rel_medecin__etablissement__etablissement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etablissement"/>
+    </changeSet>
+</databaseChangeLog>

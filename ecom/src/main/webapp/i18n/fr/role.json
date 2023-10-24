@@ -1,0 +1,10 @@
+{
+  "ecom23App": {
+    "Role": {
+      "null": "",
+      "Medecin": "Medecin",
+      "Soignant": "Soignant",
+      "Admin": "Admin"
+    }
+  }
+}

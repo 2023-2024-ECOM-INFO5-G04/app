@@ -1,0 +1,30 @@
+{
+  "ecom23App": {
+    "tache": {
+      "home": {
+        "title": "Taches",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Tache",
+        "createOrEditLabel": "Create or edit a Tache",
+        "notFound": "No Taches found"
+      },
+      "created": "A new Tache is created with identifier {{ param }}",
+      "updated": "A Tache is updated with identifier {{ param }}",
+      "deleted": "A Tache is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tache {{ id }}?"
+      },
+      "detail": {
+        "title": "Tache"
+      },
+      "id": "ID",
+      "date": "Date",
+      "commentaire": "Commentaire",
+      "effectuee": "Effectuee",
+      "patient": "Patient",
+      "servicesoignant": "Servicesoignant",
+      "soigant": "Soigant",
+      "medecin": "Medecin"
+    }
+  }
+}

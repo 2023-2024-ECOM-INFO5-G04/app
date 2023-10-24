@@ -1,0 +1,38 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162350",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "alerte",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "commentaire",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "denutrition",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Alerte",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "idP",
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "alerte",
+      "ownerSide": false,
+      "relationshipName": "patient",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

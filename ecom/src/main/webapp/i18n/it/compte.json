@@ -1,0 +1,29 @@
+{
+  "ecom23App": {
+    "compte": {
+      "home": {
+        "title": "Comptes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Genera un nuovo Compte",
+        "createOrEditLabel": "Genera o modifica un Compte",
+        "notFound": "No Comptes found"
+      },
+      "created": "&Egrave; stato generato un nuovo Compte con identificatore {{ param }}",
+      "updated": "&Egrave; stato aggiornato Compte identificato da {{ param }}",
+      "deleted": "&Egrave; stato eliminato Compte con identificatore {{ param }}",
+      "delete": {
+        "question": "Sei sicuro di volere eliminare Compte {{ id }}?"
+      },
+      "detail": {
+        "title": "Compte"
+      },
+      "id": "ID",
+      "nomutilisateur": "Nomutilisateur",
+      "motdepasse": "Motdepasse",
+      "role": "Role",
+      "soignant": "Soignant",
+      "medecin": "Medecin",
+      "admin": "Admin"
+    }
+  }
+}

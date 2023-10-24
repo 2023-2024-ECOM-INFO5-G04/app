@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20231024162345",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tache",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "commentaire",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "effectuee",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Tache",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "idP",
+      "otherEntityName": "patient",
+      "otherEntityRelationshipName": "taches",
+      "relationshipName": "patient",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "servicesoignant",
+      "otherEntityRelationshipName": "taches",
+      "relationshipName": "servicesoignant",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "soignant",
+      "otherEntityRelationshipName": "taches",
+      "relationshipName": "soigant",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "medecin",
+      "otherEntityRelationshipName": "taches",
+      "relationshipName": "medecin",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

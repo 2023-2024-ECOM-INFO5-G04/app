@@ -1,0 +1,27 @@
+{
+  "ecom23App": {
+    "alerte": {
+      "home": {
+        "title": "Alertes",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Alerte erstellen",
+        "createOrEditLabel": "Alerte erstellen oder bearbeiten",
+        "notFound": "Keine Alertes gefunden"
+      },
+      "created": "Alerte erstellt mit ID {{ param }}",
+      "updated": "Alerte aktualisiert mit ID {{ param }}",
+      "deleted": "Alerte gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Alerte {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Alerte"
+      },
+      "id": "ID",
+      "date": "Date",
+      "commentaire": "Commentaire",
+      "denutrition": "Denutrition",
+      "patient": "Patient"
+    }
+  }
+}

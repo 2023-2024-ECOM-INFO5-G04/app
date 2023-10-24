@@ -1,0 +1,32 @@
+{
+  "ecom23App": {
+    "medecin": {
+      "home": {
+        "title": "Medecins",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Medecin",
+        "createOrEditLabel": "Criar ou editar Medecin",
+        "notFound": "Nenhum Medecin encontrado"
+      },
+      "created": "Um novo Medecin foi criado com o identificador {{ param }}",
+      "updated": "Um Medecin foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Medecin foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Medecin {{ id }}?"
+      },
+      "detail": {
+        "title": "Medecin"
+      },
+      "id": "ID",
+      "idM": "Id M",
+      "nomM": "Nom M",
+      "prenomM": "Prenom M",
+      "compte": "Compte",
+      "taches": "Taches",
+      "alertes": "Alertes",
+      "notes": "Notes",
+      "patients": "Patients",
+      "etablissement": "Etablissement"
+    }
+  }
+}
