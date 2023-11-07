@@ -20,18 +20,15 @@ public class Etablissement implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NotNull
-    @Column(name = "id_e", nullable = false, unique = true)
-    private Long idE;
-
-    @Column(name = "nom_e")
-    private String nomE;
+    @Column(name = "nom")
+    private String nom;
 
     @Column(name = "adresse")
     private String adresse;
@@ -40,10 +37,10 @@ public class Etablissement implements Serializable {
     @Column(name = "telephone", length = 14)
     private String telephone;
 
-    @OneToMany(mappedBy = "infrastructure")
+    @OneToMany(mappedBy = "etablissement")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     private Set<Patient> patients = new HashSet<>();
@@ -68,30 +65,17 @@ public class Etablissement implements Serializable {
         this.id = id;
     }
 
-    public Long getIdE() {
-        return this.idE;
+    public String getNom() {
+        return this.nom;
     }
 
-    public Etablissement idE(Long idE) {
-        this.setIdE(idE);
+    public Etablissement nom(String nom) {
+        this.setNom(nom);
         return this;
     }
 
-    public void setIdE(Long idE) {
-        this.idE = idE;
-    }
-
-    public String getNomE() {
-        return this.nomE;
-    }
-
-    public Etablissement nomE(String nomE) {
-        this.setNomE(nomE);
-        return this;
-    }
-
-    public void setNomE(String nomE) {
-        this.nomE = nomE;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getAdresse() {
@@ -126,10 +110,10 @@ public class Etablissement implements Serializable {
 
     public void setPatients(Set<Patient> patients) {
         if (this.patients != null) {
-            this.patients.forEach(i -> i.setInfrastructure(null));
+            this.patients.forEach(i -> i.setEtablissement(null));
         }
         if (patients != null) {
-            patients.forEach(i -> i.setInfrastructure(this));
+            patients.forEach(i -> i.setEtablissement(this));
         }
         this.patients = patients;
     }
@@ -141,13 +125,13 @@ public class Etablissement implements Serializable {
 
     public Etablissement addPatient(Patient patient) {
         this.patients.add(patient);
-        patient.setInfrastructure(this);
+        patient.setEtablissement(this);
         return this;
     }
 
     public Etablissement removePatient(Patient patient) {
         this.patients.remove(patient);
-        patient.setInfrastructure(null);
+        patient.setEtablissement(null);
         return this;
     }
 
@@ -206,8 +190,7 @@ public class Etablissement implements Serializable {
     public String toString() {
         return "Etablissement{" +
             "id=" + getId() +
-            ", idE=" + getIdE() +
-            ", nomE='" + getNomE() + "'" +
+            ", nom='" + getNom() + "'" +
             ", adresse='" + getAdresse() + "'" +
             ", telephone='" + getTelephone() + "'" +
             "}";

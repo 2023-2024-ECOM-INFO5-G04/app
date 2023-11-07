@@ -20,15 +20,12 @@ public class Servicesoignant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-    @NotNull
-    @Column(name = "id_ser", nullable = false, unique = true)
-    private Long idSer;
 
     @Column(name = "type")
     private String type;
@@ -39,7 +36,7 @@ public class Servicesoignant implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "patients", "medecins" }, allowSetters = true)
-    private Etablissement infrastructure;
+    private Etablissement etablissement;
 
     @OneToMany(mappedBy = "servicesoignant")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -64,19 +61,6 @@ public class Servicesoignant implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdSer() {
-        return this.idSer;
-    }
-
-    public Servicesoignant idSer(Long idSer) {
-        this.setIdSer(idSer);
-        return this;
-    }
-
-    public void setIdSer(Long idSer) {
-        this.idSer = idSer;
     }
 
     public String getType() {
@@ -105,16 +89,16 @@ public class Servicesoignant implements Serializable {
         this.nbsoignants = nbsoignants;
     }
 
-    public Etablissement getInfrastructure() {
-        return this.infrastructure;
+    public Etablissement getEtablissement() {
+        return this.etablissement;
     }
 
-    public void setInfrastructure(Etablissement etablissement) {
-        this.infrastructure = etablissement;
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
     }
 
-    public Servicesoignant infrastructure(Etablissement etablissement) {
-        this.setInfrastructure(etablissement);
+    public Servicesoignant etablissement(Etablissement etablissement) {
+        this.setEtablissement(etablissement);
         return this;
     }
 
@@ -204,7 +188,6 @@ public class Servicesoignant implements Serializable {
     public String toString() {
         return "Servicesoignant{" +
             "id=" + getId() +
-            ", idSer=" + getIdSer() +
             ", type='" + getType() + "'" +
             ", nbsoignants='" + getNbsoignants() + "'" +
             "}";

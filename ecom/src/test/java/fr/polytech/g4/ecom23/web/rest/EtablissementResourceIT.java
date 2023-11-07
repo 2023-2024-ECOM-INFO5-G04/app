@@ -31,11 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class EtablissementResourceIT {
 
-    private static final Long DEFAULT_ID_E = 1L;
-    private static final Long UPDATED_ID_E = 2L;
-
-    private static final String DEFAULT_NOM_E = "AAAAAAAAAA";
-    private static final String UPDATED_NOM_E = "BBBBBBBBBB";
+    private static final String DEFAULT_NOM = "AAAAAAAAAA";
+    private static final String UPDATED_NOM = "BBBBBBBBBB";
 
     private static final String DEFAULT_ADRESSE = "AAAAAAAAAA";
     private static final String UPDATED_ADRESSE = "BBBBBBBBBB";
@@ -70,11 +67,7 @@ class EtablissementResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Etablissement createEntity(EntityManager em) {
-        Etablissement etablissement = new Etablissement()
-            .idE(DEFAULT_ID_E)
-            .nomE(DEFAULT_NOM_E)
-            .adresse(DEFAULT_ADRESSE)
-            .telephone(DEFAULT_TELEPHONE);
+        Etablissement etablissement = new Etablissement().nom(DEFAULT_NOM).adresse(DEFAULT_ADRESSE).telephone(DEFAULT_TELEPHONE);
         return etablissement;
     }
 
@@ -85,11 +78,7 @@ class EtablissementResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Etablissement createUpdatedEntity(EntityManager em) {
-        Etablissement etablissement = new Etablissement()
-            .idE(UPDATED_ID_E)
-            .nomE(UPDATED_NOM_E)
-            .adresse(UPDATED_ADRESSE)
-            .telephone(UPDATED_TELEPHONE);
+        Etablissement etablissement = new Etablissement().nom(UPDATED_NOM).adresse(UPDATED_ADRESSE).telephone(UPDATED_TELEPHONE);
         return etablissement;
     }
 
@@ -114,8 +103,7 @@ class EtablissementResourceIT {
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeCreate + 1);
         Etablissement testEtablissement = etablissementList.get(etablissementList.size() - 1);
-        assertThat(testEtablissement.getIdE()).isEqualTo(DEFAULT_ID_E);
-        assertThat(testEtablissement.getNomE()).isEqualTo(DEFAULT_NOM_E);
+        assertThat(testEtablissement.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testEtablissement.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
         assertThat(testEtablissement.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
     }
@@ -143,26 +131,6 @@ class EtablissementResourceIT {
 
     @Test
     @Transactional
-    void checkIdEIsRequired() throws Exception {
-        int databaseSizeBeforeTest = etablissementRepository.findAll().size();
-        // set the field null
-        etablissement.setIdE(null);
-
-        // Create the Etablissement, which fails.
-        EtablissementDTO etablissementDTO = etablissementMapper.toDto(etablissement);
-
-        restEtablissementMockMvc
-            .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(etablissementDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Etablissement> etablissementList = etablissementRepository.findAll();
-        assertThat(etablissementList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllEtablissements() throws Exception {
         // Initialize the database
         etablissementRepository.saveAndFlush(etablissement);
@@ -173,8 +141,7 @@ class EtablissementResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(etablissement.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idE").value(hasItem(DEFAULT_ID_E.intValue())))
-            .andExpect(jsonPath("$.[*].nomE").value(hasItem(DEFAULT_NOM_E)))
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
             .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE)));
     }
@@ -191,8 +158,7 @@ class EtablissementResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(etablissement.getId().intValue()))
-            .andExpect(jsonPath("$.idE").value(DEFAULT_ID_E.intValue()))
-            .andExpect(jsonPath("$.nomE").value(DEFAULT_NOM_E))
+            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
             .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE))
             .andExpect(jsonPath("$.telephone").value(DEFAULT_TELEPHONE));
     }
@@ -216,7 +182,7 @@ class EtablissementResourceIT {
         Etablissement updatedEtablissement = etablissementRepository.findById(etablissement.getId()).get();
         // Disconnect from session so that the updates on updatedEtablissement are not directly saved in db
         em.detach(updatedEtablissement);
-        updatedEtablissement.idE(UPDATED_ID_E).nomE(UPDATED_NOM_E).adresse(UPDATED_ADRESSE).telephone(UPDATED_TELEPHONE);
+        updatedEtablissement.nom(UPDATED_NOM).adresse(UPDATED_ADRESSE).telephone(UPDATED_TELEPHONE);
         EtablissementDTO etablissementDTO = etablissementMapper.toDto(updatedEtablissement);
 
         restEtablissementMockMvc
@@ -231,8 +197,7 @@ class EtablissementResourceIT {
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeUpdate);
         Etablissement testEtablissement = etablissementList.get(etablissementList.size() - 1);
-        assertThat(testEtablissement.getIdE()).isEqualTo(UPDATED_ID_E);
-        assertThat(testEtablissement.getNomE()).isEqualTo(UPDATED_NOM_E);
+        assertThat(testEtablissement.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEtablissement.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testEtablissement.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
     }
@@ -316,7 +281,7 @@ class EtablissementResourceIT {
         Etablissement partialUpdatedEtablissement = new Etablissement();
         partialUpdatedEtablissement.setId(etablissement.getId());
 
-        partialUpdatedEtablissement.nomE(UPDATED_NOM_E);
+        partialUpdatedEtablissement.adresse(UPDATED_ADRESSE);
 
         restEtablissementMockMvc
             .perform(
@@ -330,9 +295,8 @@ class EtablissementResourceIT {
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeUpdate);
         Etablissement testEtablissement = etablissementList.get(etablissementList.size() - 1);
-        assertThat(testEtablissement.getIdE()).isEqualTo(DEFAULT_ID_E);
-        assertThat(testEtablissement.getNomE()).isEqualTo(UPDATED_NOM_E);
-        assertThat(testEtablissement.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
+        assertThat(testEtablissement.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testEtablissement.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testEtablissement.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
     }
 
@@ -348,7 +312,7 @@ class EtablissementResourceIT {
         Etablissement partialUpdatedEtablissement = new Etablissement();
         partialUpdatedEtablissement.setId(etablissement.getId());
 
-        partialUpdatedEtablissement.idE(UPDATED_ID_E).nomE(UPDATED_NOM_E).adresse(UPDATED_ADRESSE).telephone(UPDATED_TELEPHONE);
+        partialUpdatedEtablissement.nom(UPDATED_NOM).adresse(UPDATED_ADRESSE).telephone(UPDATED_TELEPHONE);
 
         restEtablissementMockMvc
             .perform(
@@ -362,8 +326,7 @@ class EtablissementResourceIT {
         List<Etablissement> etablissementList = etablissementRepository.findAll();
         assertThat(etablissementList).hasSize(databaseSizeBeforeUpdate);
         Etablissement testEtablissement = etablissementList.get(etablissementList.size() - 1);
-        assertThat(testEtablissement.getIdE()).isEqualTo(UPDATED_ID_E);
-        assertThat(testEtablissement.getNomE()).isEqualTo(UPDATED_NOM_E);
+        assertThat(testEtablissement.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testEtablissement.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testEtablissement.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
     }

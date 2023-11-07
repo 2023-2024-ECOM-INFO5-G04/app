@@ -37,13 +37,13 @@ public class Tache implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     private Patient patient;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "infrastructure", "soignants", "taches" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etablissement", "soignants", "taches" }, allowSetters = true)
     private Servicesoignant servicesoignant;
 
     @ManyToOne

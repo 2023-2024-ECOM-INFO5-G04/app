@@ -86,7 +86,7 @@ export const Tache = () => {
                   <td>{tache.date ? <TextFormat type="date" value={tache.date} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{tache.commentaire}</td>
                   <td>{tache.effectuee ? 'true' : 'false'}</td>
-                  <td>{tache.patient ? <Link to={`/patient/${tache.patient.id}`}>{tache.patient.idP}</Link> : ''}</td>
+                  <td>{tache.patient ? <Link to={`/patient/${tache.patient.id}`}>{tache.patient.id}</Link> : ''}</td>
                   <td>
                     {tache.servicesoignant ? (
                       <Link to={`/servicesoignant/${tache.servicesoignant.id}`}>{tache.servicesoignant.id}</Link>

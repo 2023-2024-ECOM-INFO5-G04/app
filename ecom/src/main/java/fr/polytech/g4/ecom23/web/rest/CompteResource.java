@@ -149,9 +149,9 @@ public class CompteResource {
             return compteService.findAllWhereMedecinIsNull();
         }
 
-        if ("admin-is-null".equals(filter)) {
-            log.debug("REST request to get all Comptes where admin is null");
-            return compteService.findAllWhereAdminIsNull();
+        if ("administrateur-is-null".equals(filter)) {
+            log.debug("REST request to get all Comptes where administrateur is null");
+            return compteService.findAllWhereAdministrateurIsNull();
         }
         log.debug("REST request to get all Comptes");
         return compteService.findAll();

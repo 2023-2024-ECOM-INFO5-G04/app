@@ -73,6 +73,7 @@ class CompteGatlingTest extends Simulation {
             .body(StringBody("""{
                 "nomutilisateur":"SAMPLE_TEXT"
                 , "motdepasse":"SAMPLE_TEXT"
+                , "mail":"SAMPLE_TEXT"
                 , "role":"Medecin"
                 }""")).asJson
             .check(status.is(201))

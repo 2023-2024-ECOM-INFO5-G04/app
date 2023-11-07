@@ -7,9 +7,8 @@ import { IEtablissement } from 'app/shared/model/etablissement.model';
 
 export interface IMedecin {
   id?: number;
-  idM?: number;
-  nomM?: string | null;
-  prenomM?: string | null;
+  nom?: string | null;
+  prenom?: string | null;
   compte?: ICompte | null;
   taches?: ITache[] | null;
   alertes?: IRappel[] | null;

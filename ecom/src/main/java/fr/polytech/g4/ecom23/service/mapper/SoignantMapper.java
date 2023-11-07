@@ -18,7 +18,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface SoignantMapper extends EntityMapper<SoignantDTO, Soignant> {
     @Mapping(target = "compte", source = "compte", qualifiedByName = "compteId")
-    @Mapping(target = "servicesoignant", source = "servicesoignant", qualifiedByName = "servicesoignantIdSer")
+    @Mapping(target = "servicesoignant", source = "servicesoignant", qualifiedByName = "servicesoignantId")
     @Mapping(target = "patients", source = "patients", qualifiedByName = "patientIdSet")
     SoignantDTO toDto(Soignant s);
 
@@ -30,11 +30,10 @@ public interface SoignantMapper extends EntityMapper<SoignantDTO, Soignant> {
     @Mapping(target = "id", source = "id")
     CompteDTO toDtoCompteId(Compte compte);
 
-    @Named("servicesoignantIdSer")
+    @Named("servicesoignantId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "idSer", source = "idSer")
-    ServicesoignantDTO toDtoServicesoignantIdSer(Servicesoignant servicesoignant);
+    ServicesoignantDTO toDtoServicesoignantId(Servicesoignant servicesoignant);
 
     @Named("patientId")
     @BeanMapping(ignoreByDefault = true)

@@ -4,10 +4,9 @@ import { ITache } from 'app/shared/model/tache.model';
 
 export interface IServicesoignant {
   id?: number;
-  idSer?: number;
   type?: string | null;
   nbsoignants?: string | null;
-  infrastructure?: IEtablissement;
+  etablissement?: IEtablissement;
   soignants?: ISoignant[] | null;
   taches?: ITache[] | null;
 }

@@ -17,10 +17,9 @@
       "detail": {
         "title": "Medecin"
       },
-      "id": "ID",
-      "idM": "Id M",
-      "nomM": "Nom M",
-      "prenomM": "Prenom M",
+      "id": "Id",
+      "nom": "Nom",
+      "prenom": "Prenom",
       "compte": "Compte",
       "taches": "Taches",
       "alertes": "Alertes",

@@ -6,9 +6,8 @@ import { SoignantMetier } from 'app/shared/model/enumerations/soignant-metier.mo
 
 export interface ISoignant {
   id?: number;
-  idS?: number;
-  nomS?: string | null;
-  prenomS?: string | null;
+  nom?: string | null;
+  prenom?: string | null;
   metier?: SoignantMetier | null;
   compte?: ICompte | null;
   servicesoignant?: IServicesoignant;

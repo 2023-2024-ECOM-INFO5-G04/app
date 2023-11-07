@@ -1,12 +1,12 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162342",
+  "changelogDate": "20231107144523",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "servicesoignant",
   "fields": [
     {
-      "fieldName": "idSer",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
@@ -26,9 +26,9 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "idE",
+      "otherEntityField": "id",
       "otherEntityName": "etablissement",
-      "relationshipName": "infrastructure",
+      "relationshipName": "etablissement",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },

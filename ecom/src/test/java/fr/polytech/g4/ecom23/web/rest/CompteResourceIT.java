@@ -38,6 +38,9 @@ class CompteResourceIT {
     private static final String DEFAULT_MOTDEPASSE = "AAAAAAAAAA";
     private static final String UPDATED_MOTDEPASSE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_MAIL = "BBBBBBBBBB";
+
     private static final Role DEFAULT_ROLE = Role.Medecin;
     private static final Role UPDATED_ROLE = Role.Soignant;
 
@@ -68,7 +71,11 @@ class CompteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Compte createEntity(EntityManager em) {
-        Compte compte = new Compte().nomutilisateur(DEFAULT_NOMUTILISATEUR).motdepasse(DEFAULT_MOTDEPASSE).role(DEFAULT_ROLE);
+        Compte compte = new Compte()
+            .nomutilisateur(DEFAULT_NOMUTILISATEUR)
+            .motdepasse(DEFAULT_MOTDEPASSE)
+            .mail(DEFAULT_MAIL)
+            .role(DEFAULT_ROLE);
         return compte;
     }
 
@@ -79,7 +86,11 @@ class CompteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Compte createUpdatedEntity(EntityManager em) {
-        Compte compte = new Compte().nomutilisateur(UPDATED_NOMUTILISATEUR).motdepasse(UPDATED_MOTDEPASSE).role(UPDATED_ROLE);
+        Compte compte = new Compte()
+            .nomutilisateur(UPDATED_NOMUTILISATEUR)
+            .motdepasse(UPDATED_MOTDEPASSE)
+            .mail(UPDATED_MAIL)
+            .role(UPDATED_ROLE);
         return compte;
     }
 
@@ -104,6 +115,7 @@ class CompteResourceIT {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getNomutilisateur()).isEqualTo(DEFAULT_NOMUTILISATEUR);
         assertThat(testCompte.getMotdepasse()).isEqualTo(DEFAULT_MOTDEPASSE);
+        assertThat(testCompte.getMail()).isEqualTo(DEFAULT_MAIL);
         assertThat(testCompte.getRole()).isEqualTo(DEFAULT_ROLE);
     }
 
@@ -140,6 +152,7 @@ class CompteResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(compte.getId().intValue())))
             .andExpect(jsonPath("$.[*].nomutilisateur").value(hasItem(DEFAULT_NOMUTILISATEUR)))
             .andExpect(jsonPath("$.[*].motdepasse").value(hasItem(DEFAULT_MOTDEPASSE)))
+            .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())));
     }
 
@@ -157,6 +170,7 @@ class CompteResourceIT {
             .andExpect(jsonPath("$.id").value(compte.getId().intValue()))
             .andExpect(jsonPath("$.nomutilisateur").value(DEFAULT_NOMUTILISATEUR))
             .andExpect(jsonPath("$.motdepasse").value(DEFAULT_MOTDEPASSE))
+            .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE.toString()));
     }
 
@@ -179,7 +193,7 @@ class CompteResourceIT {
         Compte updatedCompte = compteRepository.findById(compte.getId()).get();
         // Disconnect from session so that the updates on updatedCompte are not directly saved in db
         em.detach(updatedCompte);
-        updatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR).motdepasse(UPDATED_MOTDEPASSE).role(UPDATED_ROLE);
+        updatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR).motdepasse(UPDATED_MOTDEPASSE).mail(UPDATED_MAIL).role(UPDATED_ROLE);
         CompteDTO compteDTO = compteMapper.toDto(updatedCompte);
 
         restCompteMockMvc
@@ -196,6 +210,7 @@ class CompteResourceIT {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getNomutilisateur()).isEqualTo(UPDATED_NOMUTILISATEUR);
         assertThat(testCompte.getMotdepasse()).isEqualTo(UPDATED_MOTDEPASSE);
+        assertThat(testCompte.getMail()).isEqualTo(UPDATED_MAIL);
         assertThat(testCompte.getRole()).isEqualTo(UPDATED_ROLE);
     }
 
@@ -276,7 +291,7 @@ class CompteResourceIT {
         Compte partialUpdatedCompte = new Compte();
         partialUpdatedCompte.setId(compte.getId());
 
-        partialUpdatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR);
+        partialUpdatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR).role(UPDATED_ROLE);
 
         restCompteMockMvc
             .perform(
@@ -292,7 +307,8 @@ class CompteResourceIT {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getNomutilisateur()).isEqualTo(UPDATED_NOMUTILISATEUR);
         assertThat(testCompte.getMotdepasse()).isEqualTo(DEFAULT_MOTDEPASSE);
-        assertThat(testCompte.getRole()).isEqualTo(DEFAULT_ROLE);
+        assertThat(testCompte.getMail()).isEqualTo(DEFAULT_MAIL);
+        assertThat(testCompte.getRole()).isEqualTo(UPDATED_ROLE);
     }
 
     @Test
@@ -307,7 +323,7 @@ class CompteResourceIT {
         Compte partialUpdatedCompte = new Compte();
         partialUpdatedCompte.setId(compte.getId());
 
-        partialUpdatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR).motdepasse(UPDATED_MOTDEPASSE).role(UPDATED_ROLE);
+        partialUpdatedCompte.nomutilisateur(UPDATED_NOMUTILISATEUR).motdepasse(UPDATED_MOTDEPASSE).mail(UPDATED_MAIL).role(UPDATED_ROLE);
 
         restCompteMockMvc
             .perform(
@@ -323,6 +339,7 @@ class CompteResourceIT {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getNomutilisateur()).isEqualTo(UPDATED_NOMUTILISATEUR);
         assertThat(testCompte.getMotdepasse()).isEqualTo(UPDATED_MOTDEPASSE);
+        assertThat(testCompte.getMail()).isEqualTo(UPDATED_MAIL);
         assertThat(testCompte.getRole()).isEqualTo(UPDATED_ROLE);
     }
 

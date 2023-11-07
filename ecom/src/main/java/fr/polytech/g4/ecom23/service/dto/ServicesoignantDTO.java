@@ -10,16 +10,14 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class ServicesoignantDTO implements Serializable {
 
-    private Long id;
-
     @NotNull
-    private Long idSer;
+    private Long id;
 
     private String type;
 
     private String nbsoignants;
 
-    private EtablissementDTO infrastructure;
+    private EtablissementDTO etablissement;
 
     public Long getId() {
         return id;
@@ -27,14 +25,6 @@ public class ServicesoignantDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdSer() {
-        return idSer;
-    }
-
-    public void setIdSer(Long idSer) {
-        this.idSer = idSer;
     }
 
     public String getType() {
@@ -53,12 +43,12 @@ public class ServicesoignantDTO implements Serializable {
         this.nbsoignants = nbsoignants;
     }
 
-    public EtablissementDTO getInfrastructure() {
-        return infrastructure;
+    public EtablissementDTO getEtablissement() {
+        return etablissement;
     }
 
-    public void setInfrastructure(EtablissementDTO infrastructure) {
-        this.infrastructure = infrastructure;
+    public void setEtablissement(EtablissementDTO etablissement) {
+        this.etablissement = etablissement;
     }
 
     @Override
@@ -87,10 +77,9 @@ public class ServicesoignantDTO implements Serializable {
     public String toString() {
         return "ServicesoignantDTO{" +
             "id=" + getId() +
-            ", idSer=" + getIdSer() +
             ", type='" + getType() + "'" +
             ", nbsoignants='" + getNbsoignants() + "'" +
-            ", infrastructure=" + getInfrastructure() +
+            ", etablissement=" + getEtablissement() +
             "}";
     }
 }

@@ -1,21 +1,21 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162349",
+  "changelogDate": "20231107144530",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "patient",
   "fields": [
     {
-      "fieldName": "idP",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "nomP",
+      "fieldName": "nom",
       "fieldType": "String"
     },
     {
-      "fieldName": "prenomP",
+      "fieldName": "prenom",
       "fieldType": "String"
     },
     {
@@ -37,6 +37,11 @@
     {
       "fieldName": "taille",
       "fieldType": "Float"
+    },
+    {
+      "fieldName": "sexe",
+      "fieldType": "Sexe",
+      "fieldValues": "M,F"
     }
   ],
   "fluentMethods": true,
@@ -59,10 +64,10 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "idE",
+      "otherEntityField": "id",
       "otherEntityName": "etablissement",
       "otherEntityRelationshipName": "patient",
-      "relationshipName": "infrastructure",
+      "relationshipName": "etablissement",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     },

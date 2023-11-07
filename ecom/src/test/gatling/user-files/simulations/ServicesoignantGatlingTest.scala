@@ -71,8 +71,7 @@ class ServicesoignantGatlingTest extends Simulation {
             .post("/api/servicesoignants")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idSer":"0"
-                , "type":"SAMPLE_TEXT"
+                "type":"SAMPLE_TEXT"
                 , "nbsoignants":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))

@@ -71,9 +71,8 @@ class MedecinGatlingTest extends Simulation {
             .post("/api/medecins")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idM":"0"
-                , "nomM":"SAMPLE_TEXT"
-                , "prenomM":"SAMPLE_TEXT"
+                "nom":"SAMPLE_TEXT"
+                , "prenom":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_medecin_url"))).exitHereIfFailed

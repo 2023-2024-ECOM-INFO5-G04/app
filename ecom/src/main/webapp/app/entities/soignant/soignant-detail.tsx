@@ -28,28 +28,22 @@ export const SoignantDetail = () => {
         <dl className="jh-entity-details">
           <dt>
             <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
+              <Translate contentKey="ecom23App.soignant.id">Id</Translate>
             </span>
           </dt>
           <dd>{soignantEntity.id}</dd>
           <dt>
-            <span id="idS">
-              <Translate contentKey="ecom23App.soignant.idS">Id S</Translate>
+            <span id="nom">
+              <Translate contentKey="ecom23App.soignant.nom">Nom</Translate>
             </span>
           </dt>
-          <dd>{soignantEntity.idS}</dd>
+          <dd>{soignantEntity.nom}</dd>
           <dt>
-            <span id="nomS">
-              <Translate contentKey="ecom23App.soignant.nomS">Nom S</Translate>
+            <span id="prenom">
+              <Translate contentKey="ecom23App.soignant.prenom">Prenom</Translate>
             </span>
           </dt>
-          <dd>{soignantEntity.nomS}</dd>
-          <dt>
-            <span id="prenomS">
-              <Translate contentKey="ecom23App.soignant.prenomS">Prenom S</Translate>
-            </span>
-          </dt>
-          <dd>{soignantEntity.prenomS}</dd>
+          <dd>{soignantEntity.prenom}</dd>
           <dt>
             <span id="metier">
               <Translate contentKey="ecom23App.soignant.metier">Metier</Translate>
@@ -63,7 +57,7 @@ export const SoignantDetail = () => {
           <dt>
             <Translate contentKey="ecom23App.soignant.servicesoignant">Servicesoignant</Translate>
           </dt>
-          <dd>{soignantEntity.servicesoignant ? soignantEntity.servicesoignant.idSer : ''}</dd>
+          <dd>{soignantEntity.servicesoignant ? soignantEntity.servicesoignant.id : ''}</dd>
           <dt>
             <Translate contentKey="ecom23App.soignant.patients">Patients</Translate>
           </dt>

@@ -11,10 +11,8 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class SuividonneesDTO implements Serializable {
 
-    private Long id;
-
     @NotNull
-    private Long idSD;
+    private Long id;
 
     @NotNull
     private LocalDate date;
@@ -35,14 +33,6 @@ public class SuividonneesDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdSD() {
-        return idSD;
-    }
-
-    public void setIdSD(Long idSD) {
-        this.idSD = idSD;
     }
 
     public LocalDate getDate() {
@@ -119,7 +109,6 @@ public class SuividonneesDTO implements Serializable {
     public String toString() {
         return "SuividonneesDTO{" +
             "id=" + getId() +
-            ", idSD=" + getIdSD() +
             ", date='" + getDate() + "'" +
             ", poids=" + getPoids() +
             ", massecorporelle=" + getMassecorporelle() +

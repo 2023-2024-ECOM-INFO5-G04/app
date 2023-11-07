@@ -51,7 +51,7 @@ export const ServicesoignantUpdate = () => {
     const entity = {
       ...servicesoignantEntity,
       ...values,
-      infrastructure: etablissements.find(it => it.id.toString() === values.infrastructure.toString()),
+      etablissement: etablissements.find(it => it.id.toString() === values.etablissement.toString()),
     };
 
     if (isNew) {
@@ -66,7 +66,7 @@ export const ServicesoignantUpdate = () => {
       ? {}
       : {
           ...servicesoignantEntity,
-          infrastructure: servicesoignantEntity?.infrastructure?.id,
+          etablissement: servicesoignantEntity?.etablissement?.id,
         };
 
   return (
@@ -90,21 +90,10 @@ export const ServicesoignantUpdate = () => {
                   required
                   readOnly
                   id="servicesoignant-id"
-                  label={translate('global.field.id')}
+                  label={translate('ecom23App.servicesoignant.id')}
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('ecom23App.servicesoignant.idSer')}
-                id="servicesoignant-idSer"
-                name="idSer"
-                data-cy="idSer"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               <ValidatedField
                 label={translate('ecom23App.servicesoignant.type')}
                 id="servicesoignant-type"
@@ -120,10 +109,10 @@ export const ServicesoignantUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                id="servicesoignant-infrastructure"
-                name="infrastructure"
-                data-cy="infrastructure"
-                label={translate('ecom23App.servicesoignant.infrastructure')}
+                id="servicesoignant-etablissement"
+                name="etablissement"
+                data-cy="etablissement"
+                label={translate('ecom23App.servicesoignant.etablissement')}
                 type="select"
                 required
               >
@@ -131,7 +120,7 @@ export const ServicesoignantUpdate = () => {
                 {etablissements
                   ? etablissements.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.idE}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

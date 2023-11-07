@@ -10,12 +10,10 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class EtablissementDTO implements Serializable {
 
+    @NotNull
     private Long id;
 
-    @NotNull
-    private Long idE;
-
-    private String nomE;
+    private String nom;
 
     private String adresse;
 
@@ -30,20 +28,12 @@ public class EtablissementDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getIdE() {
-        return idE;
+    public String getNom() {
+        return nom;
     }
 
-    public void setIdE(Long idE) {
-        this.idE = idE;
-    }
-
-    public String getNomE() {
-        return nomE;
-    }
-
-    public void setNomE(String nomE) {
-        this.nomE = nomE;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getAdresse() {
@@ -88,8 +78,7 @@ public class EtablissementDTO implements Serializable {
     public String toString() {
         return "EtablissementDTO{" +
             "id=" + getId() +
-            ", idE=" + getIdE() +
-            ", nomE='" + getNomE() + "'" +
+            ", nom='" + getNom() + "'" +
             ", adresse='" + getAdresse() + "'" +
             ", telephone='" + getTelephone() + "'" +
             "}";

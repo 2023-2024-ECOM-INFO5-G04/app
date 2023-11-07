@@ -43,14 +43,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class SoignantResourceIT {
 
-    private static final Long DEFAULT_ID_S = 1L;
-    private static final Long UPDATED_ID_S = 2L;
+    private static final String DEFAULT_NOM = "AAAAAAAAAA";
+    private static final String UPDATED_NOM = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NOM_S = "AAAAAAAAAA";
-    private static final String UPDATED_NOM_S = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PRENOM_S = "AAAAAAAAAA";
-    private static final String UPDATED_PRENOM_S = "BBBBBBBBBB";
+    private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
     private static final SoignantMetier DEFAULT_METIER = SoignantMetier.Aidesoignant;
     private static final SoignantMetier UPDATED_METIER = SoignantMetier.Infirmier;
@@ -88,7 +85,7 @@ class SoignantResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Soignant createEntity(EntityManager em) {
-        Soignant soignant = new Soignant().idS(DEFAULT_ID_S).nomS(DEFAULT_NOM_S).prenomS(DEFAULT_PRENOM_S).metier(DEFAULT_METIER);
+        Soignant soignant = new Soignant().nom(DEFAULT_NOM).prenom(DEFAULT_PRENOM).metier(DEFAULT_METIER);
         // Add required entity
         Servicesoignant servicesoignant;
         if (TestUtil.findAll(em, Servicesoignant.class).isEmpty()) {
@@ -109,7 +106,7 @@ class SoignantResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Soignant createUpdatedEntity(EntityManager em) {
-        Soignant soignant = new Soignant().idS(UPDATED_ID_S).nomS(UPDATED_NOM_S).prenomS(UPDATED_PRENOM_S).metier(UPDATED_METIER);
+        Soignant soignant = new Soignant().nom(UPDATED_NOM).prenom(UPDATED_PRENOM).metier(UPDATED_METIER);
         // Add required entity
         Servicesoignant servicesoignant;
         if (TestUtil.findAll(em, Servicesoignant.class).isEmpty()) {
@@ -142,9 +139,8 @@ class SoignantResourceIT {
         List<Soignant> soignantList = soignantRepository.findAll();
         assertThat(soignantList).hasSize(databaseSizeBeforeCreate + 1);
         Soignant testSoignant = soignantList.get(soignantList.size() - 1);
-        assertThat(testSoignant.getIdS()).isEqualTo(DEFAULT_ID_S);
-        assertThat(testSoignant.getNomS()).isEqualTo(DEFAULT_NOM_S);
-        assertThat(testSoignant.getPrenomS()).isEqualTo(DEFAULT_PRENOM_S);
+        assertThat(testSoignant.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testSoignant.getPrenom()).isEqualTo(DEFAULT_PRENOM);
         assertThat(testSoignant.getMetier()).isEqualTo(DEFAULT_METIER);
     }
 
@@ -169,24 +165,6 @@ class SoignantResourceIT {
 
     @Test
     @Transactional
-    void checkIdSIsRequired() throws Exception {
-        int databaseSizeBeforeTest = soignantRepository.findAll().size();
-        // set the field null
-        soignant.setIdS(null);
-
-        // Create the Soignant, which fails.
-        SoignantDTO soignantDTO = soignantMapper.toDto(soignant);
-
-        restSoignantMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(soignantDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Soignant> soignantList = soignantRepository.findAll();
-        assertThat(soignantList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllSoignants() throws Exception {
         // Initialize the database
         soignantRepository.saveAndFlush(soignant);
@@ -197,9 +175,8 @@ class SoignantResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(soignant.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idS").value(hasItem(DEFAULT_ID_S.intValue())))
-            .andExpect(jsonPath("$.[*].nomS").value(hasItem(DEFAULT_NOM_S)))
-            .andExpect(jsonPath("$.[*].prenomS").value(hasItem(DEFAULT_PRENOM_S)))
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)))
             .andExpect(jsonPath("$.[*].metier").value(hasItem(DEFAULT_METIER.toString())));
     }
 
@@ -232,9 +209,8 @@ class SoignantResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(soignant.getId().intValue()))
-            .andExpect(jsonPath("$.idS").value(DEFAULT_ID_S.intValue()))
-            .andExpect(jsonPath("$.nomS").value(DEFAULT_NOM_S))
-            .andExpect(jsonPath("$.prenomS").value(DEFAULT_PRENOM_S))
+            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM))
             .andExpect(jsonPath("$.metier").value(DEFAULT_METIER.toString()));
     }
 
@@ -257,7 +233,7 @@ class SoignantResourceIT {
         Soignant updatedSoignant = soignantRepository.findById(soignant.getId()).get();
         // Disconnect from session so that the updates on updatedSoignant are not directly saved in db
         em.detach(updatedSoignant);
-        updatedSoignant.idS(UPDATED_ID_S).nomS(UPDATED_NOM_S).prenomS(UPDATED_PRENOM_S).metier(UPDATED_METIER);
+        updatedSoignant.nom(UPDATED_NOM).prenom(UPDATED_PRENOM).metier(UPDATED_METIER);
         SoignantDTO soignantDTO = soignantMapper.toDto(updatedSoignant);
 
         restSoignantMockMvc
@@ -272,9 +248,8 @@ class SoignantResourceIT {
         List<Soignant> soignantList = soignantRepository.findAll();
         assertThat(soignantList).hasSize(databaseSizeBeforeUpdate);
         Soignant testSoignant = soignantList.get(soignantList.size() - 1);
-        assertThat(testSoignant.getIdS()).isEqualTo(UPDATED_ID_S);
-        assertThat(testSoignant.getNomS()).isEqualTo(UPDATED_NOM_S);
-        assertThat(testSoignant.getPrenomS()).isEqualTo(UPDATED_PRENOM_S);
+        assertThat(testSoignant.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testSoignant.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testSoignant.getMetier()).isEqualTo(UPDATED_METIER);
     }
 
@@ -355,7 +330,7 @@ class SoignantResourceIT {
         Soignant partialUpdatedSoignant = new Soignant();
         partialUpdatedSoignant.setId(soignant.getId());
 
-        partialUpdatedSoignant.idS(UPDATED_ID_S).nomS(UPDATED_NOM_S).prenomS(UPDATED_PRENOM_S);
+        partialUpdatedSoignant.nom(UPDATED_NOM).prenom(UPDATED_PRENOM).metier(UPDATED_METIER);
 
         restSoignantMockMvc
             .perform(
@@ -369,10 +344,9 @@ class SoignantResourceIT {
         List<Soignant> soignantList = soignantRepository.findAll();
         assertThat(soignantList).hasSize(databaseSizeBeforeUpdate);
         Soignant testSoignant = soignantList.get(soignantList.size() - 1);
-        assertThat(testSoignant.getIdS()).isEqualTo(UPDATED_ID_S);
-        assertThat(testSoignant.getNomS()).isEqualTo(UPDATED_NOM_S);
-        assertThat(testSoignant.getPrenomS()).isEqualTo(UPDATED_PRENOM_S);
-        assertThat(testSoignant.getMetier()).isEqualTo(DEFAULT_METIER);
+        assertThat(testSoignant.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testSoignant.getPrenom()).isEqualTo(UPDATED_PRENOM);
+        assertThat(testSoignant.getMetier()).isEqualTo(UPDATED_METIER);
     }
 
     @Test
@@ -387,7 +361,7 @@ class SoignantResourceIT {
         Soignant partialUpdatedSoignant = new Soignant();
         partialUpdatedSoignant.setId(soignant.getId());
 
-        partialUpdatedSoignant.idS(UPDATED_ID_S).nomS(UPDATED_NOM_S).prenomS(UPDATED_PRENOM_S).metier(UPDATED_METIER);
+        partialUpdatedSoignant.nom(UPDATED_NOM).prenom(UPDATED_PRENOM).metier(UPDATED_METIER);
 
         restSoignantMockMvc
             .perform(
@@ -401,9 +375,8 @@ class SoignantResourceIT {
         List<Soignant> soignantList = soignantRepository.findAll();
         assertThat(soignantList).hasSize(databaseSizeBeforeUpdate);
         Soignant testSoignant = soignantList.get(soignantList.size() - 1);
-        assertThat(testSoignant.getIdS()).isEqualTo(UPDATED_ID_S);
-        assertThat(testSoignant.getNomS()).isEqualTo(UPDATED_NOM_S);
-        assertThat(testSoignant.getPrenomS()).isEqualTo(UPDATED_PRENOM_S);
+        assertThat(testSoignant.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testSoignant.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testSoignant.getMetier()).isEqualTo(UPDATED_METIER);
     }
 

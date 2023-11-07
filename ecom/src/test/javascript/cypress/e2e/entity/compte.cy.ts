@@ -163,7 +163,9 @@ describe('Compte e2e test', () => {
 
       cy.get(`[data-cy="motdepasse"]`).type('Practical Clothing').should('have.value', 'Practical Clothing');
 
-      cy.get(`[data-cy="role"]`).select('Soignant');
+      cy.get(`[data-cy="mail"]`).type('Ouzbékistan optical').should('have.value', 'Ouzbékistan optical');
+
+      cy.get(`[data-cy="role"]`).select('Medecin');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

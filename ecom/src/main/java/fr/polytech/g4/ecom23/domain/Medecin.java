@@ -20,23 +20,20 @@ public class Medecin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NotNull
-    @Column(name = "id_m", nullable = false, unique = true)
-    private Long idM;
+    @Column(name = "nom")
+    private String nom;
 
-    @Column(name = "nom_m")
-    private String nomM;
+    @Column(name = "prenom")
+    private String prenom;
 
-    @Column(name = "prenom_m")
-    private String prenomM;
-
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "admin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Compte compte;
@@ -64,7 +61,7 @@ public class Medecin implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     private Set<Patient> patients = new HashSet<>();
@@ -94,43 +91,30 @@ public class Medecin implements Serializable {
         this.id = id;
     }
 
-    public Long getIdM() {
-        return this.idM;
+    public String getNom() {
+        return this.nom;
     }
 
-    public Medecin idM(Long idM) {
-        this.setIdM(idM);
+    public Medecin nom(String nom) {
+        this.setNom(nom);
         return this;
     }
 
-    public void setIdM(Long idM) {
-        this.idM = idM;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomM() {
-        return this.nomM;
+    public String getPrenom() {
+        return this.prenom;
     }
 
-    public Medecin nomM(String nomM) {
-        this.setNomM(nomM);
+    public Medecin prenom(String prenom) {
+        this.setPrenom(prenom);
         return this;
     }
 
-    public void setNomM(String nomM) {
-        this.nomM = nomM;
-    }
-
-    public String getPrenomM() {
-        return this.prenomM;
-    }
-
-    public Medecin prenomM(String prenomM) {
-        this.setPrenomM(prenomM);
-        return this;
-    }
-
-    public void setPrenomM(String prenomM) {
-        this.prenomM = prenomM;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public Compte getCompte() {
@@ -313,9 +297,8 @@ public class Medecin implements Serializable {
     public String toString() {
         return "Medecin{" +
             "id=" + getId() +
-            ", idM=" + getIdM() +
-            ", nomM='" + getNomM() + "'" +
-            ", prenomM='" + getPrenomM() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             "}";
     }
 }

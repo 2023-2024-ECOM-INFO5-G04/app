@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,15 +70,11 @@ public class SuividonneesServiceImpl implements SuividonneesService {
         return suividonneesRepository.findAll().stream().map(suividonneesMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public Page<SuividonneesDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return suividonneesRepository.findAllWithEagerRelationships(pageable).map(suividonneesMapper::toDto);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<SuividonneesDTO> findOne(Long id) {
         log.debug("Request to get Suividonnees : {}", id);
-        return suividonneesRepository.findOneWithEagerRelationships(id).map(suividonneesMapper::toDto);
+        return suividonneesRepository.findById(id).map(suividonneesMapper::toDto);
     }
 
     @Override

@@ -100,15 +100,15 @@ public class CompteServiceImpl implements CompteService {
     }
 
     /**
-     *  Get all the comptes where Admin is {@code null}.
+     *  Get all the comptes where Administrateur is {@code null}.
      *  @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CompteDTO> findAllWhereAdminIsNull() {
-        log.debug("Request to get all comptes where Admin is null");
+    public List<CompteDTO> findAllWhereAdministrateurIsNull() {
+        log.debug("Request to get all comptes where Administrateur is null");
         return StreamSupport
             .stream(compteRepository.findAll().spliterator(), false)
-            .filter(compte -> compte.getAdmin() == null)
+            .filter(compte -> compte.getAdministrateur() == null)
             .map(compteMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

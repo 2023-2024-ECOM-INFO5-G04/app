@@ -49,13 +49,10 @@ export const Etablissement = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.etablissement.id">ID</Translate>
+                  <Translate contentKey="ecom23App.etablissement.id">Id</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.etablissement.idE">Id E</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.etablissement.nomE">Nom E</Translate>
+                  <Translate contentKey="ecom23App.etablissement.nom">Nom</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.etablissement.adresse">Adresse</Translate>
@@ -74,8 +71,7 @@ export const Etablissement = () => {
                       {etablissement.id}
                     </Button>
                   </td>
-                  <td>{etablissement.idE}</td>
-                  <td>{etablissement.nomE}</td>
+                  <td>{etablissement.nom}</td>
                   <td>{etablissement.adresse}</td>
                   <td>{etablissement.telephone}</td>
                   <td className="text-end">

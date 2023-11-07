@@ -51,11 +51,11 @@ public interface CompteService {
      */
     List<CompteDTO> findAllWhereMedecinIsNull();
     /**
-     * Get all the CompteDTO where Admin is {@code null}.
+     * Get all the CompteDTO where Administrateur is {@code null}.
      *
      * @return the {@link List} of entities.
      */
-    List<CompteDTO> findAllWhereAdminIsNull();
+    List<CompteDTO> findAllWhereAdministrateurIsNull();
 
     /**
      * Get the "id" compte.

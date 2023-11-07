@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,15 +70,11 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.findAll().stream().map(patientMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public Page<PatientDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return patientRepository.findAllWithEagerRelationships(pageable).map(patientMapper::toDto);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<PatientDTO> findOne(Long id) {
         log.debug("Request to get Patient : {}", id);
-        return patientRepository.findOneWithEagerRelationships(id).map(patientMapper::toDto);
+        return patientRepository.findById(id).map(patientMapper::toDto);
     }
 
     @Override

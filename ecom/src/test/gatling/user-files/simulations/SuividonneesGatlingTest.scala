@@ -71,8 +71,7 @@ class SuividonneesGatlingTest extends Simulation {
             .post("/api/suividonnees")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idSD":"0"
-                , "date":"2020-01-01T00:00:00.000Z"
+                "date":"2020-01-01T00:00:00.000Z"
                 , "poids":"0"
                 , "massecorporelle":"0"
                 , "quantitepoidsaliments":"0"

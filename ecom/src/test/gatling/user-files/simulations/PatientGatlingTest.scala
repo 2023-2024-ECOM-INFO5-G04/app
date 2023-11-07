@@ -71,14 +71,14 @@ class PatientGatlingTest extends Simulation {
             .post("/api/patients")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idP":"0"
-                , "nomP":"SAMPLE_TEXT"
-                , "prenomP":"SAMPLE_TEXT"
+                "nom":"SAMPLE_TEXT"
+                , "prenom":"SAMPLE_TEXT"
                 , "age":"0"
                 , "datearrivee":"2020-01-01T00:00:00.000Z"
                 , "poidsactuel":"0"
                 , "albumine":"0"
                 , "taille":"0"
+                , "sexe":"M"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_patient_url"))).exitHereIfFailed

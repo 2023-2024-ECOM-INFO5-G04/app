@@ -21,34 +21,31 @@ public class Soignant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NotNull
-    @Column(name = "id_s", nullable = false, unique = true)
-    private Long idS;
+    @Column(name = "nom")
+    private String nom;
 
-    @Column(name = "nom_s")
-    private String nomS;
-
-    @Column(name = "prenom_s")
-    private String prenomS;
+    @Column(name = "prenom")
+    private String prenom;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "metier")
     private SoignantMetier metier;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "admin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Compte compte;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "infrastructure", "soignants", "taches" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etablissement", "soignants", "taches" }, allowSetters = true)
     private Servicesoignant servicesoignant;
 
     @ManyToMany
@@ -59,7 +56,7 @@ public class Soignant implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     private Set<Patient> patients = new HashSet<>();
@@ -84,43 +81,30 @@ public class Soignant implements Serializable {
         this.id = id;
     }
 
-    public Long getIdS() {
-        return this.idS;
+    public String getNom() {
+        return this.nom;
     }
 
-    public Soignant idS(Long idS) {
-        this.setIdS(idS);
+    public Soignant nom(String nom) {
+        this.setNom(nom);
         return this;
     }
 
-    public void setIdS(Long idS) {
-        this.idS = idS;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomS() {
-        return this.nomS;
+    public String getPrenom() {
+        return this.prenom;
     }
 
-    public Soignant nomS(String nomS) {
-        this.setNomS(nomS);
+    public Soignant prenom(String prenom) {
+        this.setPrenom(prenom);
         return this;
     }
 
-    public void setNomS(String nomS) {
-        this.nomS = nomS;
-    }
-
-    public String getPrenomS() {
-        return this.prenomS;
-    }
-
-    public Soignant prenomS(String prenomS) {
-        this.setPrenomS(prenomS);
-        return this;
-    }
-
-    public void setPrenomS(String prenomS) {
-        this.prenomS = prenomS;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public SoignantMetier getMetier() {
@@ -242,9 +226,8 @@ public class Soignant implements Serializable {
     public String toString() {
         return "Soignant{" +
             "id=" + getId() +
-            ", idS=" + getIdS() +
-            ", nomS='" + getNomS() + "'" +
-            ", prenomS='" + getPrenomS() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             ", metier='" + getMetier() + "'" +
             "}";
     }

@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162348",
+  "changelogDate": "20231107144529",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "compte",
@@ -14,9 +14,13 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "mail",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "role",
       "fieldType": "Role",
-      "fieldValues": "Medecin,Soignant,Admin"
+      "fieldValues": "Medecin,Soignant,Administrateur"
     }
   ],
   "fluentMethods": true,
@@ -40,10 +44,10 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityName": "admin",
+      "otherEntityName": "administrateur",
       "otherEntityRelationshipName": "compte",
       "ownerSide": false,
-      "relationshipName": "admin",
+      "relationshipName": "administrateur",
       "relationshipType": "one-to-one"
     }
   ],

@@ -105,27 +105,16 @@ export const SoignantUpdate = () => {
                   required
                   readOnly
                   id="soignant-id"
-                  label={translate('global.field.id')}
+                  label={translate('ecom23App.soignant.id')}
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField label={translate('ecom23App.soignant.nom')} id="soignant-nom" name="nom" data-cy="nom" type="text" />
               <ValidatedField
-                label={translate('ecom23App.soignant.idS')}
-                id="soignant-idS"
-                name="idS"
-                data-cy="idS"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField label={translate('ecom23App.soignant.nomS')} id="soignant-nomS" name="nomS" data-cy="nomS" type="text" />
-              <ValidatedField
-                label={translate('ecom23App.soignant.prenomS')}
-                id="soignant-prenomS"
-                name="prenomS"
-                data-cy="prenomS"
+                label={translate('ecom23App.soignant.prenom')}
+                id="soignant-prenom"
+                name="prenom"
+                data-cy="prenom"
                 type="text"
               />
               <ValidatedField
@@ -169,7 +158,7 @@ export const SoignantUpdate = () => {
                 {servicesoignants
                   ? servicesoignants.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.idSer}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

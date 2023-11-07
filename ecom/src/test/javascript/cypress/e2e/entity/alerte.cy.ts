@@ -30,7 +30,7 @@ describe('Alerte e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"idP":89774,"nomP":"c lavender digital","prenomP":"Investment throughput","age":38069,"datearrivee":"2023-10-24","poidsactuel":23012,"albumine":10307,"taille":82004},
+      body: {"nom":"c deposit Slovaquie","prenom":"e-markets Bedfordshire","age":40248,"datearrivee":"2023-11-07","poidsactuel":7025,"albumine":23012,"taille":10307,"sexe":"F"},
     }).then(({ body }) => {
       patient = body;
     });
@@ -212,7 +212,7 @@ describe('Alerte e2e test', () => {
     });
 
     it.skip('should create an instance of Alerte', () => {
-      cy.get(`[data-cy="date"]`).type('2023-10-24').blur().should('have.value', '2023-10-24');
+      cy.get(`[data-cy="date"]`).type('2023-11-07').blur().should('have.value', '2023-11-07');
 
       cy.get(`[data-cy="commentaire"]`).type('Optional tan').should('have.value', 'Optional tan');
 

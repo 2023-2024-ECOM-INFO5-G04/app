@@ -2,34 +2,26 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import fr.polytech.g4.ecom23.IntegrationTest;
 import fr.polytech.g4.ecom23.domain.Etablissement;
 import fr.polytech.g4.ecom23.domain.Patient;
+import fr.polytech.g4.ecom23.domain.enumeration.Sexe;
 import fr.polytech.g4.ecom23.repository.PatientRepository;
-import fr.polytech.g4.ecom23.service.PatientService;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.service.mapper.PatientMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,19 +31,15 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link PatientResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class PatientResourceIT {
 
-    private static final Long DEFAULT_ID_P = 1L;
-    private static final Long UPDATED_ID_P = 2L;
+    private static final String DEFAULT_NOM = "AAAAAAAAAA";
+    private static final String UPDATED_NOM = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NOM_P = "AAAAAAAAAA";
-    private static final String UPDATED_NOM_P = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PRENOM_P = "AAAAAAAAAA";
-    private static final String UPDATED_PRENOM_P = "BBBBBBBBBB";
+    private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_AGE = 1;
     private static final Integer UPDATED_AGE = 2;
@@ -68,6 +56,9 @@ class PatientResourceIT {
     private static final Float DEFAULT_TAILLE = 1F;
     private static final Float UPDATED_TAILLE = 2F;
 
+    private static final Sexe DEFAULT_SEXE = Sexe.M;
+    private static final Sexe UPDATED_SEXE = Sexe.F;
+
     private static final String ENTITY_API_URL = "/api/patients";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -77,14 +68,8 @@ class PatientResourceIT {
     @Autowired
     private PatientRepository patientRepository;
 
-    @Mock
-    private PatientRepository patientRepositoryMock;
-
     @Autowired
     private PatientMapper patientMapper;
-
-    @Mock
-    private PatientService patientServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -102,14 +87,14 @@ class PatientResourceIT {
      */
     public static Patient createEntity(EntityManager em) {
         Patient patient = new Patient()
-            .idP(DEFAULT_ID_P)
-            .nomP(DEFAULT_NOM_P)
-            .prenomP(DEFAULT_PRENOM_P)
+            .nom(DEFAULT_NOM)
+            .prenom(DEFAULT_PRENOM)
             .age(DEFAULT_AGE)
             .datearrivee(DEFAULT_DATEARRIVEE)
             .poidsactuel(DEFAULT_POIDSACTUEL)
             .albumine(DEFAULT_ALBUMINE)
-            .taille(DEFAULT_TAILLE);
+            .taille(DEFAULT_TAILLE)
+            .sexe(DEFAULT_SEXE);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -119,7 +104,7 @@ class PatientResourceIT {
         } else {
             etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
         }
-        patient.setInfrastructure(etablissement);
+        patient.setEtablissement(etablissement);
         return patient;
     }
 
@@ -131,14 +116,14 @@ class PatientResourceIT {
      */
     public static Patient createUpdatedEntity(EntityManager em) {
         Patient patient = new Patient()
-            .idP(UPDATED_ID_P)
-            .nomP(UPDATED_NOM_P)
-            .prenomP(UPDATED_PRENOM_P)
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
-            .taille(UPDATED_TAILLE);
+            .taille(UPDATED_TAILLE)
+            .sexe(UPDATED_SEXE);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -148,7 +133,7 @@ class PatientResourceIT {
         } else {
             etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
         }
-        patient.setInfrastructure(etablissement);
+        patient.setEtablissement(etablissement);
         return patient;
     }
 
@@ -171,14 +156,14 @@ class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeCreate + 1);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getIdP()).isEqualTo(DEFAULT_ID_P);
-        assertThat(testPatient.getNomP()).isEqualTo(DEFAULT_NOM_P);
-        assertThat(testPatient.getPrenomP()).isEqualTo(DEFAULT_PRENOM_P);
+        assertThat(testPatient.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testPatient.getPrenom()).isEqualTo(DEFAULT_PRENOM);
         assertThat(testPatient.getAge()).isEqualTo(DEFAULT_AGE);
         assertThat(testPatient.getDatearrivee()).isEqualTo(DEFAULT_DATEARRIVEE);
         assertThat(testPatient.getPoidsactuel()).isEqualTo(DEFAULT_POIDSACTUEL);
         assertThat(testPatient.getAlbumine()).isEqualTo(DEFAULT_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
+        assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
     }
 
     @Test
@@ -202,24 +187,6 @@ class PatientResourceIT {
 
     @Test
     @Transactional
-    void checkIdPIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientRepository.findAll().size();
-        // set the field null
-        patient.setIdP(null);
-
-        // Create the Patient, which fails.
-        PatientDTO patientDTO = patientMapper.toDto(patient);
-
-        restPatientMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patientDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Patient> patientList = patientRepository.findAll();
-        assertThat(patientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllPatients() throws Exception {
         // Initialize the database
         patientRepository.saveAndFlush(patient);
@@ -230,31 +197,14 @@ class PatientResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idP").value(hasItem(DEFAULT_ID_P.intValue())))
-            .andExpect(jsonPath("$.[*].nomP").value(hasItem(DEFAULT_NOM_P)))
-            .andExpect(jsonPath("$.[*].prenomP").value(hasItem(DEFAULT_PRENOM_P)))
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
             .andExpect(jsonPath("$.[*].datearrivee").value(hasItem(DEFAULT_DATEARRIVEE.toString())))
             .andExpect(jsonPath("$.[*].poidsactuel").value(hasItem(DEFAULT_POIDSACTUEL.doubleValue())))
             .andExpect(jsonPath("$.[*].albumine").value(hasItem(DEFAULT_ALBUMINE.doubleValue())))
-            .andExpect(jsonPath("$.[*].taille").value(hasItem(DEFAULT_TAILLE.doubleValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllPatientsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(patientServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restPatientMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(patientServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllPatientsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(patientServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restPatientMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(patientRepositoryMock, times(1)).findAll(any(Pageable.class));
+            .andExpect(jsonPath("$.[*].taille").value(hasItem(DEFAULT_TAILLE.doubleValue())))
+            .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE.toString())));
     }
 
     @Test
@@ -269,14 +219,14 @@ class PatientResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(patient.getId().intValue()))
-            .andExpect(jsonPath("$.idP").value(DEFAULT_ID_P.intValue()))
-            .andExpect(jsonPath("$.nomP").value(DEFAULT_NOM_P))
-            .andExpect(jsonPath("$.prenomP").value(DEFAULT_PRENOM_P))
+            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM))
             .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
             .andExpect(jsonPath("$.datearrivee").value(DEFAULT_DATEARRIVEE.toString()))
             .andExpect(jsonPath("$.poidsactuel").value(DEFAULT_POIDSACTUEL.doubleValue()))
             .andExpect(jsonPath("$.albumine").value(DEFAULT_ALBUMINE.doubleValue()))
-            .andExpect(jsonPath("$.taille").value(DEFAULT_TAILLE.doubleValue()));
+            .andExpect(jsonPath("$.taille").value(DEFAULT_TAILLE.doubleValue()))
+            .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE.toString()));
     }
 
     @Test
@@ -299,14 +249,14 @@ class PatientResourceIT {
         // Disconnect from session so that the updates on updatedPatient are not directly saved in db
         em.detach(updatedPatient);
         updatedPatient
-            .idP(UPDATED_ID_P)
-            .nomP(UPDATED_NOM_P)
-            .prenomP(UPDATED_PRENOM_P)
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
-            .taille(UPDATED_TAILLE);
+            .taille(UPDATED_TAILLE)
+            .sexe(UPDATED_SEXE);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -321,14 +271,14 @@ class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
-        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
-        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testPatient.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testPatient.getDatearrivee()).isEqualTo(UPDATED_DATEARRIVEE);
         assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
         assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
+        assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
     }
 
     @Test
@@ -409,11 +359,11 @@ class PatientResourceIT {
         partialUpdatedPatient.setId(patient.getId());
 
         partialUpdatedPatient
-            .idP(UPDATED_ID_P)
-            .nomP(UPDATED_NOM_P)
-            .prenomP(UPDATED_PRENOM_P)
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
-            .poidsactuel(UPDATED_POIDSACTUEL);
+            .datearrivee(UPDATED_DATEARRIVEE)
+            .albumine(UPDATED_ALBUMINE);
 
         restPatientMockMvc
             .perform(
@@ -427,14 +377,14 @@ class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
-        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
-        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testPatient.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
-        assertThat(testPatient.getDatearrivee()).isEqualTo(DEFAULT_DATEARRIVEE);
-        assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
-        assertThat(testPatient.getAlbumine()).isEqualTo(DEFAULT_ALBUMINE);
+        assertThat(testPatient.getDatearrivee()).isEqualTo(UPDATED_DATEARRIVEE);
+        assertThat(testPatient.getPoidsactuel()).isEqualTo(DEFAULT_POIDSACTUEL);
+        assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
+        assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
     }
 
     @Test
@@ -450,14 +400,14 @@ class PatientResourceIT {
         partialUpdatedPatient.setId(patient.getId());
 
         partialUpdatedPatient
-            .idP(UPDATED_ID_P)
-            .nomP(UPDATED_NOM_P)
-            .prenomP(UPDATED_PRENOM_P)
+            .nom(UPDATED_NOM)
+            .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
-            .taille(UPDATED_TAILLE);
+            .taille(UPDATED_TAILLE)
+            .sexe(UPDATED_SEXE);
 
         restPatientMockMvc
             .perform(
@@ -471,14 +421,14 @@ class PatientResourceIT {
         List<Patient> patientList = patientRepository.findAll();
         assertThat(patientList).hasSize(databaseSizeBeforeUpdate);
         Patient testPatient = patientList.get(patientList.size() - 1);
-        assertThat(testPatient.getIdP()).isEqualTo(UPDATED_ID_P);
-        assertThat(testPatient.getNomP()).isEqualTo(UPDATED_NOM_P);
-        assertThat(testPatient.getPrenomP()).isEqualTo(UPDATED_PRENOM_P);
+        assertThat(testPatient.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testPatient.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testPatient.getDatearrivee()).isEqualTo(UPDATED_DATEARRIVEE);
         assertThat(testPatient.getPoidsactuel()).isEqualTo(UPDATED_POIDSACTUEL);
         assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
+        assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
     }
 
     @Test

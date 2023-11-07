@@ -3,8 +3,6 @@ package fr.polytech.g4.ecom23.service;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link fr.polytech.g4.ecom23.domain.Patient}.
@@ -40,14 +38,6 @@ public interface PatientService {
      * @return the list of entities.
      */
     List<PatientDTO> findAll();
-
-    /**
-     * Get all the patients with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    Page<PatientDTO> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" patient.

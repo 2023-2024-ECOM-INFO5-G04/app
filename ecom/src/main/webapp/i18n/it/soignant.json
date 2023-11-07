@@ -17,10 +17,9 @@
       "detail": {
         "title": "Soignant"
       },
-      "id": "ID",
-      "idS": "Id S",
-      "nomS": "Nom S",
-      "prenomS": "Prenom S",
+      "id": "Id",
+      "nom": "Nom",
+      "prenom": "Prenom",
       "metier": "Metier",
       "compte": "Compte",
       "servicesoignant": "Servicesoignant",

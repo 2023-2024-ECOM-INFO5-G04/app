@@ -45,6 +45,12 @@ export const CompteDetail = () => {
           </dt>
           <dd>{compteEntity.motdepasse}</dd>
           <dt>
+            <span id="mail">
+              <Translate contentKey="ecom23App.compte.mail">Mail</Translate>
+            </span>
+          </dt>
+          <dd>{compteEntity.mail}</dd>
+          <dt>
             <span id="role">
               <Translate contentKey="ecom23App.compte.role">Role</Translate>
             </span>

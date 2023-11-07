@@ -28,16 +28,10 @@ export const SuividonneesDetail = () => {
         <dl className="jh-entity-details">
           <dt>
             <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
+              <Translate contentKey="ecom23App.suividonnees.id">Id</Translate>
             </span>
           </dt>
           <dd>{suividonneesEntity.id}</dd>
-          <dt>
-            <span id="idSD">
-              <Translate contentKey="ecom23App.suividonnees.idSD">Id SD</Translate>
-            </span>
-          </dt>
-          <dd>{suividonneesEntity.idSD}</dd>
           <dt>
             <span id="date">
               <Translate contentKey="ecom23App.suividonnees.date">Date</Translate>
@@ -73,7 +67,7 @@ export const SuividonneesDetail = () => {
           <dt>
             <Translate contentKey="ecom23App.suividonnees.patient">Patient</Translate>
           </dt>
-          <dd>{suividonneesEntity.patient ? suividonneesEntity.patient.idP : ''}</dd>
+          <dd>{suividonneesEntity.patient ? suividonneesEntity.patient.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/suividonnees" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

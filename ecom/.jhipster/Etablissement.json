@@ -1,17 +1,17 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162341",
+  "changelogDate": "20231107144522",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "etablissement",
   "fields": [
     {
-      "fieldName": "idE",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "nomE",
+      "fieldName": "nom",
       "fieldType": "String"
     },
     {
@@ -34,7 +34,7 @@
   "relationships": [
     {
       "otherEntityName": "patient",
-      "otherEntityRelationshipName": "infrastructure",
+      "otherEntityRelationshipName": "etablissement",
       "relationshipName": "patient",
       "relationshipType": "one-to-many"
     },

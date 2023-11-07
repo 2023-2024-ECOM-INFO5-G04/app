@@ -17,6 +17,7 @@ import { getEntities as getMedecins } from 'app/entities/medecin/medecin.reducer
 import { ISoignant } from 'app/shared/model/soignant.model';
 import { getEntities as getSoignants } from 'app/entities/soignant/soignant.reducer';
 import { IPatient } from 'app/shared/model/patient.model';
+import { Sexe } from 'app/shared/model/enumerations/sexe.model';
 import { getEntity, updateEntity, createEntity, reset } from './patient.reducer';
 
 export const PatientUpdate = () => {
@@ -35,6 +36,7 @@ export const PatientUpdate = () => {
   const loading = useAppSelector(state => state.patient.loading);
   const updating = useAppSelector(state => state.patient.updating);
   const updateSuccess = useAppSelector(state => state.patient.updateSuccess);
+  const sexeValues = Object.keys(Sexe);
 
   const handleClose = () => {
     navigate('/patient');
@@ -64,7 +66,7 @@ export const PatientUpdate = () => {
       ...patientEntity,
       ...values,
       alerte: alertes.find(it => it.id.toString() === values.alerte.toString()),
-      infrastructure: etablissements.find(it => it.id.toString() === values.infrastructure.toString()),
+      etablissement: etablissements.find(it => it.id.toString() === values.etablissement.toString()),
     };
 
     if (isNew) {
@@ -78,9 +80,10 @@ export const PatientUpdate = () => {
     isNew
       ? {}
       : {
+          sexe: 'M',
           ...patientEntity,
           alerte: patientEntity?.alerte?.id,
-          infrastructure: patientEntity?.infrastructure?.id,
+          etablissement: patientEntity?.etablissement?.id,
         };
 
   return (
@@ -104,27 +107,16 @@ export const PatientUpdate = () => {
                   required
                   readOnly
                   id="patient-id"
-                  label={translate('global.field.id')}
+                  label={translate('ecom23App.patient.id')}
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField label={translate('ecom23App.patient.nom')} id="patient-nom" name="nom" data-cy="nom" type="text" />
               <ValidatedField
-                label={translate('ecom23App.patient.idP')}
-                id="patient-idP"
-                name="idP"
-                data-cy="idP"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField label={translate('ecom23App.patient.nomP')} id="patient-nomP" name="nomP" data-cy="nomP" type="text" />
-              <ValidatedField
-                label={translate('ecom23App.patient.prenomP')}
-                id="patient-prenomP"
-                name="prenomP"
-                data-cy="prenomP"
+                label={translate('ecom23App.patient.prenom')}
+                id="patient-prenom"
+                name="prenom"
+                data-cy="prenom"
                 type="text"
               />
               <ValidatedField label={translate('ecom23App.patient.age')} id="patient-age" name="age" data-cy="age" type="text" />
@@ -156,6 +148,13 @@ export const PatientUpdate = () => {
                 data-cy="taille"
                 type="text"
               />
+              <ValidatedField label={translate('ecom23App.patient.sexe')} id="patient-sexe" name="sexe" data-cy="sexe" type="select">
+                {sexeValues.map(sexe => (
+                  <option value={sexe} key={sexe}>
+                    {translate('ecom23App.Sexe.' + sexe)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
                 id="patient-alerte"
                 name="alerte"
@@ -173,10 +172,10 @@ export const PatientUpdate = () => {
                   : null}
               </ValidatedField>
               <ValidatedField
-                id="patient-infrastructure"
-                name="infrastructure"
-                data-cy="infrastructure"
-                label={translate('ecom23App.patient.infrastructure')}
+                id="patient-etablissement"
+                name="etablissement"
+                data-cy="etablissement"
+                label={translate('ecom23App.patient.etablissement')}
                 type="select"
                 required
               >
@@ -184,7 +183,7 @@ export const PatientUpdate = () => {
                 {etablissements
                   ? etablissements.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.idE}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

@@ -17,11 +17,10 @@
       "detail": {
         "title": "Servicesoignant"
       },
-      "id": "ID",
-      "idSer": "Id Ser",
+      "id": "Id",
       "type": "Type",
       "nbsoignants": "Nbsoignants",
-      "infrastructure": "Infrastructure",
+      "etablissement": "Etablissement",
       "soignant": "Soignant",
       "taches": "Taches"
     }

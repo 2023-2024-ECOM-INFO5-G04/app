@@ -20,10 +20,11 @@
       "id": "ID",
       "nomutilisateur": "Nomutilisateur",
       "motdepasse": "Motdepasse",
+      "mail": "Mail",
       "role": "Role",
       "soignant": "Soignant",
       "medecin": "Medecin",
-      "admin": "Admin"
+      "administrateur": "Administrateur"
     }
   }
 }

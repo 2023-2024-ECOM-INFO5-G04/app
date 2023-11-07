@@ -15,7 +15,7 @@ describe('Suividonnees e2e test', () => {
   const suividonneesPageUrlPattern = new RegExp('/suividonnees(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const suividonneesSample = {"idSD":29566,"date":"2023-10-24"};
+  // const suividonneesSample = {"date":"2023-11-06"};
 
   let suividonnees;
   // let patient;
@@ -30,7 +30,7 @@ describe('Suividonnees e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"idP":73604,"nomP":"Developpeur solid","prenomP":"relationships access","age":56719,"datearrivee":"2023-10-24","poidsactuel":97443,"albumine":4352,"taille":87134},
+      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F"},
     }).then(({ body }) => {
       patient = body;
     });
@@ -212,17 +212,15 @@ describe('Suividonnees e2e test', () => {
     });
 
     it.skip('should create an instance of Suividonnees', () => {
-      cy.get(`[data-cy="idSD"]`).type('80880').should('have.value', '80880');
+      cy.get(`[data-cy="date"]`).type('2023-11-06').blur().should('have.value', '2023-11-06');
 
-      cy.get(`[data-cy="date"]`).type('2023-10-23').blur().should('have.value', '2023-10-23');
+      cy.get(`[data-cy="poids"]`).type('98248').should('have.value', '98248');
 
-      cy.get(`[data-cy="poids"]`).type('80781').should('have.value', '80781');
+      cy.get(`[data-cy="massecorporelle"]`).type('80781').should('have.value', '80781');
 
-      cy.get(`[data-cy="massecorporelle"]`).type('50635').should('have.value', '50635');
+      cy.get(`[data-cy="quantitepoidsaliments"]`).type('50635').should('have.value', '50635');
 
-      cy.get(`[data-cy="quantitepoidsaliments"]`).type('73158').should('have.value', '73158');
-
-      cy.get(`[data-cy="quantitecaloriesaliments"]`).type('63219').should('have.value', '63219');
+      cy.get(`[data-cy="quantitecaloriesaliments"]`).type('73158').should('have.value', '73158');
 
       cy.get(`[data-cy="patient"]`).select(1);
 

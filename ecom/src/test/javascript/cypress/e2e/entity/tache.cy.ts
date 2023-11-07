@@ -30,7 +30,7 @@ describe('Tache e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"idP":74090,"nomP":"Berkshire Liechtenstein","prenomP":"Plastic action-items Quetzal","age":54970,"datearrivee":"2023-10-24","poidsactuel":63847,"albumine":95255,"taille":65456},
+      body: {"nom":"syndicate Optimized Provence-Alpes-Côte","prenom":"b","age":45388,"datearrivee":"2023-11-06","poidsactuel":30667,"albumine":42073,"taille":54970,"sexe":"M"},
     }).then(({ body }) => {
       patient = body;
     });
@@ -227,7 +227,7 @@ describe('Tache e2e test', () => {
     });
 
     it.skip('should create an instance of Tache', () => {
-      cy.get(`[data-cy="date"]`).type('2023-10-24').blur().should('have.value', '2023-10-24');
+      cy.get(`[data-cy="date"]`).type('2023-11-07').blur().should('have.value', '2023-11-07');
 
       cy.get(`[data-cy="commentaire"]`).type('Ball').should('have.value', 'Ball');
 

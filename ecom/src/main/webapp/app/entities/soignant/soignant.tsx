@@ -49,16 +49,13 @@ export const Soignant = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.soignant.id">ID</Translate>
+                  <Translate contentKey="ecom23App.soignant.id">Id</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.soignant.idS">Id S</Translate>
+                  <Translate contentKey="ecom23App.soignant.nom">Nom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.soignant.nomS">Nom S</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.soignant.prenomS">Prenom S</Translate>
+                  <Translate contentKey="ecom23App.soignant.prenom">Prenom</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.soignant.metier">Metier</Translate>
@@ -83,16 +80,15 @@ export const Soignant = () => {
                       {soignant.id}
                     </Button>
                   </td>
-                  <td>{soignant.idS}</td>
-                  <td>{soignant.nomS}</td>
-                  <td>{soignant.prenomS}</td>
+                  <td>{soignant.nom}</td>
+                  <td>{soignant.prenom}</td>
                   <td>
                     <Translate contentKey={`ecom23App.SoignantMetier.${soignant.metier}`} />
                   </td>
                   <td>{soignant.compte ? <Link to={`/compte/${soignant.compte.id}`}>{soignant.compte.id}</Link> : ''}</td>
                   <td>
                     {soignant.servicesoignant ? (
-                      <Link to={`/servicesoignant/${soignant.servicesoignant.id}`}>{soignant.servicesoignant.idSer}</Link>
+                      <Link to={`/servicesoignant/${soignant.servicesoignant.id}`}>{soignant.servicesoignant.id}</Link>
                     ) : (
                       ''
                     )}

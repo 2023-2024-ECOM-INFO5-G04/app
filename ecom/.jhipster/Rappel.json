@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162347",
+  "changelogDate": "20231107144528",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "rappel",

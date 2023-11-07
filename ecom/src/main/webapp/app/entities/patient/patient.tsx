@@ -49,16 +49,13 @@ export const Patient = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.patient.id">ID</Translate>
+                  <Translate contentKey="ecom23App.patient.id">Id</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.patient.idP">Id P</Translate>
+                  <Translate contentKey="ecom23App.patient.nom">Nom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.patient.nomP">Nom P</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.patient.prenomP">Prenom P</Translate>
+                  <Translate contentKey="ecom23App.patient.prenom">Prenom</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.patient.age">Age</Translate>
@@ -76,10 +73,13 @@ export const Patient = () => {
                   <Translate contentKey="ecom23App.patient.taille">Taille</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="ecom23App.patient.sexe">Sexe</Translate>
+                </th>
+                <th>
                   <Translate contentKey="ecom23App.patient.alerte">Alerte</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.patient.infrastructure">Infrastructure</Translate>
+                  <Translate contentKey="ecom23App.patient.etablissement">Etablissement</Translate>
                 </th>
                 <th />
               </tr>
@@ -92,9 +92,8 @@ export const Patient = () => {
                       {patient.id}
                     </Button>
                   </td>
-                  <td>{patient.idP}</td>
-                  <td>{patient.nomP}</td>
-                  <td>{patient.prenomP}</td>
+                  <td>{patient.nom}</td>
+                  <td>{patient.prenom}</td>
                   <td>{patient.age}</td>
                   <td>
                     {patient.datearrivee ? <TextFormat type="date" value={patient.datearrivee} format={APP_LOCAL_DATE_FORMAT} /> : null}
@@ -102,13 +101,12 @@ export const Patient = () => {
                   <td>{patient.poidsactuel}</td>
                   <td>{patient.albumine}</td>
                   <td>{patient.taille}</td>
+                  <td>
+                    <Translate contentKey={`ecom23App.Sexe.${patient.sexe}`} />
+                  </td>
                   <td>{patient.alerte ? <Link to={`/alerte/${patient.alerte.id}`}>{patient.alerte.id}</Link> : ''}</td>
                   <td>
-                    {patient.infrastructure ? (
-                      <Link to={`/etablissement/${patient.infrastructure.id}`}>{patient.infrastructure.idE}</Link>
-                    ) : (
-                      ''
-                    )}
+                    {patient.etablissement ? <Link to={`/etablissement/${patient.etablissement.id}`}>{patient.etablissement.id}</Link> : ''}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

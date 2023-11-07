@@ -159,7 +159,7 @@ describe('Rappel e2e test', () => {
     });
 
     it('should create an instance of Rappel', () => {
-      cy.get(`[data-cy="date"]`).type('2023-10-23').blur().should('have.value', '2023-10-23');
+      cy.get(`[data-cy="date"]`).type('2023-11-06').blur().should('have.value', '2023-11-06');
 
       cy.get(`[data-cy="commentaire"]`).type('protocol Rubber functionalities').should('have.value', 'protocol Rubber functionalities');
 
