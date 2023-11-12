@@ -186,7 +186,7 @@ jhipster:
   #   allow-credentials: true
   #   max-age: 1800
   mail:
-    from: ecom23@localhost
+    from: ecom4info5@gmail.com
   api-docs:
     default-include-pattern: ${server.servlet.context-path:}/api/**
     management-include-pattern: ${server.servlet.context-path:}/management/**
