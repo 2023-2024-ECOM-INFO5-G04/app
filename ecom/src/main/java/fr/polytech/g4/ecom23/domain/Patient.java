@@ -64,7 +64,7 @@ public class Patient implements Serializable {
     @JsonIgnoreProperties(value = { "patient", "medecin" }, allowSetters = true)
     private Set<Notes> notes = new HashSet<>();
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     @NotNull
     @JsonIgnoreProperties(value = { "patients", "medecins" }, allowSetters = true)
     private Etablissement etablissement;
