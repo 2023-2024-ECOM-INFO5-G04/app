@@ -14,6 +14,7 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
+import VisualisationPage from './modules/account/visumedecin/visumedecin';
 
 const loading = <div>loading ...</div>;
 
@@ -44,6 +45,7 @@ const AppRoutes = () => {
             }
           />
           <Route path="register" element={<Register />} />
+          <Route path="visualisation" element={<VisualisationPage/>} />
           <Route path="activate" element={<Activate />} />
           <Route path="reset">
             <Route path="request" element={<PasswordResetInit />} />
