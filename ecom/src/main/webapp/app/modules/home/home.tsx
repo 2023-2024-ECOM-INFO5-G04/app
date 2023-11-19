@@ -53,6 +53,15 @@ export const Home = () => {
             </Alert>
           </div>
         )}
+
+    
+        <Alert color="warning">
+              Vous souhaitez consulter les données des patients ? 
+              <Link to="/account/visualisation" className="alert-link">
+                Voir les données patients
+              </Link>
+        </Alert>
+        
         <p>
           <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
         </p>
