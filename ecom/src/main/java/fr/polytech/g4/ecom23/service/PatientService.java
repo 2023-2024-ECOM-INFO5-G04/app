@@ -59,5 +59,4 @@ public interface PatientService {
 
     public void importDataFromCSVForPatient(InputStream inputstream);
 
-    public Patient getPatientById(Long id);
 }

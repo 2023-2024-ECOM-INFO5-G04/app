@@ -61,22 +61,6 @@ public class PatientServiceImpl implements PatientService {
                 patient.setEtablissement(eta);
 
                 patientRepository.save(patient);
-
-                int m = 3;
-                int y = 2021;
-                //from column 3 to 15 for the
-                for (int l = 3; l < 16; l++) {
-                    Suividonnees sd = new Suividonnees();
-                    sd.setDate(LocalDate.of(y, m, 1));
-                    sd.setPoids(Float.valueOf(line[l]));
-                    sd.setPatient(patient);
-                    sdrepo.save(sd);
-                    m++;
-                    if (m > 12){
-                        m=1;
-                        y=2022;
-                    }
-                }
             }
        }
        catch (Exception e){
@@ -127,13 +111,6 @@ public class PatientServiceImpl implements PatientService {
     public Optional<PatientDTO> findOne(Long id) {
         log.debug("Request to get Patient : {}", id);
         return patientRepository.findById(id).map(patientMapper::toDto);
-    }
-
-    @Transactional(readOnly = true)
-    public Patient getPatientById(Long id) throws EntityNotFoundException{
-        log.debug("Request to get Patient : {}", id);
-        return patientRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Entity non trouvée avec l'ID : " + id));
     }
 
     @Override
