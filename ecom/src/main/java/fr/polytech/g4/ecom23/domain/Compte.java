@@ -30,6 +30,9 @@ public class Compte implements Serializable {
     @Column(name = "motdepasse")
     private String motdepasse;
 
+    @Column(name = "mail")
+    private String mail;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
@@ -44,7 +47,7 @@ public class Compte implements Serializable {
 
     @JsonIgnoreProperties(value = { "compte" }, allowSetters = true)
     @OneToOne(mappedBy = "compte")
-    private Admin admin;
+    private Administrateur administrateur;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -85,6 +88,19 @@ public class Compte implements Serializable {
 
     public void setMotdepasse(String motdepasse) {
         this.motdepasse = motdepasse;
+    }
+
+    public String getMail() {
+        return this.mail;
+    }
+
+    public Compte mail(String mail) {
+        this.setMail(mail);
+        return this;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Role getRole() {
@@ -138,22 +154,22 @@ public class Compte implements Serializable {
         return this;
     }
 
-    public Admin getAdmin() {
-        return this.admin;
+    public Administrateur getAdministrateur() {
+        return this.administrateur;
     }
 
-    public void setAdmin(Admin admin) {
-        if (this.admin != null) {
-            this.admin.setCompte(null);
+    public void setAdministrateur(Administrateur administrateur) {
+        if (this.administrateur != null) {
+            this.administrateur.setCompte(null);
         }
-        if (admin != null) {
-            admin.setCompte(this);
+        if (administrateur != null) {
+            administrateur.setCompte(this);
         }
-        this.admin = admin;
+        this.administrateur = administrateur;
     }
 
-    public Compte admin(Admin admin) {
-        this.setAdmin(admin);
+    public Compte administrateur(Administrateur administrateur) {
+        this.setAdministrateur(administrateur);
         return this;
     }
 
@@ -183,6 +199,7 @@ public class Compte implements Serializable {
             "id=" + getId() +
             ", nomutilisateur='" + getNomutilisateur() + "'" +
             ", motdepasse='" + getMotdepasse() + "'" +
+            ", mail='" + getMail() + "'" +
             ", role='" + getRole() + "'" +
             "}";
     }

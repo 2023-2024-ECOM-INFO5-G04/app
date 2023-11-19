@@ -1,0 +1,26 @@
+{
+  "ecom23App": {
+    "administrateur": {
+      "home": {
+        "title": "Administrateurs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Administrateur",
+        "createOrEditLabel": "Create or edit a Administrateur",
+        "notFound": "No Administrateurs found"
+      },
+      "created": "A new Administrateur is created with identifier {{ param }}",
+      "updated": "A Administrateur is updated with identifier {{ param }}",
+      "deleted": "A Administrateur is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Administrateur {{ id }}?"
+      },
+      "detail": {
+        "title": "Administrateur"
+      },
+      "id": "Id",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "compte": "Compte"
+    }
+  }
+}

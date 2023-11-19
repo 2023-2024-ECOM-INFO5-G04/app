@@ -6,20 +6,21 @@ import { ISuividonnees } from 'app/shared/model/suividonnees.model';
 import { ITache } from 'app/shared/model/tache.model';
 import { IMedecin } from 'app/shared/model/medecin.model';
 import { ISoignant } from 'app/shared/model/soignant.model';
+import { Sexe } from 'app/shared/model/enumerations/sexe.model';
 
 export interface IPatient {
   id?: number;
-  idP?: number;
-  nomP?: string | null;
-  prenomP?: string | null;
+  nom?: string | null;
+  prenom?: string | null;
   age?: number | null;
   datearrivee?: string | null;
   poidsactuel?: number | null;
   albumine?: number | null;
   taille?: number | null;
+  sexe?: Sexe | null;
   alerte?: IAlerte | null;
   notes?: INotes[] | null;
-  infrastructure?: IEtablissement;
+  etablissement?: IEtablissement;
   suividonnees?: ISuividonnees[] | null;
   taches?: ITache[] | null;
   medecins?: IMedecin[] | null;

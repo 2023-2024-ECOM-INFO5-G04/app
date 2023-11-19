@@ -2,7 +2,6 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,26 +9,18 @@ import fr.polytech.g4.ecom23.IntegrationTest;
 import fr.polytech.g4.ecom23.domain.Patient;
 import fr.polytech.g4.ecom23.domain.Suividonnees;
 import fr.polytech.g4.ecom23.repository.SuividonneesRepository;
-import fr.polytech.g4.ecom23.service.SuividonneesService;
 import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.service.mapper.SuividonneesMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,13 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link SuividonneesResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class SuividonneesResourceIT {
-
-    private static final Long DEFAULT_ID_SD = 1L;
-    private static final Long UPDATED_ID_SD = 2L;
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -71,14 +58,8 @@ class SuividonneesResourceIT {
     @Autowired
     private SuividonneesRepository suividonneesRepository;
 
-    @Mock
-    private SuividonneesRepository suividonneesRepositoryMock;
-
     @Autowired
     private SuividonneesMapper suividonneesMapper;
-
-    @Mock
-    private SuividonneesService suividonneesServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -96,7 +77,6 @@ class SuividonneesResourceIT {
      */
     public static Suividonnees createEntity(EntityManager em) {
         Suividonnees suividonnees = new Suividonnees()
-            .idSD(DEFAULT_ID_SD)
             .date(DEFAULT_DATE)
             .poids(DEFAULT_POIDS)
             .massecorporelle(DEFAULT_MASSECORPORELLE)
@@ -123,7 +103,6 @@ class SuividonneesResourceIT {
      */
     public static Suividonnees createUpdatedEntity(EntityManager em) {
         Suividonnees suividonnees = new Suividonnees()
-            .idSD(UPDATED_ID_SD)
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
             .massecorporelle(UPDATED_MASSECORPORELLE)
@@ -163,7 +142,6 @@ class SuividonneesResourceIT {
         List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
         assertThat(suividonneesList).hasSize(databaseSizeBeforeCreate + 1);
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
-        assertThat(testSuividonnees.getIdSD()).isEqualTo(DEFAULT_ID_SD);
         assertThat(testSuividonnees.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(DEFAULT_POIDS);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(DEFAULT_MASSECORPORELLE);
@@ -190,26 +168,6 @@ class SuividonneesResourceIT {
         // Validate the Suividonnees in the database
         List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
         assertThat(suividonneesList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void checkIdSDIsRequired() throws Exception {
-        int databaseSizeBeforeTest = suividonneesRepository.findAll().size();
-        // set the field null
-        suividonnees.setIdSD(null);
-
-        // Create the Suividonnees, which fails.
-        SuividonneesDTO suividonneesDTO = suividonneesMapper.toDto(suividonnees);
-
-        restSuividonneesMockMvc
-            .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(suividonneesDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
-        assertThat(suividonneesList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -244,29 +202,11 @@ class SuividonneesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(suividonnees.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idSD").value(hasItem(DEFAULT_ID_SD.intValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].poids").value(hasItem(DEFAULT_POIDS.doubleValue())))
             .andExpect(jsonPath("$.[*].massecorporelle").value(hasItem(DEFAULT_MASSECORPORELLE.doubleValue())))
             .andExpect(jsonPath("$.[*].quantitepoidsaliments").value(hasItem(DEFAULT_QUANTITEPOIDSALIMENTS.doubleValue())))
             .andExpect(jsonPath("$.[*].quantitecaloriesaliments").value(hasItem(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllSuividonneesWithEagerRelationshipsIsEnabled() throws Exception {
-        when(suividonneesServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restSuividonneesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(suividonneesServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllSuividonneesWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(suividonneesServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restSuividonneesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(suividonneesRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -281,7 +221,6 @@ class SuividonneesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(suividonnees.getId().intValue()))
-            .andExpect(jsonPath("$.idSD").value(DEFAULT_ID_SD.intValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.poids").value(DEFAULT_POIDS.doubleValue()))
             .andExpect(jsonPath("$.massecorporelle").value(DEFAULT_MASSECORPORELLE.doubleValue()))
@@ -309,7 +248,6 @@ class SuividonneesResourceIT {
         // Disconnect from session so that the updates on updatedSuividonnees are not directly saved in db
         em.detach(updatedSuividonnees);
         updatedSuividonnees
-            .idSD(UPDATED_ID_SD)
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
             .massecorporelle(UPDATED_MASSECORPORELLE)
@@ -329,7 +267,6 @@ class SuividonneesResourceIT {
         List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
         assertThat(suividonneesList).hasSize(databaseSizeBeforeUpdate);
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
-        assertThat(testSuividonnees.getIdSD()).isEqualTo(UPDATED_ID_SD);
         assertThat(testSuividonnees.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
@@ -416,10 +353,7 @@ class SuividonneesResourceIT {
         Suividonnees partialUpdatedSuividonnees = new Suividonnees();
         partialUpdatedSuividonnees.setId(suividonnees.getId());
 
-        partialUpdatedSuividonnees
-            .date(UPDATED_DATE)
-            .massecorporelle(UPDATED_MASSECORPORELLE)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
+        partialUpdatedSuividonnees.poids(UPDATED_POIDS).quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS);
 
         restSuividonneesMockMvc
             .perform(
@@ -433,12 +367,11 @@ class SuividonneesResourceIT {
         List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
         assertThat(suividonneesList).hasSize(databaseSizeBeforeUpdate);
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
-        assertThat(testSuividonnees.getIdSD()).isEqualTo(DEFAULT_ID_SD);
-        assertThat(testSuividonnees.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testSuividonnees.getPoids()).isEqualTo(DEFAULT_POIDS);
-        assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
-        assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(DEFAULT_QUANTITEPOIDSALIMENTS);
-        assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
+        assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(DEFAULT_MASSECORPORELLE);
+        assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
+        assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(DEFAULT_QUANTITECALORIESALIMENTS);
     }
 
     @Test
@@ -454,7 +387,6 @@ class SuividonneesResourceIT {
         partialUpdatedSuividonnees.setId(suividonnees.getId());
 
         partialUpdatedSuividonnees
-            .idSD(UPDATED_ID_SD)
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
             .massecorporelle(UPDATED_MASSECORPORELLE)
@@ -473,7 +405,6 @@ class SuividonneesResourceIT {
         List<Suividonnees> suividonneesList = suividonneesRepository.findAll();
         assertThat(suividonneesList).hasSize(databaseSizeBeforeUpdate);
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
-        assertThat(testSuividonnees.getIdSD()).isEqualTo(UPDATED_ID_SD);
         assertThat(testSuividonnees.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);

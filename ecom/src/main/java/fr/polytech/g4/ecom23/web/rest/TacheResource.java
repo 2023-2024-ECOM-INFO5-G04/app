@@ -135,11 +135,10 @@ public class TacheResource {
     /**
      * {@code GET  /taches} : get all the taches.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of taches in body.
      */
     @GetMapping("/taches")
-    public List<TacheDTO> getAllTaches(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<TacheDTO> getAllTaches() {
         log.debug("REST request to get all Taches");
         return tacheService.findAll();
     }

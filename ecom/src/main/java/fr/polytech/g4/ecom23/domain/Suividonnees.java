@@ -19,15 +19,12 @@ public class Suividonnees implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-    @NotNull
-    @Column(name = "id_sd", nullable = false, unique = true)
-    private Long idSD;
 
     @NotNull
     @Column(name = "date", nullable = false)
@@ -48,7 +45,7 @@ public class Suividonnees implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     private Patient patient;
@@ -66,19 +63,6 @@ public class Suividonnees implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdSD() {
-        return this.idSD;
-    }
-
-    public Suividonnees idSD(Long idSD) {
-        this.setIdSD(idSD);
-        return this;
-    }
-
-    public void setIdSD(Long idSD) {
-        this.idSD = idSD;
     }
 
     public LocalDate getDate() {
@@ -183,7 +167,6 @@ public class Suividonnees implements Serializable {
     public String toString() {
         return "Suividonnees{" +
             "id=" + getId() +
-            ", idSD=" + getIdSD() +
             ", date='" + getDate() + "'" +
             ", poids=" + getPoids() +
             ", massecorporelle=" + getMassecorporelle() +

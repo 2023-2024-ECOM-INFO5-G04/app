@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,15 +74,11 @@ public class ServicesoignantServiceImpl implements ServicesoignantService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public Page<ServicesoignantDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return servicesoignantRepository.findAllWithEagerRelationships(pageable).map(servicesoignantMapper::toDto);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<ServicesoignantDTO> findOne(Long id) {
         log.debug("Request to get Servicesoignant : {}", id);
-        return servicesoignantRepository.findOneWithEagerRelationships(id).map(servicesoignantMapper::toDto);
+        return servicesoignantRepository.findById(id).map(servicesoignantMapper::toDto);
     }
 
     @Override

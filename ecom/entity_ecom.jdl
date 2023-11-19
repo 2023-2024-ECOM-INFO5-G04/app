@@ -1,35 +1,39 @@
 enum Role{
-	Medecin, Soignant, Admin
+	Medecin, Soignant, Administrateur
 }
 
 enum SoignantMetier{
 	Aidesoignant, Infirmier
 }
 
+enum Sexe{
+	M, F
+}
+
 entity Etablissement{
-	idE Long required unique
-    nomE String
+	id Long required unique
+    nom String
     adresse String
     telephone String minlength(10) maxlength(14)   
 }
 
 entity Servicesoignant{
-    idSer Long required unique
+    id Long required unique
     type String
     nbsoignants String
 }
 
 entity Soignant{
-	idS Long required unique
-    nomS String
-    prenomS String
+	id Long required unique
+    nom String
+    prenom String
     metier SoignantMetier
 }
 
-entity Admin{
-	idA Long required unique
-    nomA String
-    prenomA String
+entity Administrateur{
+	id Long required unique
+    nom String
+    prenom String
 }
 
 entity Tache{
@@ -39,9 +43,9 @@ entity Tache{
 }
 
 entity Medecin{
-    idM Long required unique
-    nomM String
-    prenomM String
+    id Long required unique
+    nom String
+    prenom String
 }
 
 entity Rappel{
@@ -53,18 +57,20 @@ entity Rappel{
 entity Compte{
     nomutilisateur String
     motdepasse String
+    mail String
     role Role
 }
 
 entity Patient {
-	idP Long required unique
-    nomP String
-    prenomP String
+	id Long required unique
+    nom String
+    prenom String
     age Integer
     datearrivee LocalDate
     poidsactuel Float
     albumine Float
     taille Float
+    sexe Sexe
 }
 
 entity Alerte{
@@ -74,7 +80,7 @@ entity Alerte{
 }
 
 entity Suividonnees{
-	idSD Long required unique
+	id Long required unique
     date LocalDate required
     poids Float
     massecorporelle Float
@@ -87,11 +93,11 @@ entity Notes{
 }
 
 relationship ManyToOne {
-    Patient{infrastructure(idE) required} to Etablissement{patient}
-    Servicesoignant{infrastructure(idE) required} to Etablissement
-    Suividonnees{patient(idP) required} to Patient{suividonnees}
-    Tache{patient(idP) required} to Patient{taches}
-    Soignant{servicesoignant(idSer) required} to Servicesoignant{soignant}
+    Patient{etablissement(id) required} to Etablissement{patient}
+    Servicesoignant{etablissement(id) required} to Etablissement
+    Suividonnees{patient(id) required} to Patient{suividonnees}
+    Tache{patient(id) required} to Patient{taches}
+    Soignant{servicesoignant(id) required} to Servicesoignant{soignant}
     Tache{servicesoignant } to Servicesoignant{taches}
     Tache{soigant } to Soignant{taches}
 }
@@ -115,8 +121,8 @@ relationship OneToMany {
 relationship OneToOne {
 	Soignant{compte} to Compte{soignant}
     Medecin{compte} to Compte{medecin}
-    Admin{compte} to Compte{admin}
-    Patient{alerte} to Alerte{patient(idP) required}
+    Administrateur{compte} to Compte{administrateur}
+    Patient{alerte} to Alerte{patient(id) required}
 }
 
 

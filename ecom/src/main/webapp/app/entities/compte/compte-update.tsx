@@ -12,8 +12,8 @@ import { ISoignant } from 'app/shared/model/soignant.model';
 import { getEntities as getSoignants } from 'app/entities/soignant/soignant.reducer';
 import { IMedecin } from 'app/shared/model/medecin.model';
 import { getEntities as getMedecins } from 'app/entities/medecin/medecin.reducer';
-import { IAdmin } from 'app/shared/model/admin.model';
-import { getEntities as getAdmins } from 'app/entities/admin/admin.reducer';
+import { IAdministrateur } from 'app/shared/model/administrateur.model';
+import { getEntities as getAdministrateurs } from 'app/entities/administrateur/administrateur.reducer';
 import { ICompte } from 'app/shared/model/compte.model';
 import { Role } from 'app/shared/model/enumerations/role.model';
 import { getEntity, updateEntity, createEntity, reset } from './compte.reducer';
@@ -28,7 +28,7 @@ export const CompteUpdate = () => {
 
   const soignants = useAppSelector(state => state.soignant.entities);
   const medecins = useAppSelector(state => state.medecin.entities);
-  const admins = useAppSelector(state => state.admin.entities);
+  const administrateurs = useAppSelector(state => state.administrateur.entities);
   const compteEntity = useAppSelector(state => state.compte.entity);
   const loading = useAppSelector(state => state.compte.loading);
   const updating = useAppSelector(state => state.compte.updating);
@@ -48,7 +48,7 @@ export const CompteUpdate = () => {
 
     dispatch(getSoignants({}));
     dispatch(getMedecins({}));
-    dispatch(getAdmins({}));
+    dispatch(getAdministrateurs({}));
   }, []);
 
   useEffect(() => {
@@ -117,6 +117,7 @@ export const CompteUpdate = () => {
                 data-cy="motdepasse"
                 type="text"
               />
+              <ValidatedField label={translate('ecom23App.compte.mail')} id="compte-mail" name="mail" data-cy="mail" type="text" />
               <ValidatedField label={translate('ecom23App.compte.role')} id="compte-role" name="role" data-cy="role" type="select">
                 {roleValues.map(role => (
                   <option value={role} key={role}>

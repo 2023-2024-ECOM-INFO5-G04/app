@@ -1,21 +1,21 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162343",
+  "changelogDate": "20231107144524",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "soignant",
   "fields": [
     {
-      "fieldName": "idS",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "nomS",
+      "fieldName": "nom",
       "fieldType": "String"
     },
     {
-      "fieldName": "prenomS",
+      "fieldName": "prenom",
       "fieldType": "String"
     },
     {
@@ -38,7 +38,7 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityField": "idSer",
+      "otherEntityField": "id",
       "otherEntityName": "servicesoignant",
       "otherEntityRelationshipName": "soignant",
       "relationshipName": "servicesoignant",

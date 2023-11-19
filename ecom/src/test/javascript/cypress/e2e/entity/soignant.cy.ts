@@ -15,7 +15,7 @@ describe('Soignant e2e test', () => {
   const soignantPageUrlPattern = new RegExp('/soignant(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const soignantSample = {"idS":24835};
+  // const soignantSample = {};
 
   let soignant;
   // let servicesoignant;
@@ -30,7 +30,7 @@ describe('Soignant e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/servicesoignants',
-      body: {"idSer":80296,"type":"d'Orsel Open-architected","nbsoignants":"bricks-and-clicks"},
+      body: {"type":"brand open-source Guinea","nbsoignants":"connect Producteur Plastic"},
     }).then(({ body }) => {
       servicesoignant = body;
     });
@@ -227,13 +227,11 @@ describe('Soignant e2e test', () => {
     });
 
     it.skip('should create an instance of Soignant', () => {
-      cy.get(`[data-cy="idS"]`).type('66881').should('have.value', '66881');
+      cy.get(`[data-cy="nom"]`).type('a USB Limousin').should('have.value', 'a USB Limousin');
 
-      cy.get(`[data-cy="nomS"]`).type('Home index Account').should('have.value', 'Home index Account');
+      cy.get(`[data-cy="prenom"]`).type('de override invoice').should('have.value', 'de override invoice');
 
-      cy.get(`[data-cy="prenomS"]`).type('Keyboard red').should('have.value', 'Keyboard red');
-
-      cy.get(`[data-cy="metier"]`).select('Infirmier');
+      cy.get(`[data-cy="metier"]`).select('Aidesoignant');
 
       cy.get(`[data-cy="servicesoignant"]`).select(1);
 

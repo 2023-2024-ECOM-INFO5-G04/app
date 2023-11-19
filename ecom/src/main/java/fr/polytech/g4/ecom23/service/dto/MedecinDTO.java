@@ -12,14 +12,12 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class MedecinDTO implements Serializable {
 
+    @NotNull
     private Long id;
 
-    @NotNull
-    private Long idM;
+    private String nom;
 
-    private String nomM;
-
-    private String prenomM;
+    private String prenom;
 
     private CompteDTO compte;
 
@@ -35,28 +33,20 @@ public class MedecinDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getIdM() {
-        return idM;
+    public String getNom() {
+        return nom;
     }
 
-    public void setIdM(Long idM) {
-        this.idM = idM;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomM() {
-        return nomM;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setNomM(String nomM) {
-        this.nomM = nomM;
-    }
-
-    public String getPrenomM() {
-        return prenomM;
-    }
-
-    public void setPrenomM(String prenomM) {
-        this.prenomM = prenomM;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public CompteDTO getCompte() {
@@ -109,9 +99,8 @@ public class MedecinDTO implements Serializable {
     public String toString() {
         return "MedecinDTO{" +
             "id=" + getId() +
-            ", idM=" + getIdM() +
-            ", nomM='" + getNomM() + "'" +
-            ", prenomM='" + getPrenomM() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             ", compte=" + getCompte() +
             ", patients=" + getPatients() +
             ", etablissements=" + getEtablissements() +

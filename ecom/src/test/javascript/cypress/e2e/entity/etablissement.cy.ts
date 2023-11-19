@@ -15,7 +15,7 @@ describe('Etablissement e2e test', () => {
   const etablissementPageUrlPattern = new RegExp('/etablissement(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const etablissementSample = { idE: 32593 };
+  const etablissementSample = {};
 
   let etablissement;
 
@@ -159,13 +159,11 @@ describe('Etablissement e2e test', () => {
     });
 
     it('should create an instance of Etablissement', () => {
-      cy.get(`[data-cy="idE"]`).type('70858').should('have.value', '70858');
+      cy.get(`[data-cy="nom"]`).type('Movies Account virtual').should('have.value', 'Movies Account virtual');
 
-      cy.get(`[data-cy="nomE"]`).type('Keyboard').should('have.value', 'Keyboard');
+      cy.get(`[data-cy="adresse"]`).type('iterate').should('have.value', 'iterate');
 
-      cy.get(`[data-cy="adresse"]`).type('incremental iterate Personal').should('have.value', 'incremental iterate Personal');
-
-      cy.get(`[data-cy="telephone"]`).type('+33 391801443').should('have.value', '+33 391801443');
+      cy.get(`[data-cy="telephone"]`).type('+33 291691801').should('have.value', '+33 291691801');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

@@ -18,26 +18,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SoignantRepository extends SoignantRepositoryWithBagRelationships, JpaRepository<Soignant, Long> {
     default Optional<Soignant> findOneWithEagerRelationships(Long id) {
-        return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
+        return this.fetchBagRelationships(this.findById(id));
     }
 
     default List<Soignant> findAllWithEagerRelationships() {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships());
+        return this.fetchBagRelationships(this.findAll());
     }
 
     default Page<Soignant> findAllWithEagerRelationships(Pageable pageable) {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+        return this.fetchBagRelationships(this.findAll(pageable));
     }
-
-    @Query(
-        value = "select distinct soignant from Soignant soignant left join fetch soignant.servicesoignant",
-        countQuery = "select count(distinct soignant) from Soignant soignant"
-    )
-    Page<Soignant> findAllWithToOneRelationships(Pageable pageable);
-
-    @Query("select distinct soignant from Soignant soignant left join fetch soignant.servicesoignant")
-    List<Soignant> findAllWithToOneRelationships();
-
-    @Query("select soignant from Soignant soignant left join fetch soignant.servicesoignant where soignant.id =:id")
-    Optional<Soignant> findOneWithToOneRelationships(@Param("id") Long id);
 }

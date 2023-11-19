@@ -1,7 +1,7 @@
 import etablissement from 'app/entities/etablissement/etablissement.reducer';
 import servicesoignant from 'app/entities/servicesoignant/servicesoignant.reducer';
 import soignant from 'app/entities/soignant/soignant.reducer';
-import admin from 'app/entities/admin/admin.reducer';
+import administrateur from 'app/entities/administrateur/administrateur.reducer';
 import tache from 'app/entities/tache/tache.reducer';
 import medecin from 'app/entities/medecin/medecin.reducer';
 import rappel from 'app/entities/rappel/rappel.reducer';
@@ -16,7 +16,7 @@ const entitiesReducers = {
   etablissement,
   servicesoignant,
   soignant,
-  admin,
+  administrateur,
   tache,
   medecin,
   rappel,

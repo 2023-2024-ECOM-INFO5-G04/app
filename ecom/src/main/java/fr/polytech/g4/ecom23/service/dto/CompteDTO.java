@@ -16,6 +16,8 @@ public class CompteDTO implements Serializable {
 
     private String motdepasse;
 
+    private String mail;
+
     private Role role;
 
     public Long getId() {
@@ -40,6 +42,14 @@ public class CompteDTO implements Serializable {
 
     public void setMotdepasse(String motdepasse) {
         this.motdepasse = motdepasse;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Role getRole() {
@@ -78,6 +88,7 @@ public class CompteDTO implements Serializable {
             "id=" + getId() +
             ", nomutilisateur='" + getNomutilisateur() + "'" +
             ", motdepasse='" + getMotdepasse() + "'" +
+            ", mail='" + getMail() + "'" +
             ", role='" + getRole() + "'" +
             "}";
     }

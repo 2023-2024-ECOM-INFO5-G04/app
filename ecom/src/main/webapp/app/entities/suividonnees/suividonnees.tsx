@@ -49,10 +49,7 @@ export const Suividonnees = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.suividonnees.id">ID</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.suividonnees.idSD">Id SD</Translate>
+                  <Translate contentKey="ecom23App.suividonnees.id">Id</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.suividonnees.date">Date</Translate>
@@ -83,13 +80,12 @@ export const Suividonnees = () => {
                       {suividonnees.id}
                     </Button>
                   </td>
-                  <td>{suividonnees.idSD}</td>
                   <td>{suividonnees.date ? <TextFormat type="date" value={suividonnees.date} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{suividonnees.poids}</td>
                   <td>{suividonnees.massecorporelle}</td>
                   <td>{suividonnees.quantitepoidsaliments}</td>
                   <td>{suividonnees.quantitecaloriesaliments}</td>
-                  <td>{suividonnees.patient ? <Link to={`/patient/${suividonnees.patient.id}`}>{suividonnees.patient.idP}</Link> : ''}</td>
+                  <td>{suividonnees.patient ? <Link to={`/patient/${suividonnees.patient.id}`}>{suividonnees.patient.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/suividonnees/${suividonnees.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -41,14 +41,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class MedecinResourceIT {
 
-    private static final Long DEFAULT_ID_M = 1L;
-    private static final Long UPDATED_ID_M = 2L;
+    private static final String DEFAULT_NOM = "AAAAAAAAAA";
+    private static final String UPDATED_NOM = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NOM_M = "AAAAAAAAAA";
-    private static final String UPDATED_NOM_M = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PRENOM_M = "AAAAAAAAAA";
-    private static final String UPDATED_PRENOM_M = "BBBBBBBBBB";
+    private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/medecins";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -83,7 +80,7 @@ class MedecinResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Medecin createEntity(EntityManager em) {
-        Medecin medecin = new Medecin().idM(DEFAULT_ID_M).nomM(DEFAULT_NOM_M).prenomM(DEFAULT_PRENOM_M);
+        Medecin medecin = new Medecin().nom(DEFAULT_NOM).prenom(DEFAULT_PRENOM);
         return medecin;
     }
 
@@ -94,7 +91,7 @@ class MedecinResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Medecin createUpdatedEntity(EntityManager em) {
-        Medecin medecin = new Medecin().idM(UPDATED_ID_M).nomM(UPDATED_NOM_M).prenomM(UPDATED_PRENOM_M);
+        Medecin medecin = new Medecin().nom(UPDATED_NOM).prenom(UPDATED_PRENOM);
         return medecin;
     }
 
@@ -117,9 +114,8 @@ class MedecinResourceIT {
         List<Medecin> medecinList = medecinRepository.findAll();
         assertThat(medecinList).hasSize(databaseSizeBeforeCreate + 1);
         Medecin testMedecin = medecinList.get(medecinList.size() - 1);
-        assertThat(testMedecin.getIdM()).isEqualTo(DEFAULT_ID_M);
-        assertThat(testMedecin.getNomM()).isEqualTo(DEFAULT_NOM_M);
-        assertThat(testMedecin.getPrenomM()).isEqualTo(DEFAULT_PRENOM_M);
+        assertThat(testMedecin.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testMedecin.getPrenom()).isEqualTo(DEFAULT_PRENOM);
     }
 
     @Test
@@ -143,24 +139,6 @@ class MedecinResourceIT {
 
     @Test
     @Transactional
-    void checkIdMIsRequired() throws Exception {
-        int databaseSizeBeforeTest = medecinRepository.findAll().size();
-        // set the field null
-        medecin.setIdM(null);
-
-        // Create the Medecin, which fails.
-        MedecinDTO medecinDTO = medecinMapper.toDto(medecin);
-
-        restMedecinMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(medecinDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Medecin> medecinList = medecinRepository.findAll();
-        assertThat(medecinList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllMedecins() throws Exception {
         // Initialize the database
         medecinRepository.saveAndFlush(medecin);
@@ -171,9 +149,8 @@ class MedecinResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(medecin.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idM").value(hasItem(DEFAULT_ID_M.intValue())))
-            .andExpect(jsonPath("$.[*].nomM").value(hasItem(DEFAULT_NOM_M)))
-            .andExpect(jsonPath("$.[*].prenomM").value(hasItem(DEFAULT_PRENOM_M)));
+            .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
+            .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -205,9 +182,8 @@ class MedecinResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(medecin.getId().intValue()))
-            .andExpect(jsonPath("$.idM").value(DEFAULT_ID_M.intValue()))
-            .andExpect(jsonPath("$.nomM").value(DEFAULT_NOM_M))
-            .andExpect(jsonPath("$.prenomM").value(DEFAULT_PRENOM_M));
+            .andExpect(jsonPath("$.nom").value(DEFAULT_NOM))
+            .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM));
     }
 
     @Test
@@ -229,7 +205,7 @@ class MedecinResourceIT {
         Medecin updatedMedecin = medecinRepository.findById(medecin.getId()).get();
         // Disconnect from session so that the updates on updatedMedecin are not directly saved in db
         em.detach(updatedMedecin);
-        updatedMedecin.idM(UPDATED_ID_M).nomM(UPDATED_NOM_M).prenomM(UPDATED_PRENOM_M);
+        updatedMedecin.nom(UPDATED_NOM).prenom(UPDATED_PRENOM);
         MedecinDTO medecinDTO = medecinMapper.toDto(updatedMedecin);
 
         restMedecinMockMvc
@@ -244,9 +220,8 @@ class MedecinResourceIT {
         List<Medecin> medecinList = medecinRepository.findAll();
         assertThat(medecinList).hasSize(databaseSizeBeforeUpdate);
         Medecin testMedecin = medecinList.get(medecinList.size() - 1);
-        assertThat(testMedecin.getIdM()).isEqualTo(UPDATED_ID_M);
-        assertThat(testMedecin.getNomM()).isEqualTo(UPDATED_NOM_M);
-        assertThat(testMedecin.getPrenomM()).isEqualTo(UPDATED_PRENOM_M);
+        assertThat(testMedecin.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testMedecin.getPrenom()).isEqualTo(UPDATED_PRENOM);
     }
 
     @Test
@@ -326,7 +301,7 @@ class MedecinResourceIT {
         Medecin partialUpdatedMedecin = new Medecin();
         partialUpdatedMedecin.setId(medecin.getId());
 
-        partialUpdatedMedecin.nomM(UPDATED_NOM_M).prenomM(UPDATED_PRENOM_M);
+        partialUpdatedMedecin.prenom(UPDATED_PRENOM);
 
         restMedecinMockMvc
             .perform(
@@ -340,9 +315,8 @@ class MedecinResourceIT {
         List<Medecin> medecinList = medecinRepository.findAll();
         assertThat(medecinList).hasSize(databaseSizeBeforeUpdate);
         Medecin testMedecin = medecinList.get(medecinList.size() - 1);
-        assertThat(testMedecin.getIdM()).isEqualTo(DEFAULT_ID_M);
-        assertThat(testMedecin.getNomM()).isEqualTo(UPDATED_NOM_M);
-        assertThat(testMedecin.getPrenomM()).isEqualTo(UPDATED_PRENOM_M);
+        assertThat(testMedecin.getNom()).isEqualTo(DEFAULT_NOM);
+        assertThat(testMedecin.getPrenom()).isEqualTo(UPDATED_PRENOM);
     }
 
     @Test
@@ -357,7 +331,7 @@ class MedecinResourceIT {
         Medecin partialUpdatedMedecin = new Medecin();
         partialUpdatedMedecin.setId(medecin.getId());
 
-        partialUpdatedMedecin.idM(UPDATED_ID_M).nomM(UPDATED_NOM_M).prenomM(UPDATED_PRENOM_M);
+        partialUpdatedMedecin.nom(UPDATED_NOM).prenom(UPDATED_PRENOM);
 
         restMedecinMockMvc
             .perform(
@@ -371,9 +345,8 @@ class MedecinResourceIT {
         List<Medecin> medecinList = medecinRepository.findAll();
         assertThat(medecinList).hasSize(databaseSizeBeforeUpdate);
         Medecin testMedecin = medecinList.get(medecinList.size() - 1);
-        assertThat(testMedecin.getIdM()).isEqualTo(UPDATED_ID_M);
-        assertThat(testMedecin.getNomM()).isEqualTo(UPDATED_NOM_M);
-        assertThat(testMedecin.getPrenomM()).isEqualTo(UPDATED_PRENOM_M);
+        assertThat(testMedecin.getNom()).isEqualTo(UPDATED_NOM);
+        assertThat(testMedecin.getPrenom()).isEqualTo(UPDATED_PRENOM);
     }
 
     @Test

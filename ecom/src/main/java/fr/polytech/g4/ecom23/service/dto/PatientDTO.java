@@ -1,5 +1,6 @@
 package fr.polytech.g4.ecom23.service.dto;
 
+import fr.polytech.g4.ecom23.domain.enumeration.Sexe;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -11,14 +12,12 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class PatientDTO implements Serializable {
 
+    @NotNull
     private Long id;
 
-    @NotNull
-    private Long idP;
+    private String nom;
 
-    private String nomP;
-
-    private String prenomP;
+    private String prenom;
 
     private Integer age;
 
@@ -30,9 +29,11 @@ public class PatientDTO implements Serializable {
 
     private Float taille;
 
+    private Sexe sexe;
+
     private AlerteDTO alerte;
 
-    private EtablissementDTO infrastructure;
+    private EtablissementDTO etablissement;
 
     public Long getId() {
         return id;
@@ -42,28 +43,20 @@ public class PatientDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getIdP() {
-        return idP;
+    public String getNom() {
+        return nom;
     }
 
-    public void setIdP(Long idP) {
-        this.idP = idP;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomP() {
-        return nomP;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setNomP(String nomP) {
-        this.nomP = nomP;
-    }
-
-    public String getPrenomP() {
-        return prenomP;
-    }
-
-    public void setPrenomP(String prenomP) {
-        this.prenomP = prenomP;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public Integer getAge() {
@@ -106,6 +99,14 @@ public class PatientDTO implements Serializable {
         this.taille = taille;
     }
 
+    public Sexe getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(Sexe sexe) {
+        this.sexe = sexe;
+    }
+
     public AlerteDTO getAlerte() {
         return alerte;
     }
@@ -114,12 +115,12 @@ public class PatientDTO implements Serializable {
         this.alerte = alerte;
     }
 
-    public EtablissementDTO getInfrastructure() {
-        return infrastructure;
+    public EtablissementDTO getEtablissement() {
+        return etablissement;
     }
 
-    public void setInfrastructure(EtablissementDTO infrastructure) {
-        this.infrastructure = infrastructure;
+    public void setEtablissement(EtablissementDTO etablissement) {
+        this.etablissement = etablissement;
     }
 
     @Override
@@ -148,16 +149,16 @@ public class PatientDTO implements Serializable {
     public String toString() {
         return "PatientDTO{" +
             "id=" + getId() +
-            ", idP=" + getIdP() +
-            ", nomP='" + getNomP() + "'" +
-            ", prenomP='" + getPrenomP() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             ", age=" + getAge() +
             ", datearrivee='" + getDatearrivee() + "'" +
             ", poidsactuel=" + getPoidsactuel() +
             ", albumine=" + getAlbumine() +
             ", taille=" + getTaille() +
+            ", sexe='" + getSexe() + "'" +
             ", alerte=" + getAlerte() +
-            ", infrastructure=" + getInfrastructure() +
+            ", etablissement=" + getEtablissement() +
             "}";
     }
 }

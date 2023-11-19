@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162350",
+  "changelogDate": "20231107144531",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "alerte",
@@ -25,7 +25,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "idP",
+      "otherEntityField": "id",
       "otherEntityName": "patient",
       "otherEntityRelationshipName": "alerte",
       "ownerSide": false,

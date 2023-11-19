@@ -53,7 +53,7 @@ export const TacheDetail = () => {
           <dt>
             <Translate contentKey="ecom23App.tache.patient">Patient</Translate>
           </dt>
-          <dd>{tacheEntity.patient ? tacheEntity.patient.idP : ''}</dd>
+          <dd>{tacheEntity.patient ? tacheEntity.patient.id : ''}</dd>
           <dt>
             <Translate contentKey="ecom23App.tache.servicesoignant">Servicesoignant</Translate>
           </dt>

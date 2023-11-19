@@ -28,16 +28,10 @@ export const ServicesoignantDetail = () => {
         <dl className="jh-entity-details">
           <dt>
             <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
+              <Translate contentKey="ecom23App.servicesoignant.id">Id</Translate>
             </span>
           </dt>
           <dd>{servicesoignantEntity.id}</dd>
-          <dt>
-            <span id="idSer">
-              <Translate contentKey="ecom23App.servicesoignant.idSer">Id Ser</Translate>
-            </span>
-          </dt>
-          <dd>{servicesoignantEntity.idSer}</dd>
           <dt>
             <span id="type">
               <Translate contentKey="ecom23App.servicesoignant.type">Type</Translate>
@@ -51,9 +45,9 @@ export const ServicesoignantDetail = () => {
           </dt>
           <dd>{servicesoignantEntity.nbsoignants}</dd>
           <dt>
-            <Translate contentKey="ecom23App.servicesoignant.infrastructure">Infrastructure</Translate>
+            <Translate contentKey="ecom23App.servicesoignant.etablissement">Etablissement</Translate>
           </dt>
-          <dd>{servicesoignantEntity.infrastructure ? servicesoignantEntity.infrastructure.idE : ''}</dd>
+          <dd>{servicesoignantEntity.etablissement ? servicesoignantEntity.etablissement.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/servicesoignant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -49,10 +49,7 @@ export const Servicesoignant = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.servicesoignant.id">ID</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.servicesoignant.idSer">Id Ser</Translate>
+                  <Translate contentKey="ecom23App.servicesoignant.id">Id</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.servicesoignant.type">Type</Translate>
@@ -61,7 +58,7 @@ export const Servicesoignant = () => {
                   <Translate contentKey="ecom23App.servicesoignant.nbsoignants">Nbsoignants</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.servicesoignant.infrastructure">Infrastructure</Translate>
+                  <Translate contentKey="ecom23App.servicesoignant.etablissement">Etablissement</Translate>
                 </th>
                 <th />
               </tr>
@@ -74,12 +71,11 @@ export const Servicesoignant = () => {
                       {servicesoignant.id}
                     </Button>
                   </td>
-                  <td>{servicesoignant.idSer}</td>
                   <td>{servicesoignant.type}</td>
                   <td>{servicesoignant.nbsoignants}</td>
                   <td>
-                    {servicesoignant.infrastructure ? (
-                      <Link to={`/etablissement/${servicesoignant.infrastructure.id}`}>{servicesoignant.infrastructure.idE}</Link>
+                    {servicesoignant.etablissement ? (
+                      <Link to={`/etablissement/${servicesoignant.etablissement.id}`}>{servicesoignant.etablissement.id}</Link>
                     ) : (
                       ''
                     )}

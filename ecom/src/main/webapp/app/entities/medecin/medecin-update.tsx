@@ -102,27 +102,16 @@ export const MedecinUpdate = () => {
                   required
                   readOnly
                   id="medecin-id"
-                  label={translate('global.field.id')}
+                  label={translate('ecom23App.medecin.id')}
                   validate={{ required: true }}
                 />
               ) : null}
+              <ValidatedField label={translate('ecom23App.medecin.nom')} id="medecin-nom" name="nom" data-cy="nom" type="text" />
               <ValidatedField
-                label={translate('ecom23App.medecin.idM')}
-                id="medecin-idM"
-                name="idM"
-                data-cy="idM"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
-              <ValidatedField label={translate('ecom23App.medecin.nomM')} id="medecin-nomM" name="nomM" data-cy="nomM" type="text" />
-              <ValidatedField
-                label={translate('ecom23App.medecin.prenomM')}
-                id="medecin-prenomM"
-                name="prenomM"
-                data-cy="prenomM"
+                label={translate('ecom23App.medecin.prenom')}
+                id="medecin-prenom"
+                name="prenom"
+                data-cy="prenom"
                 type="text"
               />
               <ValidatedField

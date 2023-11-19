@@ -28,28 +28,22 @@ export const MedecinDetail = () => {
         <dl className="jh-entity-details">
           <dt>
             <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
+              <Translate contentKey="ecom23App.medecin.id">Id</Translate>
             </span>
           </dt>
           <dd>{medecinEntity.id}</dd>
           <dt>
-            <span id="idM">
-              <Translate contentKey="ecom23App.medecin.idM">Id M</Translate>
+            <span id="nom">
+              <Translate contentKey="ecom23App.medecin.nom">Nom</Translate>
             </span>
           </dt>
-          <dd>{medecinEntity.idM}</dd>
+          <dd>{medecinEntity.nom}</dd>
           <dt>
-            <span id="nomM">
-              <Translate contentKey="ecom23App.medecin.nomM">Nom M</Translate>
+            <span id="prenom">
+              <Translate contentKey="ecom23App.medecin.prenom">Prenom</Translate>
             </span>
           </dt>
-          <dd>{medecinEntity.nomM}</dd>
-          <dt>
-            <span id="prenomM">
-              <Translate contentKey="ecom23App.medecin.prenomM">Prenom M</Translate>
-            </span>
-          </dt>
-          <dd>{medecinEntity.prenomM}</dd>
+          <dd>{medecinEntity.prenom}</dd>
           <dt>
             <Translate contentKey="ecom23App.medecin.compte">Compte</Translate>
           </dt>

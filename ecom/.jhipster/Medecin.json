@@ -1,21 +1,21 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162346",
+  "changelogDate": "20231107144527",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "medecin",
   "fields": [
     {
-      "fieldName": "idM",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
     {
-      "fieldName": "nomM",
+      "fieldName": "nom",
       "fieldType": "String"
     },
     {
-      "fieldName": "prenomM",
+      "fieldName": "prenom",
       "fieldType": "String"
     }
   ],

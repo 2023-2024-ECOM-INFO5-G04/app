@@ -140,7 +140,7 @@ export const TacheUpdate = () => {
                 {patients
                   ? patients.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.idP}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

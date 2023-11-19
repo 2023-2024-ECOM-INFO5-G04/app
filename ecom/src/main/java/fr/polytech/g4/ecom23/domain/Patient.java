@@ -1,6 +1,7 @@
 package fr.polytech.g4.ecom23.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import fr.polytech.g4.ecom23.domain.enumeration.Sexe;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,21 +22,18 @@ public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @NotNull
-    @Column(name = "id_p", nullable = false, unique = true)
-    private Long idP;
+    @Column(name = "nom")
+    private String nom;
 
-    @Column(name = "nom_p")
-    private String nomP;
-
-    @Column(name = "prenom_p")
-    private String prenomP;
+    @Column(name = "prenom")
+    private String prenom;
 
     @Column(name = "age")
     private Integer age;
@@ -52,6 +50,10 @@ public class Patient implements Serializable {
     @Column(name = "taille")
     private Float taille;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexe")
+    private Sexe sexe;
+
     @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -65,7 +67,7 @@ public class Patient implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "patients", "medecins" }, allowSetters = true)
-    private Etablissement infrastructure;
+    private Etablissement etablissement;
 
     @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -102,43 +104,30 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    public Long getIdP() {
-        return this.idP;
+    public String getNom() {
+        return this.nom;
     }
 
-    public Patient idP(Long idP) {
-        this.setIdP(idP);
+    public Patient nom(String nom) {
+        this.setNom(nom);
         return this;
     }
 
-    public void setIdP(Long idP) {
-        this.idP = idP;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomP() {
-        return this.nomP;
+    public String getPrenom() {
+        return this.prenom;
     }
 
-    public Patient nomP(String nomP) {
-        this.setNomP(nomP);
+    public Patient prenom(String prenom) {
+        this.setPrenom(prenom);
         return this;
     }
 
-    public void setNomP(String nomP) {
-        this.nomP = nomP;
-    }
-
-    public String getPrenomP() {
-        return this.prenomP;
-    }
-
-    public Patient prenomP(String prenomP) {
-        this.setPrenomP(prenomP);
-        return this;
-    }
-
-    public void setPrenomP(String prenomP) {
-        this.prenomP = prenomP;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public Integer getAge() {
@@ -206,6 +195,19 @@ public class Patient implements Serializable {
         this.taille = taille;
     }
 
+    public Sexe getSexe() {
+        return this.sexe;
+    }
+
+    public Patient sexe(Sexe sexe) {
+        this.setSexe(sexe);
+        return this;
+    }
+
+    public void setSexe(Sexe sexe) {
+        this.sexe = sexe;
+    }
+
     public Alerte getAlerte() {
         return this.alerte;
     }
@@ -250,16 +252,16 @@ public class Patient implements Serializable {
         return this;
     }
 
-    public Etablissement getInfrastructure() {
-        return this.infrastructure;
+    public Etablissement getEtablissement() {
+        return this.etablissement;
     }
 
-    public void setInfrastructure(Etablissement etablissement) {
-        this.infrastructure = etablissement;
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
     }
 
-    public Patient infrastructure(Etablissement etablissement) {
-        this.setInfrastructure(etablissement);
+    public Patient etablissement(Etablissement etablissement) {
+        this.setEtablissement(etablissement);
         return this;
     }
 
@@ -411,14 +413,14 @@ public class Patient implements Serializable {
     public String toString() {
         return "Patient{" +
             "id=" + getId() +
-            ", idP=" + getIdP() +
-            ", nomP='" + getNomP() + "'" +
-            ", prenomP='" + getPrenomP() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             ", age=" + getAge() +
             ", datearrivee='" + getDatearrivee() + "'" +
             ", poidsactuel=" + getPoidsactuel() +
             ", albumine=" + getAlbumine() +
             ", taille=" + getTaille() +
+            ", sexe='" + getSexe() + "'" +
             "}";
     }
 }

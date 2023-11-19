@@ -136,11 +136,10 @@ public class ServicesoignantResource {
     /**
      * {@code GET  /servicesoignants} : get all the servicesoignants.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of servicesoignants in body.
      */
     @GetMapping("/servicesoignants")
-    public List<ServicesoignantDTO> getAllServicesoignants(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<ServicesoignantDTO> getAllServicesoignants() {
         log.debug("REST request to get all Servicesoignants");
         return servicesoignantService.findAll();
     }

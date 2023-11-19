@@ -17,17 +17,16 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface TacheMapper extends EntityMapper<TacheDTO, Tache> {
-    @Mapping(target = "patient", source = "patient", qualifiedByName = "patientIdP")
+    @Mapping(target = "patient", source = "patient", qualifiedByName = "patientId")
     @Mapping(target = "servicesoignant", source = "servicesoignant", qualifiedByName = "servicesoignantId")
     @Mapping(target = "soigant", source = "soigant", qualifiedByName = "soignantId")
     @Mapping(target = "medecin", source = "medecin", qualifiedByName = "medecinId")
     TacheDTO toDto(Tache s);
 
-    @Named("patientIdP")
+    @Named("patientId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "idP", source = "idP")
-    PatientDTO toDtoPatientIdP(Patient patient);
+    PatientDTO toDtoPatientId(Patient patient);
 
     @Named("servicesoignantId")
     @BeanMapping(ignoreByDefault = true)

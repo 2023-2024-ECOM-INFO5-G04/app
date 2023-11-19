@@ -6,7 +6,7 @@ import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import Etablissement from './etablissement';
 import Servicesoignant from './servicesoignant';
 import Soignant from './soignant';
-import Admin from './admin';
+import Administrateur from './administrateur';
 import Tache from './tache';
 import Medecin from './medecin';
 import Rappel from './rappel';
@@ -25,7 +25,7 @@ export default () => {
         <Route path="etablissement/*" element={<Etablissement />} />
         <Route path="servicesoignant/*" element={<Servicesoignant />} />
         <Route path="soignant/*" element={<Soignant />} />
-        <Route path="admin/*" element={<Admin />} />
+        <Route path="administrateur/*" element={<Administrateur />} />
         <Route path="tache/*" element={<Tache />} />
         <Route path="medecin/*" element={<Medecin />} />
         <Route path="rappel/*" element={<Rappel />} />

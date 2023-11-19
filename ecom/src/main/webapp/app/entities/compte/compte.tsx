@@ -58,6 +58,9 @@ export const Compte = () => {
                   <Translate contentKey="ecom23App.compte.motdepasse">Motdepasse</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="ecom23App.compte.mail">Mail</Translate>
+                </th>
+                <th>
                   <Translate contentKey="ecom23App.compte.role">Role</Translate>
                 </th>
                 <th />
@@ -73,6 +76,7 @@ export const Compte = () => {
                   </td>
                   <td>{compte.nomutilisateur}</td>
                   <td>{compte.motdepasse}</td>
+                  <td>{compte.mail}</td>
                   <td>
                     <Translate contentKey={`ecom23App.Role.${compte.role}`} />
                   </td>

@@ -15,7 +15,7 @@ describe('Servicesoignant e2e test', () => {
   const servicesoignantPageUrlPattern = new RegExp('/servicesoignant(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const servicesoignantSample = {"idSer":74674};
+  // const servicesoignantSample = {};
 
   let servicesoignant;
   // let etablissement;
@@ -30,7 +30,7 @@ describe('Servicesoignant e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/etablissements',
-      body: {"idE":43717,"nomE":"cutting-edge Plastic Vaneau","adresse":"Account","telephone":"0677491121"},
+      body: {"nom":"Ngultrum Wooden","adresse":"Vaneau orchid Dinar","telephone":"+33 549112156"},
     }).then(({ body }) => {
       etablissement = body;
     });
@@ -130,7 +130,7 @@ describe('Servicesoignant e2e test', () => {
           url: '/api/servicesoignants',
           body: {
             ...servicesoignantSample,
-            infrastructure: etablissement,
+            etablissement: etablissement,
           },
         }).then(({ body }) => {
           servicesoignant = body;
@@ -222,13 +222,11 @@ describe('Servicesoignant e2e test', () => {
     });
 
     it.skip('should create an instance of Servicesoignant', () => {
-      cy.get(`[data-cy="idSer"]`).type('21204').should('have.value', '21204');
+      cy.get(`[data-cy="type"]`).type('sticky').should('have.value', 'sticky');
 
-      cy.get(`[data-cy="type"]`).type('grey de').should('have.value', 'grey de');
+      cy.get(`[data-cy="nbsoignants"]`).type('de').should('have.value', 'de');
 
-      cy.get(`[data-cy="nbsoignants"]`).type('process Basse-Normandie Designer').should('have.value', 'process Basse-Normandie Designer');
-
-      cy.get(`[data-cy="infrastructure"]`).select(1);
+      cy.get(`[data-cy="etablissement"]`).select(1);
 
       cy.get(entityCreateSaveButtonSelector).click();
 

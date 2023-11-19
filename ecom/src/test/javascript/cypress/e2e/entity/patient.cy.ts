@@ -15,7 +15,7 @@ describe('Patient e2e test', () => {
   const patientPageUrlPattern = new RegExp('/patient(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const patientSample = {"idP":35232};
+  // const patientSample = {};
 
   let patient;
   // let etablissement;
@@ -30,7 +30,7 @@ describe('Patient e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/etablissements',
-      body: {"idE":41418,"nomE":"wireless","adresse":"Beauty panel generating","telephone":"0260815696"},
+      body: {"nom":"secondary Metal","adresse":"Fish Loan","telephone":"+33 306081569"},
     }).then(({ body }) => {
       etablissement = body;
     });
@@ -150,7 +150,7 @@ describe('Patient e2e test', () => {
           url: '/api/patients',
           body: {
             ...patientSample,
-            infrastructure: etablissement,
+            etablissement: etablissement,
           },
         }).then(({ body }) => {
           patient = body;
@@ -242,23 +242,23 @@ describe('Patient e2e test', () => {
     });
 
     it.skip('should create an instance of Patient', () => {
-      cy.get(`[data-cy="idP"]`).type('24589').should('have.value', '24589');
+      cy.get(`[data-cy="nom"]`).type('Generic').should('have.value', 'Generic');
 
-      cy.get(`[data-cy="nomP"]`).type('deposit').should('have.value', 'deposit');
+      cy.get(`[data-cy="prenom"]`).type('Rand Avon Buckinghamshire').should('have.value', 'Rand Avon Buckinghamshire');
 
-      cy.get(`[data-cy="prenomP"]`).type('Designer Granite bandwidth').should('have.value', 'Designer Granite bandwidth');
+      cy.get(`[data-cy="age"]`).type('43559').should('have.value', '43559');
 
-      cy.get(`[data-cy="age"]`).type('81481').should('have.value', '81481');
+      cy.get(`[data-cy="datearrivee"]`).type('2023-11-06').blur().should('have.value', '2023-11-06');
 
-      cy.get(`[data-cy="datearrivee"]`).type('2023-10-24').blur().should('have.value', '2023-10-24');
+      cy.get(`[data-cy="poidsactuel"]`).type('59033').should('have.value', '59033');
 
-      cy.get(`[data-cy="poidsactuel"]`).type('19506').should('have.value', '19506');
+      cy.get(`[data-cy="albumine"]`).type('81481').should('have.value', '81481');
 
-      cy.get(`[data-cy="albumine"]`).type('69611').should('have.value', '69611');
+      cy.get(`[data-cy="taille"]`).type('34440').should('have.value', '34440');
 
-      cy.get(`[data-cy="taille"]`).type('23016').should('have.value', '23016');
+      cy.get(`[data-cy="sexe"]`).select('M');
 
-      cy.get(`[data-cy="infrastructure"]`).select(1);
+      cy.get(`[data-cy="etablissement"]`).select(1);
 
       cy.get(entityCreateSaveButtonSelector).click();
 

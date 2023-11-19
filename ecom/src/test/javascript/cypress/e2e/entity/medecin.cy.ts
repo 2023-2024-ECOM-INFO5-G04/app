@@ -15,7 +15,7 @@ describe('Medecin e2e test', () => {
   const medecinPageUrlPattern = new RegExp('/medecin(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const medecinSample = { idM: 76260 };
+  const medecinSample = {};
 
   let medecin;
 
@@ -159,11 +159,9 @@ describe('Medecin e2e test', () => {
     });
 
     it('should create an instance of Medecin', () => {
-      cy.get(`[data-cy="idM"]`).type('29787').should('have.value', '29787');
+      cy.get(`[data-cy="nom"]`).type('Rustic').should('have.value', 'Rustic');
 
-      cy.get(`[data-cy="nomM"]`).type('Pants').should('have.value', 'Pants');
-
-      cy.get(`[data-cy="prenomM"]`).type('generation hack').should('have.value', 'generation hack');
+      cy.get(`[data-cy="prenom"]`).type('Éthiopie Nord-Pas-de-Calais').should('have.value', 'Éthiopie Nord-Pas-de-Calais');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

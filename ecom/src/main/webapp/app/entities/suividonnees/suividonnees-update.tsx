@@ -90,21 +90,10 @@ export const SuividonneesUpdate = () => {
                   required
                   readOnly
                   id="suividonnees-id"
-                  label={translate('global.field.id')}
+                  label={translate('ecom23App.suividonnees.id')}
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('ecom23App.suividonnees.idSD')}
-                id="suividonnees-idSD"
-                name="idSD"
-                data-cy="idSD"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
               <ValidatedField
                 label={translate('ecom23App.suividonnees.date')}
                 id="suividonnees-date"
@@ -155,7 +144,7 @@ export const SuividonneesUpdate = () => {
                 {patients
                   ? patients.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.idP}
+                        {otherEntity.id}
                       </option>
                     ))
                   : null}

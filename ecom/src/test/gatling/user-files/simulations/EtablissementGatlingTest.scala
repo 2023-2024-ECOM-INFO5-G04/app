@@ -71,8 +71,7 @@ class EtablissementGatlingTest extends Simulation {
             .post("/api/etablissements")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idE":"0"
-                , "nomE":"SAMPLE_TEXT"
+                "nom":"SAMPLE_TEXT"
                 , "adresse":"SAMPLE_TEXT"
                 , "telephone":"SAMPLE_TEXT"
                 }""")).asJson

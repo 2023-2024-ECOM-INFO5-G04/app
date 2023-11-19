@@ -3,8 +3,6 @@ package fr.polytech.g4.ecom23.service;
 import fr.polytech.g4.ecom23.service.dto.TacheDTO;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link fr.polytech.g4.ecom23.domain.Tache}.
@@ -40,14 +38,6 @@ public interface TacheService {
      * @return the list of entities.
      */
     List<TacheDTO> findAll();
-
-    /**
-     * Get all the taches with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    Page<TacheDTO> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" tache.

@@ -17,9 +17,8 @@
       "detail": {
         "title": "Etablissement"
       },
-      "id": "ID",
-      "idE": "Id E",
-      "nomE": "Nom E",
+      "id": "Id",
+      "nom": "Nom",
       "adresse": "Adresse",
       "telephone": "Telephone",
       "patient": "Patient",

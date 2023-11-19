@@ -28,28 +28,22 @@ export const PatientDetail = () => {
         <dl className="jh-entity-details">
           <dt>
             <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
+              <Translate contentKey="ecom23App.patient.id">Id</Translate>
             </span>
           </dt>
           <dd>{patientEntity.id}</dd>
           <dt>
-            <span id="idP">
-              <Translate contentKey="ecom23App.patient.idP">Id P</Translate>
+            <span id="nom">
+              <Translate contentKey="ecom23App.patient.nom">Nom</Translate>
             </span>
           </dt>
-          <dd>{patientEntity.idP}</dd>
+          <dd>{patientEntity.nom}</dd>
           <dt>
-            <span id="nomP">
-              <Translate contentKey="ecom23App.patient.nomP">Nom P</Translate>
+            <span id="prenom">
+              <Translate contentKey="ecom23App.patient.prenom">Prenom</Translate>
             </span>
           </dt>
-          <dd>{patientEntity.nomP}</dd>
-          <dt>
-            <span id="prenomP">
-              <Translate contentKey="ecom23App.patient.prenomP">Prenom P</Translate>
-            </span>
-          </dt>
-          <dd>{patientEntity.prenomP}</dd>
+          <dd>{patientEntity.prenom}</dd>
           <dt>
             <span id="age">
               <Translate contentKey="ecom23App.patient.age">Age</Translate>
@@ -83,13 +77,19 @@ export const PatientDetail = () => {
           </dt>
           <dd>{patientEntity.taille}</dd>
           <dt>
+            <span id="sexe">
+              <Translate contentKey="ecom23App.patient.sexe">Sexe</Translate>
+            </span>
+          </dt>
+          <dd>{patientEntity.sexe}</dd>
+          <dt>
             <Translate contentKey="ecom23App.patient.alerte">Alerte</Translate>
           </dt>
           <dd>{patientEntity.alerte ? patientEntity.alerte.id : ''}</dd>
           <dt>
-            <Translate contentKey="ecom23App.patient.infrastructure">Infrastructure</Translate>
+            <Translate contentKey="ecom23App.patient.etablissement">Etablissement</Translate>
           </dt>
-          <dd>{patientEntity.infrastructure ? patientEntity.infrastructure.idE : ''}</dd>
+          <dd>{patientEntity.etablissement ? patientEntity.etablissement.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/patient" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

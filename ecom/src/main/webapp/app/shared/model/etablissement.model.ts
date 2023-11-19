@@ -3,8 +3,7 @@ import { IMedecin } from 'app/shared/model/medecin.model';
 
 export interface IEtablissement {
   id?: number;
-  idE?: number;
-  nomE?: string | null;
+  nom?: string | null;
   adresse?: string | null;
   telephone?: string | null;
   patients?: IPatient[] | null;

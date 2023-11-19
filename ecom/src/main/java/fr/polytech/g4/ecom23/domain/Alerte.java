@@ -35,7 +35,7 @@ public class Alerte implements Serializable {
     private Boolean denutrition;
 
     @JsonIgnoreProperties(
-        value = { "alerte", "notes", "infrastructure", "suividonnees", "taches", "medecins", "soignants" },
+        value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
     @OneToOne(mappedBy = "alerte")

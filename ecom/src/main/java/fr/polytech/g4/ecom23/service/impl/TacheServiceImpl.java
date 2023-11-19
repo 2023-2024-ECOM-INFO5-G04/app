@@ -11,8 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,15 +70,11 @@ public class TacheServiceImpl implements TacheService {
         return tacheRepository.findAll().stream().map(tacheMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public Page<TacheDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return tacheRepository.findAllWithEagerRelationships(pageable).map(tacheMapper::toDto);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<TacheDTO> findOne(Long id) {
         log.debug("Request to get Tache : {}", id);
-        return tacheRepository.findOneWithEagerRelationships(id).map(tacheMapper::toDto);
+        return tacheRepository.findById(id).map(tacheMapper::toDto);
     }
 
     @Override

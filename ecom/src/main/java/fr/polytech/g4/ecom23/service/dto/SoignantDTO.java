@@ -13,14 +13,12 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoignantDTO implements Serializable {
 
+    @NotNull
     private Long id;
 
-    @NotNull
-    private Long idS;
+    private String nom;
 
-    private String nomS;
-
-    private String prenomS;
+    private String prenom;
 
     private SoignantMetier metier;
 
@@ -38,28 +36,20 @@ public class SoignantDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getIdS() {
-        return idS;
+    public String getNom() {
+        return nom;
     }
 
-    public void setIdS(Long idS) {
-        this.idS = idS;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getNomS() {
-        return nomS;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setNomS(String nomS) {
-        this.nomS = nomS;
-    }
-
-    public String getPrenomS() {
-        return prenomS;
-    }
-
-    public void setPrenomS(String prenomS) {
-        this.prenomS = prenomS;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public SoignantMetier getMetier() {
@@ -120,9 +110,8 @@ public class SoignantDTO implements Serializable {
     public String toString() {
         return "SoignantDTO{" +
             "id=" + getId() +
-            ", idS=" + getIdS() +
-            ", nomS='" + getNomS() + "'" +
-            ", prenomS='" + getPrenomS() + "'" +
+            ", nom='" + getNom() + "'" +
+            ", prenom='" + getPrenom() + "'" +
             ", metier='" + getMetier() + "'" +
             ", compte=" + getCompte() +
             ", servicesoignant=" + getServicesoignant() +

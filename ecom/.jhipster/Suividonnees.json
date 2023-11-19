@@ -1,12 +1,12 @@
 {
   "applications": "*",
-  "changelogDate": "20231024162351",
+  "changelogDate": "20231107144532",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "suividonnees",
   "fields": [
     {
-      "fieldName": "idSD",
+      "fieldName": "id",
       "fieldType": "Long",
       "fieldValidateRules": ["required", "unique"]
     },
@@ -39,7 +39,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "idP",
+      "otherEntityField": "id",
       "otherEntityName": "patient",
       "otherEntityRelationshipName": "suividonnees",
       "relationshipName": "patient",

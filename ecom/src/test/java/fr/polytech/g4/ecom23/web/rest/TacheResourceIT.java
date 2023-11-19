@@ -2,7 +2,6 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,26 +9,18 @@ import fr.polytech.g4.ecom23.IntegrationTest;
 import fr.polytech.g4.ecom23.domain.Patient;
 import fr.polytech.g4.ecom23.domain.Tache;
 import fr.polytech.g4.ecom23.repository.TacheRepository;
-import fr.polytech.g4.ecom23.service.TacheService;
 import fr.polytech.g4.ecom23.service.dto.TacheDTO;
 import fr.polytech.g4.ecom23.service.mapper.TacheMapper;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,7 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link TacheResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class TacheResourceIT {
@@ -62,14 +52,8 @@ class TacheResourceIT {
     @Autowired
     private TacheRepository tacheRepository;
 
-    @Mock
-    private TacheRepository tacheRepositoryMock;
-
     @Autowired
     private TacheMapper tacheMapper;
-
-    @Mock
-    private TacheService tacheServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -179,23 +163,6 @@ class TacheResourceIT {
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].commentaire").value(hasItem(DEFAULT_COMMENTAIRE)))
             .andExpect(jsonPath("$.[*].effectuee").value(hasItem(DEFAULT_EFFECTUEE.booleanValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTachesWithEagerRelationshipsIsEnabled() throws Exception {
-        when(tacheServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTacheMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(tacheServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTachesWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(tacheServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTacheMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(tacheRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test

@@ -49,16 +49,13 @@ export const Medecin = () => {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="ecom23App.medecin.id">ID</Translate>
+                  <Translate contentKey="ecom23App.medecin.id">Id</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.medecin.idM">Id M</Translate>
+                  <Translate contentKey="ecom23App.medecin.nom">Nom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.medecin.nomM">Nom M</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.medecin.prenomM">Prenom M</Translate>
+                  <Translate contentKey="ecom23App.medecin.prenom">Prenom</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.medecin.compte">Compte</Translate>
@@ -80,9 +77,8 @@ export const Medecin = () => {
                       {medecin.id}
                     </Button>
                   </td>
-                  <td>{medecin.idM}</td>
-                  <td>{medecin.nomM}</td>
-                  <td>{medecin.prenomM}</td>
+                  <td>{medecin.nom}</td>
+                  <td>{medecin.prenom}</td>
                   <td>{medecin.compte ? <Link to={`/compte/${medecin.compte.id}`}>{medecin.compte.id}</Link> : ''}</td>
                   <td>
                     {medecin.patients

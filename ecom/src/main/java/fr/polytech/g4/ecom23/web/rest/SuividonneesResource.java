@@ -136,11 +136,10 @@ public class SuividonneesResource {
     /**
      * {@code GET  /suividonnees} : get all the suividonnees.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of suividonnees in body.
      */
     @GetMapping("/suividonnees")
-    public List<SuividonneesDTO> getAllSuividonnees(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<SuividonneesDTO> getAllSuividonnees() {
         log.debug("REST request to get all Suividonnees");
         return suividonneesService.findAll();
     }
