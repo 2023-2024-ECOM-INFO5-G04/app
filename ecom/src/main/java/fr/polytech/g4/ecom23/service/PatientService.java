@@ -1,6 +1,9 @@
 package fr.polytech.g4.ecom23.service;
 
+import fr.polytech.g4.ecom23.domain.Patient;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
+
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,4 +56,7 @@ public interface PatientService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    public void importDataFromCSVForPatient(InputStream inputstream);
+
 }
