@@ -5,6 +5,8 @@ import React from "react"
 import { useState } from "react"
 import './visumedecin.css'
 
+import donnesPatient from "./donnespatient";
+
 
 
 const patients : string [] = ['Clément', 'Jamile', 'Mathis', 'Michelle', 'Léa']
@@ -23,7 +25,7 @@ export const PatientsList = (props) => {
         <ul>
             {patients.map((patient)=>
                 <div key={patient}>
-                    <button onClick={()=>alert({patient} + 'a été selectionné')}
+                    <button onClick={()=>console.log(donnesPatient(props.patient))}
                     className="patient-selction">
                         {patient}
                     </button>

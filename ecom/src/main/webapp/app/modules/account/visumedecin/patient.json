@@ -1,0 +1,23 @@
+{
+    "id": 0,
+    "nom": "string",
+    "prenom": "string",
+    "age": 0,
+    "datearrivee": "2023-11-21",
+    "poidsactuel": 0,
+    "albumine": 0,
+    "taille": 0,
+    "sexe": "M",
+    "alerte": {
+      "id": 0,
+      "date": "2023-11-21",
+      "commentaire": "string",
+      "denutrition": true
+    },
+    "etablissement": {
+      "id": 0,
+      "nom": "string",
+      "adresse": "string",
+      "telephone": "stringstri"
+    }
+  }

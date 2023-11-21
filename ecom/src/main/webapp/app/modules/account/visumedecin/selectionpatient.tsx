@@ -1,6 +1,8 @@
 import React from "react"
 import { useState } from "react"
 import './visumedecin.css'
+import Filtre from "./filtre";
+import jsonObject from './patient.json';
 
 const patients : string [] = ['Clément', 'Jamile', 'Mathis', 'Michelle', 'Léa'];
 const etablissements : string [] = ['Polytech', 'Phelma', 'E3', 'IAE', 'Pagora'];
@@ -36,7 +38,7 @@ export const SelectionPatient = () => {
    		</select>
     	<h4>You chose {selectedEtablissement}</h4>
 
-        <button onClick={() => alert('not implemeted yet')}> Filtres </button>
+        <Filtre/>
         </div>
 
         
