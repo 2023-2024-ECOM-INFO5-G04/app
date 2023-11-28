@@ -2,7 +2,9 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.NotesRepository;
 import fr.polytech.g4.ecom23.service.NotesService;
+import fr.polytech.g4.ecom23.service.dto.MedecinDTO;
 import fr.polytech.g4.ecom23.service.dto.NotesDTO;
+import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -142,9 +144,14 @@ public class NotesResource {
         List<NotesDTO> list = notesService.findAll();
         List<NotesDTO> filteredList = new LinkedList<NotesDTO>();
         for (NotesDTO n : list) {
-            if ((medecinId == 0L || n.getMedecin().getId().equals(medecinId)) && (patientId == 0L || n.getPatient().getId().equals(patientId)))
+            MedecinDTO medecinDTO = n.getMedecin();
+            PatientDTO patientDTO = n.getPatient();
+            if (medecinDTO == null || patientDTO == null)
+                continue;
+            if ((medecinId == null || n.getMedecin().getId().equals(medecinId)) && (patientId == null || n.getPatient().getId().equals(patientId)))
                 filteredList.add(n);
         }
+
         return filteredList;
     }
 
