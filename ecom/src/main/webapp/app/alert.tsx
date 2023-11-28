@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import 'app/TabbedAlerts.scss';
-import {translate} from "react-jhipster";
-import EntitiesMenuItems from "app/entities/menu";
-import {NavDropdown} from "app/shared/layout/menus/menu-components";
 import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "reactstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 // Il faut harmoniser le CSS avec celui de la navbar.
 
@@ -14,6 +11,28 @@ const TabbedAlerts = () => {
     denutrition: [{ message: 'Error 1', clicked: false }, { message: 'Error 2', clicked: false }],
     infos: [{ message: 'Tacos', clicked: false }, { message: 'kebab', clicked: false }],
   });
+
+  useEffect(() => {
+    const fetchPatientsWithAlerts = async () => {
+      try {
+        const response = await axios.get('api/patients/');
+        const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null);
+
+        const infoAlerts = patientsWithAlerts.map(patient => ({
+          message: `Patient ${patient.name} has an alert: ${patient.alerte}`,
+          clicked: false,
+        }));
+
+        setAlerts(prevAlerts => ({
+          ...prevAlerts,
+          denutrition: infoAlerts,
+        }));
+      } catch (error) {
+        console.error('Error fetching patients:', error);
+      }
+    };
+    fetchPatientsWithAlerts();
+  }, []);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
