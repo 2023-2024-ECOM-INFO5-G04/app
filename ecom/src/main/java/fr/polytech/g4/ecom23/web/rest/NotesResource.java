@@ -6,6 +6,7 @@ import fr.polytech.g4.ecom23.service.dto.NotesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -131,14 +132,20 @@ public class NotesResource {
     }
 
     /**
-     * {@code GET  /notes} : get all the notes.
+     * {@code GET  /notes} : get all the notes, filtered by parameters 'medecin' and 'patient'
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of notes in body.
      */
     @GetMapping("/notes")
-    public List<NotesDTO> getAllNotes() {
-        log.debug("REST request to get all Notes");
-        return notesService.findAll();
+    public List<NotesDTO> getAllNotes(@RequestParam(name = "medecin", defaultValue = "") Long medecinId, @RequestParam(name = "patient", defaultValue = "") Long patientId) {
+        log.debug("REST request to get Notes");
+        List<NotesDTO> list = notesService.findAll();
+        List<NotesDTO> filteredList = new LinkedList<NotesDTO>();
+        for (NotesDTO n : list) {
+            if ((medecinId == 0L || n.getMedecin().getId().equals(medecinId)) && (patientId == 0L || n.getPatient().getId().equals(patientId)))
+                filteredList.add(n);
+        }
+        return filteredList;
     }
 
     /**
@@ -169,4 +176,5 @@ public class NotesResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
 }
