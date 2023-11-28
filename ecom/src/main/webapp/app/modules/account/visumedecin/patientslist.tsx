@@ -9,25 +9,26 @@ import donnesPatient from "./donnespatient";
 
 
 
-const patients : string [] = ['Clément', 'Jamile', 'Mathis', 'Michelle', 'Léa']
+// const patients : string [] = ['Clément', 'Jamile', 'Mathis', 'Michelle', 'Léa']
 // const etablissements : string [] = ['Polytech', 'Phelma', 'E3', 'IAE', 'Pagora']
 
 export const PatientsList = (props) => {
 
-    
+    const patients = props.patients
+    console.log('dans patientsList', patients)
     // const [selectedPatient, setSelectedPatient] = useState<string>('');
     // const [selectedEtablissement, setSelectedEtablissement] = useState<string>(''); 
   
 
     return (
-        <div className='ecom-affichage'>
+        <div className='ecom-affichage-scrollable'>
 
         <ul>
             {patients.map((patient)=>
-                <div key={patient}>
-                    <button onClick={()=>console.log(donnesPatient(props.patient))}
+                <div key={patient.id}>
+                    <button onClick={()=>alert(patient.id)}
                     className="patient-selction">
-                        {patient}
+                        {patient.nom}
                     </button>
                 </div>)
             } 
