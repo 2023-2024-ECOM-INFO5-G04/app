@@ -14,7 +14,7 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
-import VisualisationPage from './modules/account/visumedecin/visumedecin';
+import VisualisationPage from 'app/modules/medecin-interface/medecin-home';
 
 const loading = <div>loading ...</div>;
 

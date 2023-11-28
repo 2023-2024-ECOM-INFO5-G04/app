@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
-import './visumedecin.css'
-import Filtre from "./filtre";
+import './patientselection.css'
+import Filtre from "../filter/filter";
 
 
 const patients : string [] = ['Clément', 'Jamile', 'Mathis', 'Michelle', 'Léa'];
@@ -13,7 +13,8 @@ export const SelectionPatient = () => {
     const [selectedEtablissement, setSelectedEtablissement] = useState<string>(''); 
 
     return (
-    <div className='ecom-selection'> 
+    // <div className='ecom-selection'> 
+    <div className='patient-selection'> 
         <select 
             value = {selectedPatient} 
             onChange={(e) => setSelectedPatient(e.target.value)}

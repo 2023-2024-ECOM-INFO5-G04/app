@@ -1,19 +1,9 @@
-// TODO
-//deplacer le dossier à un endroit plus approprié
-
-
 import React, { useState, useEffect } from 'react';
-import PatientDetail from '../../../entities/patient/patient-detail';
-import Patient from '../../../entities/patient/patient';
-import PatientsList from './patientslist';
-import SelectionPatient from './selectionpatient';
-import jsonObject from './patient.json';
+import PatientsList from './patients-list/patientslist';
+import SelectionPatient from './patient-selection/patientselection';
 import axios from 'axios';
-import donnesPatient from './donnespatient';
-
-
-
-
+import './medecinhome.css'
+import donnesPatient from './classes/patient-class';
 
 
 
@@ -22,21 +12,7 @@ export const VisualisationPage = () => {
   const [patientData, setPatientData] = useState(null);
   const [requeteEffectuee, setRequeteEffectuee] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('https://api.example.com/data');
-  //       const transformedData = response.data.map(data => PatientDataTransformer.transform(data));
-  //       setPatientData(transformedData);
-  //     } catch (error) {
-  //       console.error('Erreur lors de la requête GET :', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  let resp;
+   let resp;
 
   useEffect(() => {
     if (!requeteEffectuee) {
@@ -67,15 +43,12 @@ export const VisualisationPage = () => {
 
     return <div>Chargement en cours...</div>;
   }
-
-  
-
   
 
     return (
         <div>
             <h1> Visualisation des données patients</h1>
-              <div className='ecom-visu-global'>
+              <div className='medecin-home'>
                 <SelectionPatient
                   />
                 <PatientsList
