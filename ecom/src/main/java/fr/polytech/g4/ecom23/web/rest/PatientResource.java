@@ -8,6 +8,7 @@ import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -164,6 +165,24 @@ public class PatientResource {
         log.debug("REST request to get Patient : {}", id);
         Optional<PatientDTO> patientDTO = patientService.findOne(id);
         return ResponseUtil.wrapOrNotFound(patientDTO);
+    }
+
+    /**
+     * {@code GET  /patients/filter/etablissement/:id} : get patients in the "id" etablissment.
+     *
+     * @param id the id of the etablissablissement used as a filter.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
+     */
+    @GetMapping("/patients/filter/etablissement/{id}")
+    public List<PatientDTO> getPatientsFilteredByEtablissement(@PathVariable Long id) {
+        log.debug("REST request to get all Patients in Etablissement : {}", id);
+        List<PatientDTO> allPatients = patientService.findAll();
+        List<PatientDTO> filteredPatients = new LinkedList<PatientDTO>();
+        for (PatientDTO p : allPatients) {
+            if (p.getEtablissement().getId().equals(id))
+                filteredPatients.add(p);
+        }
+        return filteredPatients;
     }
 
     /**
