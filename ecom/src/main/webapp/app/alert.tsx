@@ -11,8 +11,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const TabbedAlerts = () => {
   const [selectedTab, setSelectedTab] = useState('denutrition');
   const [alerts, setAlerts] = useState({
-    denutrition: ["tacos"],
-    infos: ["macdo"],
+    denutrition: [{ message: 'Error 1', clicked: false }, { message: 'Error 2', clicked: false }],
+    infos: [{ message: 'Tacos', clicked: false }, { message: 'kebab', clicked: false }],
   });
 
   const handleTabChange = (tab) => {
@@ -39,32 +39,14 @@ const TabbedAlerts = () => {
     });
   };
 
-  /*
-  return (
-    <div className="tabbed-alerts-container">
-      <div className="tabs">
-        <button className={selectedTab === 'denutrition' ? 'active' : ''} onClick={() => handleTabChange('denutrition')}>
-          Denutrition
-        </button>
-        <button className={selectedTab === 'infos' ? 'active' : ''} onClick={() => handleTabChange('infos')}>
-          Infos
-        </button>
-      </div>
+  const handleAlertClick = (type, index) => {
+    const updatedAlerts = { ...alerts };
+    if (!updatedAlerts[type][index].clicked) {
+      updatedAlerts[type][index].clicked = true;
+    }
+    setAlerts(updatedAlerts);
+  };
 
-      <div className="alert-container">
-        {alerts[selectedTab].map((alert, index) => (
-          <div key={index} className={`alert ${selectedTab}`}>
-            <span>{alert}</span>
-            <button onClick={() => removeAlert(selectedTab, index)}>Close</button>
-          </div>
-        ))}
-      </div>
-
-      <div className="button-container">
-        <button onClick={() => addAlert(selectedTab, `New ${selectedTab.slice(0, -1)} alert`)}>Add Alert</button>
-      </div>
-    </div>
-  );*/
   return (
     <div className="tabbed-alerts-container">
       {/* Menu pour les dénutrition */}
@@ -74,7 +56,13 @@ const TabbedAlerts = () => {
         </DropdownToggle>
         <DropdownMenu>
           {alerts.denutrition.map((denutrition, index) => (
-            <DropdownItem key={index}>{denutrition}</DropdownItem>
+            <DropdownItem
+              key={index}
+              onClick={() => handleAlertClick('denutrition', index)}
+              style={{ color: denutrition.clicked ? 'black' : 'red' }}
+            >
+              {denutrition.message}
+            </DropdownItem>
           ))}
         </DropdownMenu>
       </UncontrolledDropdown>
@@ -85,8 +73,14 @@ const TabbedAlerts = () => {
           Infos
         </DropdownToggle>
         <DropdownMenu>
-          {alerts.infos.map((info, index) => (
-            <DropdownItem key={index}>{info}</DropdownItem>
+          {alerts.infos.map((infos, index) => (
+            <DropdownItem
+              key={index}
+              onClick={() => handleAlertClick('infos', index)}
+              style={{ color: infos.clicked ? 'black' : 'red' }}
+            >
+              {infos.message}
+            </DropdownItem>
           ))}
         </DropdownMenu>
       </UncontrolledDropdown>
