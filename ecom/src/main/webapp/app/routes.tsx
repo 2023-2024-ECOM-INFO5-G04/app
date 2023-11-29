@@ -15,6 +15,7 @@ import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import VisualisationPage from 'app/modules/medecin-interface/medecin-home';
+import VisualisationPatientDetail from 'app/modules/medecin-interface/patient-details/patientdetails';
 
 const loading = <div>loading ...</div>;
 
@@ -45,7 +46,6 @@ const AppRoutes = () => {
             }
           />
           <Route path="register" element={<Register />} />
-          <Route path="visualisation" element={<VisualisationPage/>} />
           <Route path="activate" element={<Activate />} />
           <Route path="reset">
             <Route path="request" element={<PasswordResetInit />} />
@@ -60,6 +60,8 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
+        <Route path="visualisation" element={<VisualisationPage/>} />
+        <Route path="patientdetails" element={<VisualisationPatientDetail />} />
         <Route
           path="*"
           element={

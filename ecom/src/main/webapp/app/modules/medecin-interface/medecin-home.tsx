@@ -7,6 +7,7 @@ import donnesPatient from './classes/patient-class';
 
 
 
+
 export const VisualisationPage = () => {
 
   const [patientData, setPatientData] = useState(null);
@@ -20,7 +21,6 @@ export const VisualisationPage = () => {
   .then(response => {
     console.log('Réponse de l\'API :', response.data);
     resp = donnesPatient(response.data);
-    console.log('dans visuMedecin', resp);
   })
   .then(patientData =>setPatientData(resp))
   .catch(error => {
@@ -50,6 +50,7 @@ export const VisualisationPage = () => {
             <h1> Visualisation des données patients</h1>
               <div className='medecin-home'>
                 <SelectionPatient
+                  patients={patientData}
                   />
                 <PatientsList
                   patients={patientData}/>

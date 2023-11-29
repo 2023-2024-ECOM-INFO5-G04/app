@@ -57,7 +57,7 @@ export const Home = () => {
     
         <Alert color="warning">
               Vous souhaitez consulter les données des patients ? 
-              <Link to="/account/visualisation" className="alert-link">
+              <Link to="/visualisation" className="alert-link">
                 Voir les données patients
               </Link>
         </Alert>
