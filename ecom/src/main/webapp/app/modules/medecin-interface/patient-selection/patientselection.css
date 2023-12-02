@@ -1,3 +1,4 @@
 .patient-selection{
     min-width: 33.33vw;
+    display: flex;
 }

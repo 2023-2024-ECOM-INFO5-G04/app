@@ -1,6 +1,7 @@
 import React from "react"
 import './patientslist.css'
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 
 export const PatientsList = (props) => {
@@ -12,6 +13,7 @@ export const PatientsList = (props) => {
         return '#5EC286'
     }
 
+    // const [patients, setPatients] = props.patients
     const patients = props.patients
 
     return (
