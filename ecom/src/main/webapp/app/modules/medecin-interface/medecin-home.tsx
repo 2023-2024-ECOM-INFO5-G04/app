@@ -43,7 +43,7 @@ export const VisualisationPage = () => {
 
   return (
     <div>
-      <h1> Visualisation des données patients</h1>
+      <h1 className='title'> Visualisation des données patients</h1>
       <div className="medecin-home">
         <SelectionPatient patients={patientData} />
       </div>

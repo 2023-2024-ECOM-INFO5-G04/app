@@ -3,7 +3,6 @@
     width: 100%;
     height: 35em;
     overflow: auto; /* Ajoute une barre de défilement lorsque le contenu dépasse les dimensions de la div */
-    border: 1px solid #ccc; /* Juste pour la démo, ajoute une bordure pour mieux voir la div */
     padding: 20px; /* Ajuste la marge intérieure selon tes besoins */
 }
 
