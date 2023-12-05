@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the roles.
+    -->
+
+    <changeSet id="ajouter_role_soignant" author="ecom-dev">
+        <addLookupTable
+            existingTableName="jhi_authority"
+            existingColumnName="name"
+            existingDataType="varchar(255)"
+            existingNotNullConstraintName="jhi_authority_name_not_null"
+            existingPkColumnName="id"
+            newTableName="jhi_authority"
+            newColumnName="soignant"
+            newColumnDataType="boolean">
+            <columns>
+                <column name="name" value="ROLE_SOIGNANT"/>
+                <column name="description" value="Rôle pour aide soignant"/>
+                <column name="moderator" value="false"/>
+            </columns>
+        </addLookupTable>
+    </changeSet>
+
+</databaseChangeLog>
