@@ -1,0 +1,23 @@
+.patient-affichage {
+  width: 100%;
+  display: flex;
+}
+
+.patient-selection {
+  min-width: 33.33vw;
+  margin: 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.choice {
+  /* background-color: #a4a8ac; */
+  margin: 2px;
+  width: 100%; /* Pour assurer que l'élément occupe toute la largeur du parent */
+  box-sizing: border-box; /* Pour inclure la largeur du padding et de la bordure dans la largeur totale */
+  margin-bottom: 10px; 
+  margin-left: 33%;
+}
