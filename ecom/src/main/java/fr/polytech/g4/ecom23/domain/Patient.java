@@ -227,10 +227,10 @@ public class Patient implements Serializable {
 
     public void setNotes(Set<Notes> notes) {
         if (this.notes != null) {
-            this.notes.forEach(i -> i.setMedecin(null));
+            this.notes.forEach(i -> i.setPatient(null));
         }
         if (notes != null) {
-            notes.forEach(i -> i.setMedecin(this));
+            notes.forEach(i -> i.setPatient(this));
         }
         this.notes = notes;
     }
@@ -242,13 +242,13 @@ public class Patient implements Serializable {
 
     public Patient addNotes(Notes notes) {
         this.notes.add(notes);
-        notes.setMedecin(this);
+        notes.setPatient(this);
         return this;
     }
 
     public Patient removeNotes(Notes notes) {
         this.notes.remove(notes);
-        notes.setMedecin(null);
+        notes.setPatient(null);
         return this;
     }
 
