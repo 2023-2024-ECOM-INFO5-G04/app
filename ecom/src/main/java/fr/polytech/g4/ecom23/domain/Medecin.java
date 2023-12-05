@@ -198,10 +198,10 @@ public class Medecin implements Serializable {
 
     public void setNotes(Set<Notes> notes) {
         if (this.notes != null) {
-            this.notes.forEach(i -> i.setPatient(null));
+            this.notes.forEach(i -> i.setMedecin(null));
         }
         if (notes != null) {
-            notes.forEach(i -> i.setPatient(this));
+            notes.forEach(i -> i.setMedecin(this));
         }
         this.notes = notes;
     }
@@ -213,7 +213,7 @@ public class Medecin implements Serializable {
 
     public Medecin addNotes(Notes notes) {
         this.notes.add(notes);
-        notes.setPatient(this);
+        notes.setMedecin(this);
         return this;
     }
 

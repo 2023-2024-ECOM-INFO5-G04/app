@@ -28,14 +28,14 @@ public class Notes implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "compte", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
-    private Medecin patient;
+    private Medecin medecin;
 
     @ManyToOne
     @JsonIgnoreProperties(
         value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
     )
-    private Patient medecin;
+    private Patient patient;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -65,29 +65,29 @@ public class Notes implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public Medecin getPatient() {
+    public Patient getPatient() {
         return this.patient;
     }
 
-    public void setPatient(Medecin medecin) {
-        this.patient = medecin;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public Notes patient(Medecin medecin) {
-        this.setPatient(medecin);
+    public Notes patient(Patient patient) {
+        this.setPatient(patient);
         return this;
     }
 
-    public Patient getMedecin() {
+    public Medecin getMedecin() {
         return this.medecin;
     }
 
-    public void setMedecin(Patient patient) {
-        this.medecin = patient;
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
     }
 
-    public Notes medecin(Patient patient) {
-        this.setMedecin(patient);
+    public Notes medecin(Medecin medecin) {
+        this.setMedecin(medecin);
         return this;
     }
 

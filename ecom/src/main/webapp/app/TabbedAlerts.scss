@@ -1,0 +1,58 @@
+$header-color: #fff;
+$header-color-secondary: #bbb;
+$header-color-hover: darken($header-color, 20%);
+
+.tabbed-alerts-container {
+  /* Styles pour le conteneur principal */
+  display: flex;
+  gap : 0.2em 1em;
+
+
+  .tabs {
+    /* Styles pour la section des onglets */
+    /* ... */
+
+    button {
+      /* Styles pour les boutons des onglets */
+      background-color: #353d47;
+      padding: 0.2em 1em;
+      border: none; /* Supprime les bordures */
+      color : white;
+    }
+  }
+
+  .alert-container {
+    /* Styles pour le conteneur des alertes */
+    /* ... */
+
+    .alert {
+      /* Styles pour chaque alerte */
+      background-color: #353d47;
+      padding: 0.2em 1em;
+      color : darkkhaki;
+
+      button {
+        /* Styles pour les boutons de fermeture */
+        background-color: #353d47;
+        padding: 0.2em 1em;
+        border: none; /* Supprime les bordures */
+        color : red;
+      }
+    }
+  }
+
+  .button-container {
+    /* Styles pour le conteneur des boutons d'ajout */
+    background-color: #353d47;
+    padding: 0.2em 1em;
+    border: none; /* Supprime les bordures */
+
+    button {
+      /* Styles pour les boutons des onglets */
+      background-color: #353d47;
+      padding: 0.2em 1em;
+      border: none; /* Supprime les bordures */
+      color : white;
+    }
+  }
+}
