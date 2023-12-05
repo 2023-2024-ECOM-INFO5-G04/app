@@ -4,6 +4,8 @@ import fr.polytech.g4.ecom23.repository.PatientRepository;
 import fr.polytech.g4.ecom23.service.PatientService;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -40,6 +43,13 @@ public class PatientResource {
     public PatientResource(PatientService patientService, PatientRepository patientRepository) {
         this.patientService = patientService;
         this.patientRepository = patientRepository;
+    }
+
+    @PostMapping("/import-patient")
+    public ResponseEntity<String> importDataForPatient(@RequestBody MultipartFile file) throws IOException {
+        patientService.importDataFromCSVForPatient(file.getInputStream());
+        String message = "L'importation a réussi.";
+        return ResponseEntity.ok(message);
     }
 
     /**
