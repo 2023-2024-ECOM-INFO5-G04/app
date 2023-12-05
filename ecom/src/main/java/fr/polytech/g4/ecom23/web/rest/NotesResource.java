@@ -184,4 +184,20 @@ public class NotesResource {
             .build();
     }
 
+    @PatchMapping("/notes/{id}/commentaire")
+    public ResponseEntity<NotesDTO> updateCommentaire(@PathVariable Long id, @RequestParam String commentaire) {
+        log.debug("REST request to update commentaire for Notes : {}", id);
+        if (!notesRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+        Optional<NotesDTO> result = notesService.findOne(id);
+        NotesDTO notesDTO = result.get();
+        notesDTO.setCommentaire(commentaire);
+        result = notesService.partialUpdate(notesDTO);
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, notesDTO.getId().toString())
+        );
+    }
+
 }
