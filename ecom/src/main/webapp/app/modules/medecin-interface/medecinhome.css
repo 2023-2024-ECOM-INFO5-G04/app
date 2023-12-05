@@ -1,0 +1,11 @@
+.medecin-home {
+  display: flex;
+}
+
+.title {
+  text-align: center;
+  font-size: xx-large;
+  margin: 20px;
+  letter-spacing: 3px;
+  text-decoration: underline overline solid #4089c1;
+}
