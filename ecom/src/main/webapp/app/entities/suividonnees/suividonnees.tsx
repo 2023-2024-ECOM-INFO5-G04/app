@@ -58,6 +58,9 @@ export const Suividonnees = () => {
                   <Translate contentKey="ecom23App.suividonnees.poids">Poids</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="ecom23App.suividonnees.epa">Epa</Translate>
+                </th>
+                <th>
                   <Translate contentKey="ecom23App.suividonnees.massecorporelle">Massecorporelle</Translate>
                 </th>
                 <th>
@@ -65,6 +68,12 @@ export const Suividonnees = () => {
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.suividonnees.quantitecaloriesaliments">Quantitecaloriesaliments</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.suividonnees.absorptionreduite">Absorptionreduite</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.suividonnees.agression">Agression</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.suividonnees.patient">Patient</Translate>
@@ -82,9 +91,12 @@ export const Suividonnees = () => {
                   </td>
                   <td>{suividonnees.date ? <TextFormat type="date" value={suividonnees.date} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{suividonnees.poids}</td>
+                  <td>{suividonnees.epa}</td>
                   <td>{suividonnees.massecorporelle}</td>
                   <td>{suividonnees.quantitepoidsaliments}</td>
                   <td>{suividonnees.quantitecaloriesaliments}</td>
+                  <td>{suividonnees.absorptionreduite ? 'true' : 'false'}</td>
+                  <td>{suividonnees.agression ? 'true' : 'false'}</td>
                   <td>{suividonnees.patient ? <Link to={`/patient/${suividonnees.patient.id}`}>{suividonnees.patient.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

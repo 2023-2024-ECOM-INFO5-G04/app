@@ -19,11 +19,17 @@ public class SuividonneesDTO implements Serializable {
 
     private Float poids;
 
+    private Float epa;
+
     private Float massecorporelle;
 
     private Float quantitepoidsaliments;
 
     private Float quantitecaloriesaliments;
+
+    private Boolean absorptionreduite;
+
+    private Boolean agression;
 
     private PatientDTO patient;
 
@@ -51,6 +57,14 @@ public class SuividonneesDTO implements Serializable {
         this.poids = poids;
     }
 
+    public Float getEpa() {
+        return epa;
+    }
+
+    public void setEpa(Float epa) {
+        this.epa = epa;
+    }
+
     public Float getMassecorporelle() {
         return massecorporelle;
     }
@@ -73,6 +87,22 @@ public class SuividonneesDTO implements Serializable {
 
     public void setQuantitecaloriesaliments(Float quantitecaloriesaliments) {
         this.quantitecaloriesaliments = quantitecaloriesaliments;
+    }
+
+    public Boolean getAbsorptionreduite() {
+        return absorptionreduite;
+    }
+
+    public void setAbsorptionreduite(Boolean absorptionreduite) {
+        this.absorptionreduite = absorptionreduite;
+    }
+
+    public Boolean getAgression() {
+        return agression;
+    }
+
+    public void setAgression(Boolean agression) {
+        this.agression = agression;
     }
 
     public PatientDTO getPatient() {
@@ -111,9 +141,12 @@ public class SuividonneesDTO implements Serializable {
             "id=" + getId() +
             ", date='" + getDate() + "'" +
             ", poids=" + getPoids() +
+            ", epa=" + getEpa() +
             ", massecorporelle=" + getMassecorporelle() +
             ", quantitepoidsaliments=" + getQuantitepoidsaliments() +
             ", quantitecaloriesaliments=" + getQuantitecaloriesaliments() +
+            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
+            ", agression='" + getAgression() + "'" +
             ", patient=" + getPatient() +
             "}";
     }
