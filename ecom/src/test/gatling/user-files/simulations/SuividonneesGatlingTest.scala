@@ -73,9 +73,12 @@ class SuividonneesGatlingTest extends Simulation {
             .body(StringBody("""{
                 "date":"2020-01-01T00:00:00.000Z"
                 , "poids":"0"
+                , "epa":"0"
                 , "massecorporelle":"0"
                 , "quantitepoidsaliments":"0"
                 , "quantitecaloriesaliments":"0"
+                , "absorptionreduite":null
+                , "agression":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_suividonnees_url"))).exitHereIfFailed

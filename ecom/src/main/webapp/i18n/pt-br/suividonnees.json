@@ -20,9 +20,12 @@
       "id": "Id",
       "date": "Date",
       "poids": "Poids",
+      "epa": "Epa",
       "massecorporelle": "Massecorporelle",
       "quantitepoidsaliments": "Quantitepoidsaliments",
       "quantitecaloriesaliments": "Quantitecaloriesaliments",
+      "absorptionreduite": "Absorptionreduite",
+      "agression": "Agression",
       "patient": "Patient"
     }
   }

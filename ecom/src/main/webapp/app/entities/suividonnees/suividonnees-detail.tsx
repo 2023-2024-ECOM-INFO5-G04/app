@@ -47,6 +47,12 @@ export const SuividonneesDetail = () => {
           </dt>
           <dd>{suividonneesEntity.poids}</dd>
           <dt>
+            <span id="epa">
+              <Translate contentKey="ecom23App.suividonnees.epa">Epa</Translate>
+            </span>
+          </dt>
+          <dd>{suividonneesEntity.epa}</dd>
+          <dt>
             <span id="massecorporelle">
               <Translate contentKey="ecom23App.suividonnees.massecorporelle">Massecorporelle</Translate>
             </span>
@@ -64,6 +70,18 @@ export const SuividonneesDetail = () => {
             </span>
           </dt>
           <dd>{suividonneesEntity.quantitecaloriesaliments}</dd>
+          <dt>
+            <span id="absorptionreduite">
+              <Translate contentKey="ecom23App.suividonnees.absorptionreduite">Absorptionreduite</Translate>
+            </span>
+          </dt>
+          <dd>{suividonneesEntity.absorptionreduite ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="agression">
+              <Translate contentKey="ecom23App.suividonnees.agression">Agression</Translate>
+            </span>
+          </dt>
+          <dd>{suividonneesEntity.agression ? 'true' : 'false'}</dd>
           <dt>
             <Translate contentKey="ecom23App.suividonnees.patient">Patient</Translate>
           </dt>
