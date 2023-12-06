@@ -3,7 +3,7 @@ import PatientsList from './patients-list/patientslist';
 import SelectionPatient from './patient-selection/patientselection';
 import axios from 'axios';
 import './medecinhome.css';
-import donnesPatient from './classes/patient-class';
+import donneesPatient from './classes/patient-class';
 
 export const VisualisationPage = () => {
   const [patientData, setPatientData] = useState(null);
@@ -17,7 +17,7 @@ export const VisualisationPage = () => {
         .get('api/patients')
         .then(response => {
           console.log("Réponse de l'API :", response.data);
-          resp = donnesPatient(response.data);
+          resp = donneesPatient(response.data);
         })
         .then(patientData => setPatientData(resp))
         .catch(error => {

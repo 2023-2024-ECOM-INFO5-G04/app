@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardTitle, CardSubtitle, CardText, Button, Input } from 'reactstrap';
-import './patientpreview.css';
+import './note.css';
 
 export const Note = (props) => {
   const [contenu, setContenu] = useState('Rien de remarquable');
@@ -32,13 +32,13 @@ export const Note = (props) => {
       {estEnEdition ? (
         <>
           <Input type="textarea" value={contenuModifiable} onChange={e => setContenuModifiable(e.target.value)} />
-          <Button className="bouton" onClick={sauvegarderContenuModifie}>Enregistrer</Button>
+          <Button className="bouton" onClick={sauvegarderContenuModifie}>Sauvegarder</Button>
           <Button className="bouton" onClick={annulerModification}>Annuler</Button>
         </>
       ) : (
         <>
           <CardText>{contenu}</CardText>
-          <Button onClick={modifierContenu}>Modifier le contenu</Button>
+          <Button onClick={modifierContenu}>Éditer</Button>
         </>
       )}
     </Card>

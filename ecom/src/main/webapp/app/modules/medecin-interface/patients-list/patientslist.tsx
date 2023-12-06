@@ -19,7 +19,7 @@ export const PatientsList = props => {
       <ul>
         {patients.map(patient => (
           <div key={patient.id}>
-            <Link className="patient-summary" style={{ backgroundColor: getColor(patient.alert) }} to="/patientdetails" state={patient}>
+            <Link className="patient-summary" style={{ backgroundColor: getColor(patient.alerte) }} to="/patientdetails" state={patient}>
               {patient.nom}
             </Link>
           </div>
