@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import 'app/TabbedAlerts.scss';
 import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "reactstrap";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 // Il faut harmoniser le CSS avec celui de la navbar.
 
 const TabbedAlerts = () => {
-  const [selectedTab, setSelectedTab] = useState('denutrition');
   const [alerts, setAlerts] = useState({
-    denutrition: [{ message: 'Error 1', clicked: false }, { message: 'Error 2', clicked: false }],
+    denutrition: [{ message: 'Error 1', clicked: false, id : 0 }, { message: 'Error 2', clicked: false, id : 0 }],
     infos: [{ message: 'Tacos', clicked: false }, { message: 'kebab', clicked: false }],
   });
 
@@ -19,8 +19,9 @@ const TabbedAlerts = () => {
         const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null);
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
-          message: `Patient ${patient.name} has an alert: ${patient.alerte}`,
+          message: `Patient ${patient.nom} has an alert: ${patient.alerte}`,
           clicked: false,
+          id : patient,
         }));
 
         setAlerts(prevAlerts => ({
@@ -33,10 +34,6 @@ const TabbedAlerts = () => {
     };
     fetchPatientsWithAlerts();
   }, []);
-
-  const handleTabChange = (tab) => {
-    setSelectedTab(tab);
-  };
 
   const addAlert = (type, message) => {
     setAlerts((prevAlerts) => {
@@ -58,33 +55,52 @@ const TabbedAlerts = () => {
     });
   };
 
-  const handleAlertClick = (type, index) => {
+  const handleAlertClick = async (type, index) => {
     const updatedAlerts = { ...alerts };
     if (!updatedAlerts[type][index].clicked) {
       updatedAlerts[type][index].clicked = true;
     }
     setAlerts(updatedAlerts);
+    try {
+    const response = await axios.get(`api/patients/${alerts[type][index].id}`);
+    const patientDetails = response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des détails du patient :', error);
+    }
   };
 
-  return (
-    <div className="tabbed-alerts-container">
-      {/* Menu pour les dénutrition */}
+  const dropdownMenuDenutrition = (
       <UncontrolledDropdown>
         <DropdownToggle caret>
           Denutrition
         </DropdownToggle>
         <DropdownMenu>
-          {alerts.denutrition.map((denutrition, index) => (
-            <DropdownItem
-              key={index}
-              onClick={() => handleAlertClick('denutrition', index)}
-              style={{ color: denutrition.clicked ? 'black' : 'red' }}
-            >
-              {denutrition.message}
-            </DropdownItem>
-          ))}
+          {alerts.denutrition.map((denutrition, index) => {
+            const patientId = denutrition.id; // Déclaration de patientId à l'intérieur de la fonction map
+
+            return (
+                <DropdownItem>
+                  <Link
+                      className="dropdown-item-link"
+                      to="/patientdetails"
+                      state={patientId}
+                      key={index}
+                      onClick={() => handleAlertClick('denutrition', index)}
+                      style={{ color: denutrition.clicked ? 'black' : 'red' }}
+                  >
+                    {denutrition.message}
+                  </Link>
+                </DropdownItem>
+            );
+          })}
         </DropdownMenu>
       </UncontrolledDropdown>
+  );
+
+  return (
+    <div className="tabbed-alerts-container">
+
+      {dropdownMenuDenutrition}
 
       {/* Menu pour les informations */}
       <UncontrolledDropdown>
