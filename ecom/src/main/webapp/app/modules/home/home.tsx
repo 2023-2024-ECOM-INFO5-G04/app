@@ -62,13 +62,13 @@ export const Home = () => {
   }
 
   return (
-    <Row style={{height:'80vh'}}>
+    <Row style={{ height: '80vh' }}>
       <Col md="4" className="pad" style={{ backgroundColor: '##c6c6c6' }}>
 
 
         {rappels ? (
           <div>
-            <h2> Pour ne rien oublier :</h2>
+            <h2 style={{ marginTop: '15px' }}> Pour ne rien oublier :</h2>
             <Rappel
               rappels={trierParDate(rappels)}
             /> </div>) : (<div>
@@ -79,11 +79,11 @@ export const Home = () => {
 
 
       </Col>
-      <Col md="3" style={{alignItems:'center'}}>
-        <h2>
+      <Col md="3" className='col2'>
+        <h2 className='titleH'>
           Cher client, bienvenue !
         </h2>
-      
+
 
 
         <Link className='custom-link'

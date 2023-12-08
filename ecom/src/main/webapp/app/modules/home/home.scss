@@ -7,6 +7,7 @@ Main page styles
   height: 350px;
   background: url('../../../content/images/medecin.jpg') no-repeat center top;
   background-size: contain;
+  flex :2
 }
 
 .custom-link{
@@ -17,10 +18,12 @@ Main page styles
   margin : 25px;
   font-size: large;
   color:black;
+  flex:1;
+ 
 }
 
 .rappels{
-  background-color: #4089c1;
+  background-color: #4dd396;
 
  
   cursor: pointer;
@@ -28,3 +31,14 @@ Main page styles
 
 .rappels:hover{
   background-color: #4089c1;}
+
+.titleH{
+  justify-content: center;
+  flex :0.5;
+}
+
+.col2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
