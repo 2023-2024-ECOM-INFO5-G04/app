@@ -38,7 +38,7 @@ export const VisualisationPage = () => {
   }, [requeteEffectuee]);
 
   if (patientData === null) {
-    return <div>Chargement en cours...</div>;
+    return <div>Un problème est servenu, vous êtes vous identifié.e ?</div>;
   }
 
   return (

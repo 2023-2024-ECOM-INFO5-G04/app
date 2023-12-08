@@ -33,6 +33,9 @@ public class Suividonnees implements Serializable {
     @Column(name = "poids")
     private Float poids;
 
+    @Column(name = "epa")
+    private Float epa;
+
     @Column(name = "massecorporelle")
     private Float massecorporelle;
 
@@ -41,6 +44,12 @@ public class Suividonnees implements Serializable {
 
     @Column(name = "quantitecaloriesaliments")
     private Float quantitecaloriesaliments;
+
+    @Column(name = "absorptionreduite")
+    private Boolean absorptionreduite;
+
+    @Column(name = "agression")
+    private Boolean agression;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -91,6 +100,19 @@ public class Suividonnees implements Serializable {
         this.poids = poids;
     }
 
+    public Float getEpa() {
+        return this.epa;
+    }
+
+    public Suividonnees epa(Float epa) {
+        this.setEpa(epa);
+        return this;
+    }
+
+    public void setEpa(Float epa) {
+        this.epa = epa;
+    }
+
     public Float getMassecorporelle() {
         return this.massecorporelle;
     }
@@ -128,6 +150,32 @@ public class Suividonnees implements Serializable {
 
     public void setQuantitecaloriesaliments(Float quantitecaloriesaliments) {
         this.quantitecaloriesaliments = quantitecaloriesaliments;
+    }
+
+    public Boolean getAbsorptionreduite() {
+        return this.absorptionreduite;
+    }
+
+    public Suividonnees absorptionreduite(Boolean absorptionreduite) {
+        this.setAbsorptionreduite(absorptionreduite);
+        return this;
+    }
+
+    public void setAbsorptionreduite(Boolean absorptionreduite) {
+        this.absorptionreduite = absorptionreduite;
+    }
+
+    public Boolean getAgression() {
+        return this.agression;
+    }
+
+    public Suividonnees agression(Boolean agression) {
+        this.setAgression(agression);
+        return this;
+    }
+
+    public void setAgression(Boolean agression) {
+        this.agression = agression;
     }
 
     public Patient getPatient() {
@@ -169,9 +217,12 @@ public class Suividonnees implements Serializable {
             "id=" + getId() +
             ", date='" + getDate() + "'" +
             ", poids=" + getPoids() +
+            ", epa=" + getEpa() +
             ", massecorporelle=" + getMassecorporelle() +
             ", quantitepoidsaliments=" + getQuantitepoidsaliments() +
             ", quantitecaloriesaliments=" + getQuantitecaloriesaliments() +
+            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
+            ", agression='" + getAgression() + "'" +
             "}";
     }
 }

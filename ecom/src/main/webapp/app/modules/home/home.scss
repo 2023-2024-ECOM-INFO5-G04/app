@@ -4,7 +4,41 @@ Main page styles
 .hipster {
   display: inline-block;
   width: 100%;
-  height: 497px;
-  background: url('../../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+  height: 350px;
+  background: url('../../../content/images/medecin.jpg') no-repeat center top;
   background-size: contain;
+  flex :2
+}
+
+.custom-link{
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin : 25px;
+  font-size: large;
+  color:black;
+  flex:1;
+ 
+}
+
+.rappels{
+  background-color: #4dd396;
+
+ 
+  cursor: pointer;
+}
+
+.rappels:hover{
+  background-color: #4089c1;}
+
+.titleH{
+  justify-content: center;
+  flex :0.5;
+}
+
+.col2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
