@@ -1,27 +1,104 @@
 import './home.scss';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faStethoscope } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 import { useAppSelector } from 'app/config/store';
+
+import donneesRappel, { RappelData } from '../medecin-interface/classes/rappels-class';
+import Rappel from './rappels';
+import { size } from 'lodash';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
 
+
+
+
+  const [rappels, setRappels] = useState(null);
+  const [requeteEffectuee, setRequeteEffectuee] = useState(false);
+
+  let resp;
+
+  useEffect(() => {
+    if (!requeteEffectuee) {
+      axios
+        .get('api/rappels')
+        .then(response => {
+          console.log("Réponse de l'API :", response.data);
+          resp = donneesRappel(response.data);
+        })
+        .then(patientData => setRappels(resp))
+
+        .catch(error => {
+          if (error.response) {
+            // La requête a été effectuée, mais le serveur a répondu avec un code d'erreur
+            console.log('Erreur de réponse du serveur :', error.response.data);
+            console.log('Statut de la réponse du serveur :', error.response.status);
+          } else if (error.request) {
+            // La requête a été effectuée, mais aucune réponse n'a été reçue
+            console.log('Aucune réponse reçue du serveur');
+          } else {
+            // Une erreur s'est produite lors de la configuration de la requête
+            console.log('Erreur de configuration de la requête :', error.message);
+          }
+          console.log('Erreur complète :', error.config);
+        });
+    }
+  }, [requeteEffectuee]);
+
+  function trierParDate(data: RappelData[]): RappelData[] {
+    const dataTriee = data
+      .map(item => ({ ...item, date: new Date(item.date) }))
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .map(item => ({ ...item, date: item.date.toISOString().split('T')[0] }));
+
+    return dataTriee;
+  }
+
   return (
-    <Row>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
+    <Row style={{ height: '80vh' }}>
+      <Col md="4" className="pad" style={{ backgroundColor: '##c6c6c6' }}>
+
+
+        {rappels ? (
+          <div>
+            <h2 style={{ marginTop: '15px' }}> Pour ne rien oublier :</h2>
+            <Rappel
+              rappels={trierParDate(rappels)}
+            /> </div>) : (<div>
+              <FontAwesomeIcon icon={faStethoscope} />
+            </div>)
+        }
+
+
+
       </Col>
-      <Col md="9">
-        <h2>
-          <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
+      <Col md="3" className='col2'>
+        <h2 className='titleH'>
+          Cher client, bienvenue !
         </h2>
-        <p className="lead">
-          <Translate contentKey="home.subtitle">This is your homepage</Translate>
-        </p>
+
+
+
+        <Link className='custom-link'
+          to="/visualisation">
+          <FontAwesomeIcon icon={faSearch} />
+          Rechercher un patient
+
+        </Link>
+
+        <span className="hipster rounded" />
+        <div style={{ fontSize: 'xx-small' }}>
+          Image de <a href="https://fr.freepik.com/vecteurs-libre/medecin-tenant-presse-papiers_2094267.htm#query=medecine&position=11&from_view=search&track=sph&uuid=58253a42-6d76-4fd7-add1-d629f8eb26d6">Freepik</a>
+        </div>
+      </Col>
+      <Col md="4">
         {account?.login ? (
           <div>
             <Alert color="success">
@@ -29,78 +106,16 @@ export const Home = () => {
                 You are logged in as user {account.login}.
               </Translate>
             </Alert>
+
           </div>
         ) : (
           <div>
             <Alert color="warning">
-              <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-
-              <Link to="/login" className="alert-link">
-                <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-              </Link>
-              <Translate contentKey="global.messages.info.authenticated.suffix">
-                , you can try the default accounts:
-                <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-              </Translate>
-            </Alert>
-
-            <Alert color="warning">
-              <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>&nbsp;
-              <Link to="/account/register" className="alert-link">
-                <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-              </Link>
+              Attention ! Vous n'êtes pas connecté.e.
             </Alert>
           </div>
         )}
 
-    
-        <Alert color="warning">
-              Vous souhaitez consulter les données des patients ? 
-              <Link to="/visualisation" className="alert-link">
-                Voir les données patients
-              </Link>
-        </Alert>
-        
-        <p>
-          <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
-        </p>
-
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
-            </a>
-          </li>
-        </ul>
-
-        <p>
-          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
-        </p>
       </Col>
     </Row>
   );

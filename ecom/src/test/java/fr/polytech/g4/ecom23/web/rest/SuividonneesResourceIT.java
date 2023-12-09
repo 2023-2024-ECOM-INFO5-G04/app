@@ -40,6 +40,9 @@ class SuividonneesResourceIT {
     private static final Float DEFAULT_POIDS = 1F;
     private static final Float UPDATED_POIDS = 2F;
 
+    private static final Float DEFAULT_EPA = 1F;
+    private static final Float UPDATED_EPA = 2F;
+
     private static final Float DEFAULT_MASSECORPORELLE = 1F;
     private static final Float UPDATED_MASSECORPORELLE = 2F;
 
@@ -48,6 +51,12 @@ class SuividonneesResourceIT {
 
     private static final Float DEFAULT_QUANTITECALORIESALIMENTS = 1F;
     private static final Float UPDATED_QUANTITECALORIESALIMENTS = 2F;
+
+    private static final Boolean DEFAULT_ABSORPTIONREDUITE = false;
+    private static final Boolean UPDATED_ABSORPTIONREDUITE = true;
+
+    private static final Boolean DEFAULT_AGRESSION = false;
+    private static final Boolean UPDATED_AGRESSION = true;
 
     private static final String ENTITY_API_URL = "/api/suividonnees";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -79,9 +88,12 @@ class SuividonneesResourceIT {
         Suividonnees suividonnees = new Suividonnees()
             .date(DEFAULT_DATE)
             .poids(DEFAULT_POIDS)
+            .epa(DEFAULT_EPA)
             .massecorporelle(DEFAULT_MASSECORPORELLE)
             .quantitepoidsaliments(DEFAULT_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(DEFAULT_QUANTITECALORIESALIMENTS);
+            .quantitecaloriesaliments(DEFAULT_QUANTITECALORIESALIMENTS)
+            .absorptionreduite(DEFAULT_ABSORPTIONREDUITE)
+            .agression(DEFAULT_AGRESSION);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -105,9 +117,12 @@ class SuividonneesResourceIT {
         Suividonnees suividonnees = new Suividonnees()
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
+            .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -144,9 +159,12 @@ class SuividonneesResourceIT {
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
         assertThat(testSuividonnees.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(DEFAULT_POIDS);
+        assertThat(testSuividonnees.getEpa()).isEqualTo(DEFAULT_EPA);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(DEFAULT_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(DEFAULT_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(DEFAULT_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(DEFAULT_ABSORPTIONREDUITE);
+        assertThat(testSuividonnees.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -204,9 +222,12 @@ class SuividonneesResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(suividonnees.getId().intValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].poids").value(hasItem(DEFAULT_POIDS.doubleValue())))
+            .andExpect(jsonPath("$.[*].epa").value(hasItem(DEFAULT_EPA.doubleValue())))
             .andExpect(jsonPath("$.[*].massecorporelle").value(hasItem(DEFAULT_MASSECORPORELLE.doubleValue())))
             .andExpect(jsonPath("$.[*].quantitepoidsaliments").value(hasItem(DEFAULT_QUANTITEPOIDSALIMENTS.doubleValue())))
-            .andExpect(jsonPath("$.[*].quantitecaloriesaliments").value(hasItem(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue())));
+            .andExpect(jsonPath("$.[*].quantitecaloriesaliments").value(hasItem(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue())))
+            .andExpect(jsonPath("$.[*].absorptionreduite").value(hasItem(DEFAULT_ABSORPTIONREDUITE.booleanValue())))
+            .andExpect(jsonPath("$.[*].agression").value(hasItem(DEFAULT_AGRESSION.booleanValue())));
     }
 
     @Test
@@ -223,9 +244,12 @@ class SuividonneesResourceIT {
             .andExpect(jsonPath("$.id").value(suividonnees.getId().intValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.poids").value(DEFAULT_POIDS.doubleValue()))
+            .andExpect(jsonPath("$.epa").value(DEFAULT_EPA.doubleValue()))
             .andExpect(jsonPath("$.massecorporelle").value(DEFAULT_MASSECORPORELLE.doubleValue()))
             .andExpect(jsonPath("$.quantitepoidsaliments").value(DEFAULT_QUANTITEPOIDSALIMENTS.doubleValue()))
-            .andExpect(jsonPath("$.quantitecaloriesaliments").value(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue()));
+            .andExpect(jsonPath("$.quantitecaloriesaliments").value(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue()))
+            .andExpect(jsonPath("$.absorptionreduite").value(DEFAULT_ABSORPTIONREDUITE.booleanValue()))
+            .andExpect(jsonPath("$.agression").value(DEFAULT_AGRESSION.booleanValue()));
     }
 
     @Test
@@ -250,9 +274,12 @@ class SuividonneesResourceIT {
         updatedSuividonnees
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
+            .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         SuividonneesDTO suividonneesDTO = suividonneesMapper.toDto(updatedSuividonnees);
 
         restSuividonneesMockMvc
@@ -269,9 +296,12 @@ class SuividonneesResourceIT {
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
         assertThat(testSuividonnees.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
+        assertThat(testSuividonnees.getEpa()).isEqualTo(UPDATED_EPA);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -353,7 +383,12 @@ class SuividonneesResourceIT {
         Suividonnees partialUpdatedSuividonnees = new Suividonnees();
         partialUpdatedSuividonnees.setId(suividonnees.getId());
 
-        partialUpdatedSuividonnees.poids(UPDATED_POIDS).quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS);
+        partialUpdatedSuividonnees
+            .poids(UPDATED_POIDS)
+            .massecorporelle(UPDATED_MASSECORPORELLE)
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restSuividonneesMockMvc
             .perform(
@@ -369,9 +404,12 @@ class SuividonneesResourceIT {
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
         assertThat(testSuividonnees.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
-        assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(DEFAULT_MASSECORPORELLE);
-        assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
-        assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(DEFAULT_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getEpa()).isEqualTo(DEFAULT_EPA);
+        assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
+        assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(DEFAULT_QUANTITEPOIDSALIMENTS);
+        assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -389,9 +427,12 @@ class SuividonneesResourceIT {
         partialUpdatedSuividonnees
             .date(UPDATED_DATE)
             .poids(UPDATED_POIDS)
+            .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restSuividonneesMockMvc
             .perform(
@@ -407,9 +448,12 @@ class SuividonneesResourceIT {
         Suividonnees testSuividonnees = suividonneesList.get(suividonneesList.size() - 1);
         assertThat(testSuividonnees.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testSuividonnees.getPoids()).isEqualTo(UPDATED_POIDS);
+        assertThat(testSuividonnees.getEpa()).isEqualTo(UPDATED_EPA);
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
+        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test

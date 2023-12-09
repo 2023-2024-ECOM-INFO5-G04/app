@@ -216,11 +216,19 @@ describe('Suividonnees e2e test', () => {
 
       cy.get(`[data-cy="poids"]`).type('98248').should('have.value', '98248');
 
-      cy.get(`[data-cy="massecorporelle"]`).type('80781').should('have.value', '80781');
+      cy.get(`[data-cy="epa"]`).type('80781').should('have.value', '80781');
 
-      cy.get(`[data-cy="quantitepoidsaliments"]`).type('50635').should('have.value', '50635');
+      cy.get(`[data-cy="massecorporelle"]`).type('50635').should('have.value', '50635');
 
-      cy.get(`[data-cy="quantitecaloriesaliments"]`).type('73158').should('have.value', '73158');
+      cy.get(`[data-cy="quantitepoidsaliments"]`).type('73158').should('have.value', '73158');
+
+      cy.get(`[data-cy="quantitecaloriesaliments"]`).type('63219').should('have.value', '63219');
+
+      cy.get(`[data-cy="absorptionreduite"]`).should('not.be.checked');
+      cy.get(`[data-cy="absorptionreduite"]`).click().should('be.checked');
+
+      cy.get(`[data-cy="agression"]`).should('not.be.checked');
+      cy.get(`[data-cy="agression"]`).click().should('be.checked');
 
       cy.get(`[data-cy="patient"]`).select(1);
 

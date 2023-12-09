@@ -111,6 +111,7 @@ export const SuividonneesUpdate = () => {
                 data-cy="poids"
                 type="text"
               />
+              <ValidatedField label={translate('ecom23App.suividonnees.epa')} id="suividonnees-epa" name="epa" data-cy="epa" type="text" />
               <ValidatedField
                 label={translate('ecom23App.suividonnees.massecorporelle')}
                 id="suividonnees-massecorporelle"
@@ -131,6 +132,22 @@ export const SuividonneesUpdate = () => {
                 name="quantitecaloriesaliments"
                 data-cy="quantitecaloriesaliments"
                 type="text"
+              />
+              <ValidatedField
+                label={translate('ecom23App.suividonnees.absorptionreduite')}
+                id="suividonnees-absorptionreduite"
+                name="absorptionreduite"
+                data-cy="absorptionreduite"
+                check
+                type="checkbox"
+              />
+              <ValidatedField
+                label={translate('ecom23App.suividonnees.agression')}
+                id="suividonnees-agression"
+                name="agression"
+                data-cy="agression"
+                check
+                type="checkbox"
               />
               <ValidatedField
                 id="suividonnees-patient"

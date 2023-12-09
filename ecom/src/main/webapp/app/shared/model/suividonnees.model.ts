@@ -5,10 +5,16 @@ export interface ISuividonnees {
   id?: number;
   date?: string;
   poids?: number | null;
+  epa?: number | null;
   massecorporelle?: number | null;
   quantitepoidsaliments?: number | null;
   quantitecaloriesaliments?: number | null;
+  absorptionreduite?: boolean | null;
+  agression?: boolean | null;
   patient?: IPatient;
 }
 
-export const defaultValue: Readonly<ISuividonnees> = {};
+export const defaultValue: Readonly<ISuividonnees> = {
+  absorptionreduite: false,
+  agression: false,
+};

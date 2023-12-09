@@ -83,9 +83,12 @@ entity Suividonnees{
 	id Long required unique
     date LocalDate required
     poids Float
+    epa Float
     massecorporelle Float
     quantitepoidsaliments Float
     quantitecaloriesaliments Float
+    absorptionreduite Boolean
+    agression Boolean
 }
 
 entity Notes{
