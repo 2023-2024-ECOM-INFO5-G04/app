@@ -35,11 +35,11 @@ const TabbedAlerts = () => {
     fetchPatientsWithAlerts();
   }, []);
 
-  // Permet la mise a jour régulière de la liste des allerte
+  // Permet la mise a jour régulière de la liste des alerte
   useEffect(() => {
     const fetchDataInterval = setInterval(() => {
       fetchPatientsWithAlerts();
-    }, 5000); // Rafraîchissement toutes les 5 secondes (5000 ms)
+    }, 10000); // en milisecondes (ici ça donne 10 secondes)
     return () => {
       clearInterval(fetchDataInterval);
     };
@@ -70,17 +70,11 @@ const TabbedAlerts = () => {
 
 //Permet de gérer le click sur une alerte. Donc le changement de couleur et la redirection vers la page du patient en question.
   const handleAlertClick = async (type, index) => {
-    const updatedAlerts = { ...alerts };
+    const updatedAlerts = { ...alerts }; //Necessité de updatedAlerts car il ne faut pas modifier directement alerts
     if (!updatedAlerts[type][index].clicked) {
       updatedAlerts[type][index].clicked = true;
     }
     setAlerts(updatedAlerts);
-    try {
-    const response = await axios.get(`api/patients/${alerts[type][index].id}`);
-    const patientDetails = response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération des détails du patient :', error);
-    }
   };
 
   const dropdownMenuDenutrition = (
