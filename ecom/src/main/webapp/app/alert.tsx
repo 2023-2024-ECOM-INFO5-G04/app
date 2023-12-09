@@ -4,22 +4,20 @@ import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-// Il faut harmoniser le CSS avec celui de la navbar.
+// A noter:  j'ai un attribu "type", ici il n'y a que denutrition. Il est laissé volontairement car il pourrait permettre de faire d'autres menu déroulant a l'avenir (alerte concernant des infos autres).
 
 const TabbedAlerts = () => {
   const [alerts, setAlerts] = useState({
-    denutrition: [{ message: 'Error 1', clicked: false, id : 0 }, { message: 'Error 2', clicked: false, id : 0 }],
-    infos: [{ message: 'Tacos', clicked: false }, { message: 'kebab', clicked: false }],
+    denutrition: [],
+    // { message: 'Error 1', clicked: false, id : 0 }, { message: 'Error 2', clicked: false, id : 0 }
   });
-
-  useEffect(() => {
     const fetchPatientsWithAlerts = async () => {
       try {
         const response = await axios.get('api/patients/');
         const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null);
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
-          message: `Patient ${patient.nom} has an alert: ${patient.alerte}`,
+          message: `Le patient ${patient.nom} est en situation de dénutrition`,
           clicked: false,
           id : patient,
         }));
@@ -32,9 +30,23 @@ const TabbedAlerts = () => {
         console.error('Error fetching patients:', error);
       }
     };
+
+  useEffect(() => {
     fetchPatientsWithAlerts();
   }, []);
 
+  // Permet la mise a jour régulière de la liste des allerte
+  useEffect(() => {
+    const fetchDataInterval = setInterval(() => {
+      fetchPatientsWithAlerts();
+    }, 5000); // Rafraîchissement toutes les 5 secondes (5000 ms)
+    return () => {
+      clearInterval(fetchDataInterval);
+    };
+  }, []);
+
+
+// Fonction utilisable pour du test, permet l'ajout d'une alerte.
   const addAlert = (type, message) => {
     setAlerts((prevAlerts) => {
       return {
@@ -44,6 +56,7 @@ const TabbedAlerts = () => {
     });
   };
 
+// Fonction utilisable pour du test, permet d'enlever une alerte.
   const removeAlert = (type, index) => {
     setAlerts((prevAlerts) => {
       const updatedAlerts = [...prevAlerts[type]];
@@ -55,6 +68,7 @@ const TabbedAlerts = () => {
     });
   };
 
+//Permet de gérer le click sur une alerte. Donc le changement de couleur et la redirection vers la page du patient en question.
   const handleAlertClick = async (type, index) => {
     const updatedAlerts = { ...alerts };
     if (!updatedAlerts[type][index].clicked) {
@@ -81,7 +95,7 @@ const TabbedAlerts = () => {
             return (
                 <DropdownItem>
                   <Link
-                      className="dropdown-item-link"
+                      className="dropdownitem-link"
                       to="/patientdetails"
                       state={patientId}
                       key={index}
@@ -102,23 +116,6 @@ const TabbedAlerts = () => {
 
       {dropdownMenuDenutrition}
 
-      {/* Menu pour les informations */}
-      <UncontrolledDropdown>
-        <DropdownToggle caret>
-          Infos
-        </DropdownToggle>
-        <DropdownMenu>
-          {alerts.infos.map((infos, index) => (
-            <DropdownItem
-              key={index}
-              onClick={() => handleAlertClick('infos', index)}
-              style={{ color: infos.clicked ? 'black' : 'red' }}
-            >
-              {infos.message}
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </UncontrolledDropdown>
     </div>
   );
 };
