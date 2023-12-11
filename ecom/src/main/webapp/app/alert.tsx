@@ -77,10 +77,46 @@ const TabbedAlerts = () => {
     setAlerts(updatedAlerts);
   };
 
+
+
+  const [showPastille, setShowPastille] = useState(false);
+  const [lastTaille, setLastTaille] = useState(0);
+
+  const pastilleAlert = async () => {
+    if (alerts.denutrition.length > lastTaille){
+      setShowPastille(true);
+    }
+    if (alerts.denutrition.length < lastTaille) {
+    }
+    setLastTaille(alerts.denutrition.length);
+  }
+
+  useEffect(() => {
+    pastilleAlert()
+  }, [alerts.denutrition.length]);
+
+  useEffect(() => {
+    const pastillereload = setInterval(() => {
+      pastilleAlert()
+    }, 10000); // en milisecondes (ici ça donne 10 secondes)
+    return () => {
+      clearInterval(pastillereload);
+    };
+  }, [alerts.denutrition.length]);
+
+  const handleDropdownToggle = () => {
+    // Masquer la pastille lorsque le menu déroulant est ouvert
+    setShowPastille(false);
+    console.log(`showPastille`, showPastille);
+    console.log(`lastTaille`, lastTaille);
+    console.log(`Taille`, alerts.denutrition.length);
+  };
+
+
   const dropdownMenuDenutrition = (
-      <UncontrolledDropdown>
+      <UncontrolledDropdown onToggle={handleDropdownToggle}>
         <DropdownToggle caret>
-          Denutrition
+          Denutrition {showPastille && <div className="indicator"></div>}
         </DropdownToggle>
         <DropdownMenu>
           {alerts.denutrition.map((denutrition, index) => {
@@ -88,6 +124,7 @@ const TabbedAlerts = () => {
 
             return (
                 <DropdownItem>
+                  {}
                   <Link
                       className="dropdownitem-link"
                       to="/patientdetails"
@@ -107,9 +144,7 @@ const TabbedAlerts = () => {
 
   return (
     <div className="tabbed-alerts-container">
-
       {dropdownMenuDenutrition}
-
     </div>
   );
 };
