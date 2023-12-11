@@ -85,8 +85,11 @@ const TabbedAlerts = () => {
   const pastilleAlert = async () => {
     if (alerts.denutrition.length > lastTaille){
       setShowPastille(true);
+      localStorage.setItem('showPastille', 'true');
     }
     if (alerts.denutrition.length < lastTaille) {
+      setShowPastille(false);
+      localStorage.setItem('showPastille', 'false');
     }
     setLastTaille(alerts.denutrition.length);
   }
@@ -96,6 +99,16 @@ const TabbedAlerts = () => {
   }, [alerts.denutrition.length]);
 
   useEffect(() => {
+    const pastilleValue = localStorage.getItem('showPastille');
+    if (pastilleValue === 'true'){
+      setShowPastille(true);
+    } else {
+      setShowPastille(false);
+    }
+  }, []);
+
+  /*
+  useEffect(() => {
     const pastillereload = setInterval(() => {
       pastilleAlert()
     }, 10000); // en milisecondes (ici ça donne 10 secondes)
@@ -103,6 +116,7 @@ const TabbedAlerts = () => {
       clearInterval(pastillereload);
     };
   }, [alerts.denutrition.length]);
+  */
 
   const handleDropdownToggle = () => {
     // Masquer la pastille lorsque le menu déroulant est ouvert
