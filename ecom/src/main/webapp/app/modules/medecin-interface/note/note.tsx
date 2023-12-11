@@ -24,7 +24,7 @@ export const Note = (props) => {
   };
 
   return (
-    <Card>
+    <Card >
       <CardTitle tag="h5">{name}</CardTitle>
       <CardSubtitle tag="h6" className="mb-2 text-muted">
         Note personnelle

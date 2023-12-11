@@ -1,11 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap';
 import './patientpreview.css';
-import {Note} from '../note/note';
+import { Note } from '../note/note';
 import donneesNote from '../classes/medecin-class';
-
 
 ///TODO :
 // une fois que la requete fonctionne, recuperer et traiter le json pour l'afficher dans la note
@@ -62,7 +60,8 @@ export const PatientPreview = props => {
         joignable au {patient.etablissement.telephone} <br />
       </div>
 
-      <Note patient={patient} />
+      <Note 
+      patient={patient} />
     </div>
   );
 };
