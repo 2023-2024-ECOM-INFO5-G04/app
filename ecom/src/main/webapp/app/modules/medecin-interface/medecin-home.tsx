@@ -42,7 +42,7 @@ export const VisualisationPage = () => {
   }
 
   return (
-    <div>
+    <div style={{ height: '80vh' }}>
       <h1 className='title'> Visualisation des données patients</h1>
       <div className="medecin-home">
         <SelectionPatient patients={patientData} />

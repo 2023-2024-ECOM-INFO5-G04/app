@@ -20,4 +20,5 @@
   box-sizing: border-box; /* Pour inclure la largeur du padding et de la bordure dans la largeur totale */
   margin-bottom: 10px; 
   margin-left: 33%;
+  padding: none;
 }
