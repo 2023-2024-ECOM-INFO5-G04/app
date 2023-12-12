@@ -30,7 +30,7 @@ describe('Suividonnees e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F"},
+      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F","favori":true,"sarcopenie":false},
     }).then(({ body }) => {
       patient = body;
     });

@@ -31,6 +31,10 @@ public class PatientDTO implements Serializable {
 
     private Sexe sexe;
 
+    private Boolean favori;
+
+    private Boolean sarcopenie;
+
     private AlerteDTO alerte;
 
     private EtablissementDTO etablissement;
@@ -107,6 +111,22 @@ public class PatientDTO implements Serializable {
         this.sexe = sexe;
     }
 
+    public Boolean getFavori() {
+        return favori;
+    }
+
+    public void setFavori(Boolean favori) {
+        this.favori = favori;
+    }
+
+    public Boolean getSarcopenie() {
+        return sarcopenie;
+    }
+
+    public void setSarcopenie(Boolean sarcopenie) {
+        this.sarcopenie = sarcopenie;
+    }
+
     public AlerteDTO getAlerte() {
         return alerte;
     }
@@ -157,6 +177,8 @@ public class PatientDTO implements Serializable {
             ", albumine=" + getAlbumine() +
             ", taille=" + getTaille() +
             ", sexe='" + getSexe() + "'" +
+            ", favori='" + getFavori() + "'" +
+            ", sarcopenie='" + getSarcopenie() + "'" +
             ", alerte=" + getAlerte() +
             ", etablissement=" + getEtablissement() +
             "}";

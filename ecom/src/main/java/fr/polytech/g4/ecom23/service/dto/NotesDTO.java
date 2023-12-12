@@ -13,9 +13,9 @@ public class NotesDTO implements Serializable {
 
     private String commentaire;
 
-    private MedecinDTO medecin;
+    private MedecinDTO patient;
 
-    private PatientDTO patient;
+    private PatientDTO medecin;
 
     public Long getId() {
         return id;
@@ -33,19 +33,19 @@ public class NotesDTO implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public PatientDTO getPatient() {
+    public MedecinDTO getPatient() {
         return patient;
     }
 
-    public void setPatient(PatientDTO patient) {
+    public void setPatient(MedecinDTO patient) {
         this.patient = patient;
     }
 
-    public MedecinDTO getMedecin() {
+    public PatientDTO getMedecin() {
         return medecin;
     }
 
-    public void setMedecin(MedecinDTO medecin) {
+    public void setMedecin(PatientDTO medecin) {
         this.medecin = medecin;
     }
 
