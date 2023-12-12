@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link fr.polytech.g4.ecom23.domain.Suividonnees} entity.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class SuividonneesDTO implements Serializable {
+public class SuividonneesDTO implements Serializable, Comparable<SuividonneesDTO> {
 
     @NotNull
     private Long id;
@@ -149,5 +149,10 @@ public class SuividonneesDTO implements Serializable {
             ", agression='" + getAgression() + "'" +
             ", patient=" + getPatient() +
             "}";
+    }
+
+    @Override
+    public int compareTo(SuividonneesDTO suividonneesDTO) {
+        return - suividonneesDTO.getDate().compareTo(date);
     }
 }
