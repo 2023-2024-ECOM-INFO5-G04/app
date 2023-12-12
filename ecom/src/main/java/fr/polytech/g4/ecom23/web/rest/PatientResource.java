@@ -2,6 +2,7 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.PatientRepository;
 import fr.polytech.g4.ecom23.service.PatientService;
+import fr.polytech.g4.ecom23.service.dto.AlerteDTO;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 
@@ -151,7 +152,18 @@ public class PatientResource {
     @GetMapping("/patients")
     public List<PatientDTO> getAllPatients() {
         log.debug("REST request to get all Patients");
-        return patientService.findAll();
+        List<PatientDTO> list = patientService.findAll();
+        for (PatientDTO patientDTO : list) {
+            AlerteDTO previousAlerteDTO = patientDTO.getAlerte();
+            if (previousAlerteDTO == null) {
+                throw new RuntimeException("TODO");
+            }
+            else {
+                throw new RuntimeException("TODO");
+            }
+
+        }
+        return list;
     }
 
     /**

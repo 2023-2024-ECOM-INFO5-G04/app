@@ -101,10 +101,10 @@ export const AlerteUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                label={translate('ecom23App.alerte.denutrition')}
-                id="alerte-denutrition"
-                name="denutrition"
-                data-cy="denutrition"
+                label={translate('ecom23App.alerte.severite')}
+                id="alerte-severite"
+                name="severite"
+                data-cy="severite"
                 check
                 type="checkbox"
               />

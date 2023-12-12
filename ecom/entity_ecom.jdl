@@ -14,7 +14,7 @@ entity Etablissement{
 	id Long required unique
     nom String
     adresse String
-    telephone String minlength(10) maxlength(14)   
+    telephone String minlength(10) maxlength(14)
 }
 
 entity Servicesoignant{
@@ -76,7 +76,7 @@ entity Patient {
 entity Alerte{
 	date LocalDate
     commentaire String
-  	denutrition Boolean
+  	severite Boolean
 }
 
 entity Suividonnees{

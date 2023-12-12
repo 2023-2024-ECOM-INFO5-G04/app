@@ -73,7 +73,7 @@ class AlerteGatlingTest extends Simulation {
             .body(StringBody("""{
                 "date":"2020-01-01T00:00:00.000Z"
                 , "commentaire":"SAMPLE_TEXT"
-                , "denutrition":null
+                , "severite":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_alerte_url"))).exitHereIfFailed

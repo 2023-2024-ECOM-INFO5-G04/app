@@ -37,8 +37,8 @@ public class PatientDTO implements Serializable {
 
     private EtablissementDTO etablissement;
 
-    private enum Denutrition {
-        NON, MOD, SEV
+    private enum Donnee {
+        POIDS, CALORIES
     }
 
     public Long getId() {
@@ -181,14 +181,28 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private Float movingAveragePoids(LocalDate d1, LocalDate d2, List<SuividonneesDTO> list) {
+    private Float movingAverage(List<SuividonneesDTO> list, Donnee donnee, LocalDate d1, LocalDate d2) {
         List<Float> poidsList = new LinkedList<Float>();
         for (SuividonneesDTO suivi : list) {
             if (suivi.getDate().compareTo(d2) <= 0) {
                 if (suivi.getDate().compareTo(d1) >= 0) {
-                    Float poids = suivi.getPoids();
-                    if (poids != null) {
-                        poidsList.add(poids);
+                    switch (donnee) {
+                        case POIDS:
+                            Float poids = suivi.getPoids();
+                            if (poids != null) {
+                                poidsList.add(poids);
+                            }
+                            break;
+                        case CALORIES:
+                            Float quantitecaloriesaliments = suivi.getQuantitecaloriesaliments();
+                            Float quantitepoidsaliments = suivi.getQuantitepoidsaliments();
+                            if (quantitecaloriesaliments != null && quantitepoidsaliments != null) {
+                                Float calories = quantitecaloriesaliments * quantitepoidsaliments / 100;
+                                poidsList.add(calories);
+                            }
+                            break;
+                        default:
+                            return null;
                     }
                 }
                 else {
@@ -198,32 +212,32 @@ public class PatientDTO implements Serializable {
         }
         if (poidsList.isEmpty())
             return null;
-        Float sum = new Float(0);
+        Float sum = 0f;
         for (Float poids : poidsList) {
             sum += poids;
         }
         return sum / poidsList.size();
     }
 
-    private Float poidsEvolution(List<SuividonneesDTO> list, int days) {
+    private Float evolution(List<SuividonneesDTO> list, Donnee donnee, int days) {
         Float movingAverage_t, movingAverage_t1;
         LocalDate t0 = LocalDate.now();
         LocalDate t1 = LocalDate.ofEpochDay(t0.toEpochDay() - days);
         LocalDate t2 = LocalDate.ofEpochDay(t0.toEpochDay() - 2L * days);
-        movingAverage_t = movingAveragePoids(t1, t0, list);
+        movingAverage_t = movingAverage(list, donnee, t1, t0);
         if (movingAverage_t == null)
             return null;
-        movingAverage_t1 = movingAveragePoids(t2, t1, list);
+        movingAverage_t1 = movingAverage(list, donnee, t2, t1);
         if (movingAverage_t1 == null)
             return null;
         return (movingAverage_t - movingAverage_t1) / movingAverage_t1;
     }
 
     private boolean weightLoss(List<SuividonneesDTO> list, int days1, float loss1, int days2, float loss2, float loss3) {
-        Float evo1 = poidsEvolution(list, days1);
+        Float evo1 = evolution(list, Donnee.POIDS, days1);
         if (evo1 != null && evo1 <= -loss1)
             return true;
-        Float evo2 = poidsEvolution(list, days2);
+        Float evo2 = evolution(list, Donnee.POIDS, days2);
         if (evo2 != null && evo2 <= -loss2)
             return true;
         return weightLoss3(list, loss3);
@@ -249,31 +263,7 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private Float movingAverageCalories(LocalDate d1, LocalDate d2, List<SuividonneesDTO> list) {
-        List<Float> caloriesList = new LinkedList<Float>();
-        for (SuividonneesDTO suivi : list) {
-            if (suivi.getDate().compareTo(d2) <= 0) {
-                if (suivi.getDate().compareTo(d1) >= 0) {
-                    Float quantitepoidsaliments = suivi.getQuantitepoidsaliments();
-                    Float quantitecaloriesaliments = suivi.getQuantitecaloriesaliments();
-                    if (quantitepoidsaliments != null && quantitecaloriesaliments != null) {
-                        Float calories = quantitecaloriesaliments * quantitepoidsaliments / 100;
-                        caloriesList.add(calories);
-                    }
-                }
-                else {
-                    break;
-                }
-            }
-        }
-        if (caloriesList.isEmpty())
-            return null;
-        Float sum = new Float(0);
-        for (Float calories : caloriesList) {
-            sum += calories;
-        }
-        return sum / caloriesList.size();
-    }
+
 
 
     private boolean phe1(List<SuividonneesDTO> list) {
@@ -337,7 +327,7 @@ public class PatientDTO implements Serializable {
         return sev1(list) || sev2(list) || sev3(list);
     }
 
-    public Denutrition denutrition(SuividonneesService suiviService) {
+    public AlerteDTO denutrition(SuividonneesService suiviService) {
         List<SuividonneesDTO> all = suiviService.findAll();
         List<SuividonneesDTO> list = new LinkedList<SuividonneesDTO>();
         for (SuividonneesDTO suivi : all) {
@@ -346,13 +336,21 @@ public class PatientDTO implements Serializable {
             }
         }
         if (list.isEmpty())
-            return Denutrition.NON;
+            return null;
         Collections.sort(list);
-        if (!phenotypique(list) || !etiologique(list))
-            return Denutrition.NON;
-        if (severe(list))
-            return Denutrition.SEV;
-        return Denutrition.MOD;
+        if (!phenotypique(list) && !etiologique(list))
+            return null;
+        AlerteDTO alerteDTO = new AlerteDTO();
+        alerteDTO.setDate(LocalDate.now());
+        if (severe(list)) {
+            alerteDTO.setSeverite(true);
+            alerteDTO.setCommentaire("TODO");
+        }
+        else {
+            alerteDTO.setSeverite(false);
+            alerteDTO.setCommentaire("TODO");
+        }
+        return alerteDTO;
     }
 
 }

@@ -14,7 +14,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "denutrition",
+      "fieldName": "severite",
       "fieldType": "Boolean"
     }
   ],

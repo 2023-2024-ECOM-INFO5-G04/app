@@ -45,11 +45,11 @@ export const AlerteDetail = () => {
           </dt>
           <dd>{alerteEntity.commentaire}</dd>
           <dt>
-            <span id="denutrition">
-              <Translate contentKey="ecom23App.alerte.denutrition">Denutrition</Translate>
+            <span id="severite">
+              <Translate contentKey="ecom23App.alerte.severite">Severite</Translate>
             </span>
           </dt>
-          <dd>{alerteEntity.denutrition ? 'true' : 'false'}</dd>
+          <dd>{alerteEntity.severite ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/alerte" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
