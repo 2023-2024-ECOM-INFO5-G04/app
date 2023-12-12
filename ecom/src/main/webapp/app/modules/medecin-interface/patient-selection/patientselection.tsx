@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './patientselection.css';
-import Filtre from '../filter/filter';
 import PatientsList from '../patients-list/patientslist';
 import { Etablissement, PatientData } from '../classes/patient-class';
+import { FormGroup, Input } from 'reactstrap';
 
 export const SelectionPatient = props => {
   const [selectedEtablissement, setSelectedEtablissement] = useState<Etablissement>(new Etablissement());
@@ -13,6 +13,8 @@ export const SelectionPatient = props => {
 
   const [ESelector, setESelector] = useState<number>(0); // on a selectionné un etablissement
   const [NSelector, setNSelector] = useState<string>(''); // on a renseigné un nom
+  const [ASelector, setASelector] = useState<boolean>(false); //on a trié par date d'arrivée
+
 
   useEffect(() => {
     updatePatientsByName(NSelector);
@@ -27,7 +29,16 @@ export const SelectionPatient = props => {
   }, [ESelector]);
 
   useEffect(() => {
-    setPatients(patientsByE.filter(element => patientsByN.includes(element)));
+    updatePatientsByArrival(ASelector);
+  }, [ASelector]);
+
+  useEffect(() => {
+    let patientsTemp = patientsByE.filter(element => patientsByN.includes(element));
+    if (ASelector) {
+      patientsTemp = (trierParDate(patientsTemp))
+    }
+    setPatients(patientsTemp);
+    // setPatients(patientsByE.filter(element => patientsByN.includes(element)));
   }, [patientsByE, patientsByN]);
 
   const allPatients = props.patients;
@@ -80,19 +91,34 @@ export const SelectionPatient = props => {
     setPatientsByN(list);
   };
 
+  const updatePatientsByArrival = (trier: boolean) => {
+    if (trier) {
+      setPatients(trierParDate(patients));
+    }
+  };
+
+  function trierParDate(data: PatientData[]): PatientData[] {
+    const dataTriee = data
+      .map(item => ({ ...item, date: new Date(item.datearrivee) }))
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .map(item => ({ ...item, date: item.date.toISOString().split('T')[0] }));
+
+    return dataTriee;
+  }
+
   return (
     <div className="patient-affichage">
       <div className="patient-selection">
-        <label className= "choice">
+        <label className="choice">
           Recherche par nom :
           <br />
-          <input  name="name" onChange={e => setNSelector(e.target.value)} />
+          <input name="name" onChange={e => setNSelector(e.target.value)} />
         </label>
         <br />
         <label className="choice">
           Recherche par établissement :
           <br />
-          <select  value={selectedEtablissement?.id || ''} onChange={e => updateSelectedEtablissment(e.target.value)}>
+          <select value={selectedEtablissement?.id || ''} onChange={e => updateSelectedEtablissment(e.target.value)}>
             <option value="">--Etablissement--</option>
             <option key={-1} value="all">
               ALL
@@ -104,9 +130,22 @@ export const SelectionPatient = props => {
                 </option>
               ))}
           </select>
+
+        </label>
+        <br />
+        <label className='choice'>
+          Trier : du dernier au premier arrivé
+          <FormGroup switch>
+            <Input
+              style={{ width: '3em' }}
+              type="switch"
+              checked={ASelector}
+              onChange={() => setASelector(!ASelector)}
+            />
+          </FormGroup>
         </label>
 
-        {/* <Filtre /> */}
+
       </div>
       <PatientsList patients={patients} />
     </div>
