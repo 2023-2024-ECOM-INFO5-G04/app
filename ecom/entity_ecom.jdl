@@ -74,7 +74,7 @@ entity Suividonnees{
 	id Long required unique
     date LocalDate required
     poids Float
-    epa Float
+    epa Float min(0) max(10)
     massecorporelle Float
     quantitepoidsaliments Float
     quantitecaloriesaliments Float

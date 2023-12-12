@@ -19,6 +19,8 @@ public class SuividonneesDTO implements Serializable {
 
     private Float poids;
 
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "10")
     private Float epa;
 
     private Float massecorporelle;

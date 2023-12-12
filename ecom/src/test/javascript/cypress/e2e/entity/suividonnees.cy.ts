@@ -216,7 +216,7 @@ describe('Suividonnees e2e test', () => {
 
       cy.get(`[data-cy="poids"]`).type('98248').should('have.value', '98248');
 
-      cy.get(`[data-cy="epa"]`).type('80781').should('have.value', '80781');
+      cy.get(`[data-cy="epa"]`).type('8').should('have.value', '8');
 
       cy.get(`[data-cy="massecorporelle"]`).type('50635').should('have.value', '50635');
 
