@@ -6,6 +6,7 @@ import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -155,6 +156,25 @@ public class SuividonneesResource {
         log.debug("REST request to get Suividonnees : {}", id);
         Optional<SuividonneesDTO> suividonneesDTO = suividonneesService.findOne(id);
         return ResponseUtil.wrapOrNotFound(suividonneesDTO);
+    }
+
+    /**
+     * {@code GET  /suividonnees/patient/:id : get the suividonnees from the patient with the id.
+     *
+     * @param id the id of the patient to retrieve the respectives suividonneesDTO.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of suividonnees in body.
+     */
+    @GetMapping("/suividonnees/patient/{id}")
+    public List<SuividonneesDTO> getSuividonneesPatient(@PathVariable Long id) {
+       //TODO
+//        log.debug("REST request to get all Suividonnees from patient with id : {}", id_patient);
+        List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
+        List<SuividonneesDTO> filteredSuividonnees = new LinkedList<SuividonneesDTO>();
+        for (SuividonneesDTO sd : allSuividonnees) {
+            if (sd.getPatient().getId().equals(id))
+                filteredSuividonnees.add(sd);
+        }
+        return filteredSuividonnees;
     }
 
     /**
