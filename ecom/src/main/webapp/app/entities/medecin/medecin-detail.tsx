@@ -45,9 +45,9 @@ export const MedecinDetail = () => {
           </dt>
           <dd>{medecinEntity.prenom}</dd>
           <dt>
-            <Translate contentKey="ecom23App.medecin.compte">Compte</Translate>
+            <Translate contentKey="ecom23App.medecin.user">User</Translate>
           </dt>
-          <dd>{medecinEntity.compte ? medecinEntity.compte.id : ''}</dd>
+          <dd>{medecinEntity.user ? medecinEntity.user.id : ''}</dd>
           <dt>
             <Translate contentKey="ecom23App.medecin.patients">Patients</Translate>
           </dt>

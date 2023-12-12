@@ -27,7 +27,7 @@ public class Notes implements Serializable {
     private String commentaire;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "compte", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
     private Medecin medecin;
 
     @ManyToOne

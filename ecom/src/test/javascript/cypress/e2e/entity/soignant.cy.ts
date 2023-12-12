@@ -46,7 +46,7 @@ describe('Soignant e2e test', () => {
   /* Disabled due to incompatibility
   beforeEach(() => {
     // Simulate relationships api for better performance and reproducibility.
-    cy.intercept('GET', '/api/comptes', {
+    cy.intercept('GET', '/api/users', {
       statusCode: 200,
       body: [],
     });
