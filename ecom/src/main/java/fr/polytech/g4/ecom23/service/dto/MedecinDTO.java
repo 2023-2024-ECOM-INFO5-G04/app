@@ -19,7 +19,7 @@ public class MedecinDTO implements Serializable {
 
     private String prenom;
 
-    private CompteDTO compte;
+    private UserDTO user;
 
     private Set<PatientDTO> patients = new HashSet<>();
 
@@ -49,12 +49,12 @@ public class MedecinDTO implements Serializable {
         this.prenom = prenom;
     }
 
-    public CompteDTO getCompte() {
-        return compte;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setCompte(CompteDTO compte) {
-        this.compte = compte;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public Set<PatientDTO> getPatients() {
@@ -101,7 +101,7 @@ public class MedecinDTO implements Serializable {
             "id=" + getId() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", compte=" + getCompte() +
+            ", user=" + getUser() +
             ", patients=" + getPatients() +
             ", etablissements=" + getEtablissements() +
             "}";

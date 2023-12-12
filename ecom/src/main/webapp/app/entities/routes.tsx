@@ -10,7 +10,6 @@ import Administrateur from './administrateur';
 import Tache from './tache';
 import Medecin from './medecin';
 import Rappel from './rappel';
-import Compte from './compte';
 import Patient from './patient';
 import Alerte from './alerte';
 import Suividonnees from './suividonnees';
@@ -29,7 +28,6 @@ export default () => {
         <Route path="tache/*" element={<Tache />} />
         <Route path="medecin/*" element={<Medecin />} />
         <Route path="rappel/*" element={<Rappel />} />
-        <Route path="compte/*" element={<Compte />} />
         <Route path="patient/*" element={<Patient />} />
         <Route path="alerte/*" element={<Alerte />} />
         <Route path="suividonnees/*" element={<Suividonnees />} />

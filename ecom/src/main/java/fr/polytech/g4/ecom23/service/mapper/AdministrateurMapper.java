@@ -1,9 +1,9 @@
 package fr.polytech.g4.ecom23.service.mapper;
 
 import fr.polytech.g4.ecom23.domain.Administrateur;
-import fr.polytech.g4.ecom23.domain.Compte;
+import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.service.dto.AdministrateurDTO;
-import fr.polytech.g4.ecom23.service.dto.CompteDTO;
+import fr.polytech.g4.ecom23.service.dto.UserDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface AdministrateurMapper extends EntityMapper<AdministrateurDTO, Administrateur> {
-    @Mapping(target = "compte", source = "compte", qualifiedByName = "compteId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
     AdministrateurDTO toDto(Administrateur s);
 
-    @Named("compteId")
+    @Named("userId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    CompteDTO toDtoCompteId(Compte compte);
+    UserDTO toDtoUserId(User user);
 }

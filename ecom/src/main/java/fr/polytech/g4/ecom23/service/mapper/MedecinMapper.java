@@ -1,10 +1,10 @@
 package fr.polytech.g4.ecom23.service.mapper;
 
-import fr.polytech.g4.ecom23.domain.Compte;
+import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.domain.Etablissement;
 import fr.polytech.g4.ecom23.domain.Medecin;
 import fr.polytech.g4.ecom23.domain.Patient;
-import fr.polytech.g4.ecom23.service.dto.CompteDTO;
+import fr.polytech.g4.ecom23.service.dto.UserDTO;
 import fr.polytech.g4.ecom23.service.dto.EtablissementDTO;
 import fr.polytech.g4.ecom23.service.dto.MedecinDTO;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
@@ -17,7 +17,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface MedecinMapper extends EntityMapper<MedecinDTO, Medecin> {
-    @Mapping(target = "compte", source = "compte", qualifiedByName = "compteId")
+    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
     @Mapping(target = "patients", source = "patients", qualifiedByName = "patientIdSet")
     @Mapping(target = "etablissements", source = "etablissements", qualifiedByName = "etablissementIdSet")
     MedecinDTO toDto(Medecin s);
@@ -26,10 +26,10 @@ public interface MedecinMapper extends EntityMapper<MedecinDTO, Medecin> {
     @Mapping(target = "removeEtablissement", ignore = true)
     Medecin toEntity(MedecinDTO medecinDTO);
 
-    @Named("compteId")
+    @Named("userId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    CompteDTO toDtoCompteId(Compte compte);
+    UserDTO toDtoUserId(User user);
 
     @Named("patientId")
     @BeanMapping(ignoreByDefault = true)

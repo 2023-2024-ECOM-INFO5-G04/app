@@ -1,6 +1,5 @@
 package fr.polytech.g4.ecom23.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -31,10 +30,9 @@ public class Administrateur implements Serializable {
     @Column(name = "prenom")
     private String prenom;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Compte compte;
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -77,16 +75,16 @@ public class Administrateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public Compte getCompte() {
-        return this.compte;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Administrateur compte(Compte compte) {
-        this.setCompte(compte);
+    public Administrateur user(User user) {
+        this.setUser(user);
         return this;
     }
 
