@@ -1,0 +1,41 @@
+.back {
+    background-color: #d1e7dd;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  
+  .head{
+    height: 15%;
+    width: 100%;
+    margin: 2px;
+    border:solid;
+  
+    border-color: black;
+  }
+  
+  .body{
+    height: 70%;
+    width: 100%;
+    margin:2px;
+    border:solid;
+    border-color: red;
+  }
+  
+  .foot{
+    height: 15%;
+    width: 100%;
+    margin: 2px;
+    border:solid;
+    border-color:blue;
+    position: relative;
+  }
+
+  .tache-button{
+    position: absolute;
+    right : 2;
+    bottom : 2;
+    margin : 10px;
+  }
+  

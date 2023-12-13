@@ -1,0 +1,48 @@
+.backT {
+  background-color: #486672;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headT {
+  height: 10%;
+  width: 100%;
+  margin: 2px;
+  border: solid;
+  border-color: black;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bodyT {
+  height: 20%;
+  width: 100%;
+  margin: 2px;
+  border: solid;
+  border-color: red;
+  
+}
+
+.footT {
+  height: 30%;
+  width: 100%;
+  margin: 2px;
+  border: solid;
+  border-color: blue;
+  position: relative;
+}
+
+.retour-button {
+  position: absolute;
+  right: 0;
+  margin : 5px;
+}
+
+.valider-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin : 5px;
+  }

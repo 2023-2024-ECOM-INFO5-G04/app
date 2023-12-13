@@ -1,0 +1,40 @@
+.inputName {
+  width: 70%;
+  margin: 5px;
+  justify-content: center;
+}
+
+/* .radioGroup{
+    min-width: 33%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+} */
+
+.radioGroup {
+  min-width: 33%;
+  display: flex;
+    justify-content: center;
+
+
+}
+
+.dansRadioGroup {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  margin: 5px;
+}
+
+.assignation {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .radio{
+    align-self: flex-start;
+} */
