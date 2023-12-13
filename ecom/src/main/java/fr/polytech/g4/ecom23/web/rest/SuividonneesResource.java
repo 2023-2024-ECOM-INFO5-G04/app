@@ -51,7 +51,7 @@ public class SuividonneesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/suividonnees")
-    public ResponseEntity<SuividonneesDTO> createSuividonnees(@Valid @RequestBody SuividonneesDTO suividonneesDTO)
+    public ResponseEntity<SuividonneesDTO> createSuividonnees(@RequestBody SuividonneesDTO suividonneesDTO)
         throws URISyntaxException {
         log.debug("REST request to save Suividonnees : {}", suividonneesDTO);
         if (suividonneesDTO.getId() != null) {

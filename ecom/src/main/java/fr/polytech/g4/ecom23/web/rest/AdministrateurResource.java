@@ -50,7 +50,7 @@ public class AdministrateurResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/administrateurs")
-    public ResponseEntity<AdministrateurDTO> createAdministrateur(@Valid @RequestBody AdministrateurDTO administrateurDTO)
+    public ResponseEntity<AdministrateurDTO> createAdministrateur(@RequestBody AdministrateurDTO administrateurDTO)
         throws URISyntaxException {
         log.debug("REST request to save Administrateur : {}", administrateurDTO);
         if (administrateurDTO.getId() != null) {
