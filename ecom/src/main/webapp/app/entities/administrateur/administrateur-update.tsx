@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ICompte } from 'app/shared/model/compte.model';
-import { getEntities as getComptes } from 'app/entities/compte/compte.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IAdministrateur } from 'app/shared/model/administrateur.model';
 import { getEntity, updateEntity, createEntity, reset } from './administrateur.reducer';
 
@@ -21,7 +21,7 @@ export const AdministrateurUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const comptes = useAppSelector(state => state.compte.entities);
+  const users = useAppSelector(state => state.userManagement.users);
   const administrateurEntity = useAppSelector(state => state.administrateur.entity);
   const loading = useAppSelector(state => state.administrateur.loading);
   const updating = useAppSelector(state => state.administrateur.updating);
@@ -38,7 +38,7 @@ export const AdministrateurUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getComptes({}));
+    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export const AdministrateurUpdate = () => {
     const entity = {
       ...administrateurEntity,
       ...values,
-      compte: comptes.find(it => it.id.toString() === values.compte.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
     if (isNew) {
@@ -66,7 +66,7 @@ export const AdministrateurUpdate = () => {
       ? {}
       : {
           ...administrateurEntity,
-          compte: administrateurEntity?.compte?.id,
+        user: administrateurEntity?.user?.id,
         };
 
   return (
@@ -109,15 +109,15 @@ export const AdministrateurUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                id="administrateur-compte"
-                name="compte"
-                data-cy="compte"
-                label={translate('ecom23App.administrateur.compte')}
+                id="administrateur-user"
+                name="user"
+                data-cy="user"
+                label={translate('ecom23App.administrateur.user')}
                 type="select"
               >
                 <option value="" key="0" />
-                {comptes
-                  ? comptes.map(otherEntity => (
+                {users
+                  ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

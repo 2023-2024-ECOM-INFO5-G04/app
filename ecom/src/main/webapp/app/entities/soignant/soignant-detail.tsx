@@ -51,9 +51,9 @@ export const SoignantDetail = () => {
           </dt>
           <dd>{soignantEntity.metier}</dd>
           <dt>
-            <Translate contentKey="ecom23App.soignant.compte">Compte</Translate>
+            <Translate contentKey="ecom23App.soignant.user">User</Translate>
           </dt>
-          <dd>{soignantEntity.compte ? soignantEntity.compte.id : ''}</dd>
+          <dd>{soignantEntity.user ? soignantEntity.user.id : ''}</dd>
           <dt>
             <Translate contentKey="ecom23App.soignant.servicesoignant">Servicesoignant</Translate>
           </dt>

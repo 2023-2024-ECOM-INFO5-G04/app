@@ -47,7 +47,7 @@ public class Etablissement implements Serializable {
 
     @ManyToMany(mappedBy = "etablissements")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "compte", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
     private Set<Medecin> medecins = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

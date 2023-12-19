@@ -14,7 +14,7 @@ export class PatientData {
     etablissement: Etablissement;
 }
 
-class Alerte {
+export class Alerte {
   id: number;
   date: string;
   commentaire: string;
@@ -28,13 +28,12 @@ export class Etablissement {
   telephone: string;
 }
 
-export function donnesPatient(jsonObject) {
 
+export function donneesPatient(jsonObject) {
     return(plainToClass(PatientData, jsonObject))
-
 }
 
-export default donnesPatient
+export default donneesPatient;
 
 
 

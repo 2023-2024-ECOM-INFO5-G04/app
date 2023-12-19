@@ -17,7 +17,7 @@ public class AdministrateurDTO implements Serializable {
 
     private String prenom;
 
-    private CompteDTO compte;
+    private UserDTO user;
 
     public Long getId() {
         return id;
@@ -43,12 +43,12 @@ public class AdministrateurDTO implements Serializable {
         this.prenom = prenom;
     }
 
-    public CompteDTO getCompte() {
-        return compte;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setCompte(CompteDTO compte) {
-        this.compte = compte;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class AdministrateurDTO implements Serializable {
             "id=" + getId() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", compte=" + getCompte() +
+            ", user=" + getUser() +
             "}";
     }
 }

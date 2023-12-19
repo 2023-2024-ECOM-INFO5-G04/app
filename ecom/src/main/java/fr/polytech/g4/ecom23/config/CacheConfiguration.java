@@ -66,7 +66,6 @@ public class CacheConfiguration {
             createCache(cm, fr.polytech.g4.ecom23.domain.Medecin.class.getName() + ".patients");
             createCache(cm, fr.polytech.g4.ecom23.domain.Medecin.class.getName() + ".etablissements");
             createCache(cm, fr.polytech.g4.ecom23.domain.Rappel.class.getName());
-            createCache(cm, fr.polytech.g4.ecom23.domain.Compte.class.getName());
             createCache(cm, fr.polytech.g4.ecom23.domain.Patient.class.getName());
             createCache(cm, fr.polytech.g4.ecom23.domain.Patient.class.getName() + ".notes");
             createCache(cm, fr.polytech.g4.ecom23.domain.Patient.class.getName() + ".suividonnees");

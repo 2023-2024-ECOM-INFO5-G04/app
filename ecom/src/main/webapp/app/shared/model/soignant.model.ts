@@ -1,4 +1,4 @@
-import { ICompte } from 'app/shared/model/compte.model';
+import { IUser } from 'app/shared/model/user.model';
 import { IServicesoignant } from 'app/shared/model/servicesoignant.model';
 import { IPatient } from 'app/shared/model/patient.model';
 import { ITache } from 'app/shared/model/tache.model';
@@ -9,7 +9,7 @@ export interface ISoignant {
   nom?: string | null;
   prenom?: string | null;
   metier?: SoignantMetier | null;
-  compte?: ICompte | null;
+  user?: IUser | null;
   servicesoignant?: IServicesoignant;
   patients?: IPatient[] | null;
   taches?: ITache[] | null;

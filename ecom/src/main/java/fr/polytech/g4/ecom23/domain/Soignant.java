@@ -41,7 +41,7 @@ public class Soignant implements Serializable {
     @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Compte compte;
+    private User user;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -120,16 +120,16 @@ public class Soignant implements Serializable {
         this.metier = metier;
     }
 
-    public Compte getCompte() {
-        return this.compte;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Soignant compte(Compte compte) {
-        this.setCompte(compte);
+    public Soignant user(User user) {
+        this.setUser(user);
         return this;
     }
 

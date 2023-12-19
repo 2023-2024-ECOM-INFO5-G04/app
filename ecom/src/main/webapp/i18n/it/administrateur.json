@@ -20,7 +20,7 @@
       "id": "Id",
       "nom": "Nom",
       "prenom": "Prenom",
-      "compte": "Compte"
+      "user": "User"
     }
   }
 }
