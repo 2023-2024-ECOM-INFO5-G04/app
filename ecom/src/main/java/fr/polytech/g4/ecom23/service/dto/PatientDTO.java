@@ -181,28 +181,36 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
+    private Float getValue(SuividonneesDTO suivi, Donnee donnee) throws Exception{
+        switch (donnee) {
+            case POIDS:
+                Float poids = suivi.getPoids();
+                if (poids != null)
+                    return poids;
+                break;
+            case CALORIES:
+                Float quantitecaloriesaliments = suivi.getQuantitecaloriesaliments();
+                Float quantitepoidsaliments = suivi.getQuantitepoidsaliments();
+                if (quantitecaloriesaliments != null && quantitepoidsaliments != null)
+                    return quantitecaloriesaliments * quantitepoidsaliments / 100;
+                break;
+            default:
+                throw new Exception("Invalid data type : " + donnee.toString());
+        }
+        return null;
+    }
+
     private Float movingAverage(List<SuividonneesDTO> list, Donnee donnee, LocalDate d1, LocalDate d2) {
-        List<Float> poidsList = new LinkedList<Float>();
+        List<Float> values = new LinkedList<Float>();
         for (SuividonneesDTO suivi : list) {
-            if (suivi.getDate().compareTo(d2) <= 0) {
-                if (suivi.getDate().compareTo(d1) >= 0) {
-                    switch (donnee) {
-                        case POIDS:
-                            Float poids = suivi.getPoids();
-                            if (poids != null) {
-                                poidsList.add(poids);
-                            }
-                            break;
-                        case CALORIES:
-                            Float quantitecaloriesaliments = suivi.getQuantitecaloriesaliments();
-                            Float quantitepoidsaliments = suivi.getQuantitepoidsaliments();
-                            if (quantitecaloriesaliments != null && quantitepoidsaliments != null) {
-                                Float calories = quantitecaloriesaliments * quantitepoidsaliments / 100;
-                                poidsList.add(calories);
-                            }
-                            break;
-                        default:
-                            return null;
+            if (!suivi.getDate().isAfter(d2)) {
+                if (!suivi.getDate().isBefore(d1)) {
+                    try {
+                       Float value = getValue(suivi, donnee);
+                       if (value != null)
+                           values.add(value);
+                    } catch (Exception e) {
+                        return null;
                     }
                 }
                 else {
@@ -210,13 +218,20 @@ public class PatientDTO implements Serializable {
                 }
             }
         }
-        if (poidsList.isEmpty())
+        if (values.isEmpty())
             return null;
         Float sum = 0f;
-        for (Float poids : poidsList) {
-            sum += poids;
+        for (Float value : values) {
+            sum += value;
         }
-        return sum / poidsList.size();
+        switch (donnee) {
+            case POIDS:
+                return sum / values.size();
+            case CALORIES:
+                return sum;
+            default:
+                return null;
+        }
     }
 
     private Float evolution(List<SuividonneesDTO> list, Donnee donnee, int days) {
@@ -265,7 +280,6 @@ public class PatientDTO implements Serializable {
 
 
 
-
     private boolean phe1(List<SuividonneesDTO> list) {
         return weightLoss(list, 30, 0.05F, 183, 0.1F, 0.1F);
     }
@@ -282,7 +296,13 @@ public class PatientDTO implements Serializable {
     }
 
     private boolean eti1(List<SuividonneesDTO> list) {
-        throw new RuntimeException("NYI");
+        Float evo1 = evolution(list, Donnee.CALORIES, 7);
+        if (evo1 != null && evo1 <= -50)
+            return true;
+        Float evo2 = evolution(list, Donnee.CALORIES, 14);
+        if (evo2 != null && evo2 < 0)
+            return true;
+        return false;
     }
 
     private boolean eti2(List<SuividonneesDTO> list) {
