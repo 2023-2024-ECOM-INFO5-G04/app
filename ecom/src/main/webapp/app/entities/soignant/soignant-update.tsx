@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ICompte } from 'app/shared/model/compte.model';
-import { getEntities as getComptes } from 'app/entities/compte/compte.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IServicesoignant } from 'app/shared/model/servicesoignant.model';
 import { getEntities as getServicesoignants } from 'app/entities/servicesoignant/servicesoignant.reducer';
 import { IPatient } from 'app/shared/model/patient.model';
@@ -26,7 +26,7 @@ export const SoignantUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const comptes = useAppSelector(state => state.compte.entities);
+  const users = useAppSelector(state => state.userManagement.users);
   const servicesoignants = useAppSelector(state => state.servicesoignant.entities);
   const patients = useAppSelector(state => state.patient.entities);
   const soignantEntity = useAppSelector(state => state.soignant.entity);
@@ -46,7 +46,7 @@ export const SoignantUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getComptes({}));
+    dispatch(getUsers({}));
     dispatch(getServicesoignants({}));
     dispatch(getPatients({}));
   }, []);
@@ -62,7 +62,7 @@ export const SoignantUpdate = () => {
       ...soignantEntity,
       ...values,
       patients: mapIdList(values.patients),
-      compte: comptes.find(it => it.id.toString() === values.compte.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
       servicesoignant: servicesoignants.find(it => it.id.toString() === values.servicesoignant.toString()),
     };
 
@@ -79,7 +79,7 @@ export const SoignantUpdate = () => {
       : {
           metier: 'Aidesoignant',
           ...soignantEntity,
-          compte: soignantEntity?.compte?.id,
+          user: soignantEntity?.user?.id,
           servicesoignant: soignantEntity?.servicesoignant?.id,
           patients: soignantEntity?.patients?.map(e => e.id.toString()),
         };
@@ -131,15 +131,15 @@ export const SoignantUpdate = () => {
                 ))}
               </ValidatedField>
               <ValidatedField
-                id="soignant-compte"
-                name="compte"
-                data-cy="compte"
-                label={translate('ecom23App.soignant.compte')}
+                id="soignant-user"
+                name="user"
+                data-cy="user"
+                label={translate('ecom23App.soignant.user')}
                 type="select"
               >
                 <option value="" key="0" />
-                {comptes
-                  ? comptes.map(otherEntity => (
+                {users
+                  ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

@@ -40,7 +40,7 @@ public class Servicesoignant implements Serializable {
 
     @OneToMany(mappedBy = "servicesoignant")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "compte", "servicesoignant", "patients", "taches" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "servicesoignant", "patients", "taches" }, allowSetters = true)
     private Set<Soignant> soignants = new HashSet<>();
 
     @OneToMany(mappedBy = "servicesoignant")

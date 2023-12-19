@@ -33,10 +33,9 @@ public class Medecin implements Serializable {
     @Column(name = "prenom")
     private String prenom;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Compte compte;
+    private User user;
 
     @OneToMany(mappedBy = "medecin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -117,16 +116,15 @@ public class Medecin implements Serializable {
         this.prenom = prenom;
     }
 
-    public Compte getCompte() {
-        return this.compte;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public Medecin compte(Compte compte) {
-        this.setCompte(compte);
+    public Medecin user(User user) {
+        this.setUser(user);
         return this;
     }
 

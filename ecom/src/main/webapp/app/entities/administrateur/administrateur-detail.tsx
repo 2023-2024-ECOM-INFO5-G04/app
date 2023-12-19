@@ -45,9 +45,9 @@ export const AdministrateurDetail = () => {
           </dt>
           <dd>{administrateurEntity.prenom}</dd>
           <dt>
-            <Translate contentKey="ecom23App.administrateur.compte">Compte</Translate>
+            <Translate contentKey="ecom23App.administrateur.user">User</Translate>
           </dt>
-          <dd>{administrateurEntity.compte ? administrateurEntity.compte.id : ''}</dd>
+          <dd>{administrateurEntity.user ? administrateurEntity.user.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/administrateur" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

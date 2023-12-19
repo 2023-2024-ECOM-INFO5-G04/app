@@ -8,8 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ICompte } from 'app/shared/model/compte.model';
-import { getEntities as getComptes } from 'app/entities/compte/compte.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IPatient } from 'app/shared/model/patient.model';
 import { getEntities as getPatients } from 'app/entities/patient/patient.reducer';
 import { IEtablissement } from 'app/shared/model/etablissement.model';
@@ -25,7 +25,7 @@ export const MedecinUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const comptes = useAppSelector(state => state.compte.entities);
+  const users = useAppSelector(state => state.userManagement.users);
   const patients = useAppSelector(state => state.patient.entities);
   const etablissements = useAppSelector(state => state.etablissement.entities);
   const medecinEntity = useAppSelector(state => state.medecin.entity);
@@ -44,7 +44,7 @@ export const MedecinUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getComptes({}));
+    dispatch(getUsers({}));
     dispatch(getPatients({}));
     dispatch(getEtablissements({}));
   }, []);
@@ -61,7 +61,7 @@ export const MedecinUpdate = () => {
       ...values,
       patients: mapIdList(values.patients),
       etablissements: mapIdList(values.etablissements),
-      compte: comptes.find(it => it.id.toString() === values.compte.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
     };
 
     if (isNew) {
@@ -76,7 +76,7 @@ export const MedecinUpdate = () => {
       ? {}
       : {
           ...medecinEntity,
-          compte: medecinEntity?.compte?.id,
+          user: medecinEntity?.user?.id,
           patients: medecinEntity?.patients?.map(e => e.id.toString()),
           etablissements: medecinEntity?.etablissements?.map(e => e.id.toString()),
         };
@@ -115,15 +115,15 @@ export const MedecinUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                id="medecin-compte"
-                name="compte"
-                data-cy="compte"
-                label={translate('ecom23App.medecin.compte')}
+                id="medecin-user"
+                name="user"
+                data-cy="user"
+                label={translate('ecom23App.medecin.user')}
                 type="select"
               >
                 <option value="" key="0" />
-                {comptes
-                  ? comptes.map(otherEntity => (
+                {users
+                   ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>
