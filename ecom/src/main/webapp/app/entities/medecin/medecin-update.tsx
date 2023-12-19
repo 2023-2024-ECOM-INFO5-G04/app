@@ -114,16 +114,10 @@ export const MedecinUpdate = () => {
                 data-cy="prenom"
                 type="text"
               />
-              <ValidatedField
-                id="medecin-user"
-                name="user"
-                data-cy="user"
-                label={translate('ecom23App.medecin.user')}
-                type="select"
-              >
+              <ValidatedField id="medecin-user" name="user" data-cy="user" label={translate('ecom23App.medecin.user')} type="select">
                 <option value="" key="0" />
                 {users
-                   ? users.map(otherEntity => (
+                  ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

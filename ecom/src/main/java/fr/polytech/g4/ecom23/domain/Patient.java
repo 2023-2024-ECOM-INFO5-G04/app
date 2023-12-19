@@ -54,6 +54,12 @@ public class Patient implements Serializable {
     @Column(name = "sexe")
     private Sexe sexe;
 
+    @Column(name = "favori")
+    private Boolean favori;
+
+    @Column(name = "sarcopenie")
+    private Boolean sarcopenie;
+
     @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -206,6 +212,32 @@ public class Patient implements Serializable {
 
     public void setSexe(Sexe sexe) {
         this.sexe = sexe;
+    }
+
+    public Boolean getFavori() {
+        return this.favori;
+    }
+
+    public Patient favori(Boolean favori) {
+        this.setFavori(favori);
+        return this;
+    }
+
+    public void setFavori(Boolean favori) {
+        this.favori = favori;
+    }
+
+    public Boolean getSarcopenie() {
+        return this.sarcopenie;
+    }
+
+    public Patient sarcopenie(Boolean sarcopenie) {
+        this.setSarcopenie(sarcopenie);
+        return this;
+    }
+
+    public void setSarcopenie(Boolean sarcopenie) {
+        this.sarcopenie = sarcopenie;
     }
 
     public Alerte getAlerte() {
@@ -421,6 +453,8 @@ public class Patient implements Serializable {
             ", albumine=" + getAlbumine() +
             ", taille=" + getTaille() +
             ", sexe='" + getSexe() + "'" +
+            ", favori='" + getFavori() + "'" +
+            ", sarcopenie='" + getSarcopenie() + "'" +
             "}";
     }
 }

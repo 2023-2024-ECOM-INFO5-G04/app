@@ -130,13 +130,7 @@ export const SoignantUpdate = () => {
                   </option>
                 ))}
               </ValidatedField>
-              <ValidatedField
-                id="soignant-user"
-                name="user"
-                data-cy="user"
-                label={translate('ecom23App.soignant.user')}
-                type="select"
-              >
+              <ValidatedField id="soignant-user" name="user" data-cy="user" label={translate('ecom23App.soignant.user')} type="select">
                 <option value="" key="0" />
                 {users
                   ? users.map(otherEntity => (

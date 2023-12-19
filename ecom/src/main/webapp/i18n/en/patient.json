@@ -26,6 +26,8 @@
       "albumine": "Albumine",
       "taille": "Taille",
       "sexe": "Sexe",
+      "favori": "Favori",
+      "sarcopenie": "Sarcopenie",
       "alerte": "Alerte",
       "notes": "Notes",
       "etablissement": "Etablissement",

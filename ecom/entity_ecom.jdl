@@ -1,7 +1,3 @@
-enum Role{
-	Medecin, Soignant, Administrateur
-}
-
 enum SoignantMetier{
 	Aidesoignant, Infirmier
 }
@@ -54,13 +50,6 @@ entity Rappel{
     effectue Boolean
 }
 
-entity Compte{
-    nomutilisateur String
-    motdepasse String
-    mail String
-    role Role
-}
-
 entity Patient {
 	id Long required unique
     nom String
@@ -71,6 +60,8 @@ entity Patient {
     albumine Float
     taille Float
     sexe Sexe
+    favori Boolean
+    sarcopenie Boolean
 }
 
 entity Alerte{
@@ -83,7 +74,7 @@ entity Suividonnees{
 	id Long required unique
     date LocalDate required
     poids Float
-    epa Float
+    epa Float min(0) max(10)
     massecorporelle Float
     quantitepoidsaliments Float
     quantitecaloriesaliments Float
@@ -122,9 +113,9 @@ relationship OneToMany {
 }
 
 relationship OneToOne {
-	Soignant{compte} to Compte{soignant}
-    Medecin{compte} to Compte{medecin}
-    Administrateur{compte} to Compte{administrateur}
+	Soignant{user} to User{soignant}
+    Medecin{user} to User{medecin}
+    Administrateur{user} to User{administrateur}
     Patient{alerte} to Alerte{patient(id) required}
 }
 

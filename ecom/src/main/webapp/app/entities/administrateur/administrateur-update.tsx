@@ -66,7 +66,7 @@ export const AdministrateurUpdate = () => {
       ? {}
       : {
           ...administrateurEntity,
-        user: administrateurEntity?.user?.id,
+          user: administrateurEntity?.user?.id,
         };
 
   return (

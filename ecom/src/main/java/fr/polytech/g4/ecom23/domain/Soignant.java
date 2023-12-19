@@ -38,7 +38,6 @@ public class Soignant implements Serializable {
     @Column(name = "metier")
     private SoignantMetier metier;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
