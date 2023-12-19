@@ -42,6 +42,14 @@
       "fieldName": "sexe",
       "fieldType": "Sexe",
       "fieldValues": "M,F"
+    },
+    {
+      "fieldName": "favori",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "sarcopenie",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

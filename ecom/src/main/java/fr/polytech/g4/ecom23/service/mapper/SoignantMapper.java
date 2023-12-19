@@ -1,13 +1,13 @@
 package fr.polytech.g4.ecom23.service.mapper;
 
-import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.domain.Patient;
 import fr.polytech.g4.ecom23.domain.Servicesoignant;
 import fr.polytech.g4.ecom23.domain.Soignant;
-import fr.polytech.g4.ecom23.service.dto.UserDTO;
+import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.service.dto.ServicesoignantDTO;
 import fr.polytech.g4.ecom23.service.dto.SoignantDTO;
+import fr.polytech.g4.ecom23.service.dto.UserDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.*;

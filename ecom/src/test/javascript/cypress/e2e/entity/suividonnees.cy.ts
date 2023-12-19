@@ -30,7 +30,7 @@ describe('Suividonnees e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F"},
+      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F","favori":true,"sarcopenie":false},
     }).then(({ body }) => {
       patient = body;
     });
@@ -216,7 +216,7 @@ describe('Suividonnees e2e test', () => {
 
       cy.get(`[data-cy="poids"]`).type('98248').should('have.value', '98248');
 
-      cy.get(`[data-cy="epa"]`).type('80781').should('have.value', '80781');
+      cy.get(`[data-cy="epa"]`).type('8').should('have.value', '8');
 
       cy.get(`[data-cy="massecorporelle"]`).type('50635').should('have.value', '50635');
 

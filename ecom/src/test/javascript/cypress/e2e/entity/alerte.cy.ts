@@ -30,7 +30,7 @@ describe('Alerte e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"c deposit Slovaquie","prenom":"e-markets Bedfordshire","age":40248,"datearrivee":"2023-11-07","poidsactuel":7025,"albumine":23012,"taille":10307,"sexe":"F"},
+      body: {"nom":"c deposit Slovaquie","prenom":"e-markets Bedfordshire","age":40248,"datearrivee":"2023-11-07","poidsactuel":7025,"albumine":23012,"taille":10307,"sexe":"F","favori":true,"sarcopenie":true},
     }).then(({ body }) => {
       patient = body;
     });
