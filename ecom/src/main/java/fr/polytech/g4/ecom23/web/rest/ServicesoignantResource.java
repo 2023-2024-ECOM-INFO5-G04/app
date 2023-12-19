@@ -50,7 +50,7 @@ public class ServicesoignantResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/servicesoignants")
-    public ResponseEntity<ServicesoignantDTO> createServicesoignant(@Valid @RequestBody ServicesoignantDTO servicesoignantDTO)
+    public ResponseEntity<ServicesoignantDTO> createServicesoignant(@RequestBody ServicesoignantDTO servicesoignantDTO)
         throws URISyntaxException {
         log.debug("REST request to save Servicesoignant : {}", servicesoignantDTO);
         if (servicesoignantDTO.getId() != null) {

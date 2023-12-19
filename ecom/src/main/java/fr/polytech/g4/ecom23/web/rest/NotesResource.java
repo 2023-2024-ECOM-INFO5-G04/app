@@ -1,7 +1,10 @@
 package fr.polytech.g4.ecom23.web.rest;
 
+import fr.polytech.g4.ecom23.domain.Patient;
 import fr.polytech.g4.ecom23.repository.NotesRepository;
+import fr.polytech.g4.ecom23.service.MedecinService;
 import fr.polytech.g4.ecom23.service.NotesService;
+import fr.polytech.g4.ecom23.service.PatientService;
 import fr.polytech.g4.ecom23.service.dto.MedecinDTO;
 import fr.polytech.g4.ecom23.service.dto.NotesDTO;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
@@ -36,10 +39,16 @@ public class NotesResource {
 
     private final NotesService notesService;
 
+    private final MedecinService medecinService;
+
+    private final PatientService patientService;
+
     private final NotesRepository notesRepository;
 
-    public NotesResource(NotesService notesService, NotesRepository notesRepository) {
+    public NotesResource(NotesService notesService, MedecinService medecinService, PatientService patientService, NotesRepository notesRepository) {
         this.notesService = notesService;
+        this.medecinService = medecinService;
+        this.patientService = patientService;
         this.notesRepository = notesRepository;
     }
 
@@ -151,7 +160,27 @@ public class NotesResource {
             if ((medecinId == null || n.getMedecin().getId().equals(medecinId)) && (patientId == null || n.getPatient().getId().equals(patientId)))
                 filteredList.add(n);
         }
-
+        if (medecinId != null && patientId != null && filteredList.isEmpty()) {
+            Optional<MedecinDTO> optionalMedecinDTO = medecinService.findOne(medecinId);
+            if (optionalMedecinDTO.isEmpty())
+                return filteredList;
+            MedecinDTO medecinDTO = optionalMedecinDTO.get();
+            PatientDTO patientDTO = null;
+            for (PatientDTO p : medecinDTO.getPatients()) {
+                if (p.getId().equals(patientId)) {
+                    patientDTO = p;
+                    break;
+                }
+            }
+            if (patientDTO == null)
+                return filteredList;
+            NotesDTO notesDTO = new NotesDTO();
+            notesDTO.setMedecin(medecinDTO);
+            notesDTO.setPatient(patientDTO);
+            notesDTO.setCommentaire("");
+            notesDTO = notesService.save(notesDTO);
+            filteredList.add(notesDTO);
+        }
         return filteredList;
     }
 
