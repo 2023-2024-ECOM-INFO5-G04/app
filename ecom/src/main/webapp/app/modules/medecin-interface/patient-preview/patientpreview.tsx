@@ -60,7 +60,7 @@ export const PatientPreview = props => {
         joignable au {patient.etablissement.telephone} <br />
       </div>
 
-      <Note 
+      <Note
       patient={patient} />
     </div>
   );
