@@ -5,8 +5,20 @@ import 'chart.js/auto'
 
 
 Chart.register(CategoryScale, LinearScale, BarElement)
-const labels = ["January", "February", "March", "April", "May", "June"];
 
+const LineChart =() => {
+const [showDataset1, setShowDataset1] = useState(true);
+const [showDataset2, setShowDataset2] = useState(true);
+
+const toggleDataset = (dataset) => {
+  if (dataset === 'Dataset1') {
+    setShowDataset1(!showDataset1);
+  } else if (dataset === 'Dataset2') {
+    setShowDataset2(!showDataset2);
+  }
+};
+
+const labels = ["January", "February", "March", "April", "May", "June"];
 const laData = {
   labels: labels,
   datasets: [
@@ -17,6 +29,7 @@ const laData = {
       borderColor: 'rgba(75,192,192,1)',
       backgroundColor: 'rgba(75,192,192,0.2)',
       borderWidth: 2,
+      hidden: !showDataset1,
     },
     {
       label: 'Dataset 2',
@@ -25,49 +38,46 @@ const laData = {
       borderColor: 'rgba(255,99,132,1)',
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderWidth: 2,
+      hidden: !showDataset2,
     },
     // Add more datasets if needed...
   ],
 };
 
-const config = {
-  type: 'line',
-  data: laData,
-  options: {
-    scales: {
-      x: {
-        type: 'category', // Utilisation de l'échelle 'category' pour l'axe des X
-        labels: laData.labels // Utilisation des libellés comme données pour l'axe des X
-      },
-      y: {
-        // Autres configurations de l'axe des Y si nécessaire
-      }
-    }
-  }
-};
 
-const LineChart =() => {
+
   return (<div>
-      <h2>Line Sample with Next.js</h2>
+      <h2>Graphique</h2>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={showDataset1}
+            onChange={() => toggleDataset("Dataset1")}
+          />
+          Show Dataset 1
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showDataset2}
+            onChange={() => toggleDataset("Dataset2")}
+          />
+          Show Dataset 2
+        </label>
+      </div>
       <Line
         data={laData}
         options={
         {
           maintainAspectRatio: true,
           responsive: true,
-          //scales: {
-          //  x: {
-          //    type: "linear", // Utilisation de l'échelle 'category' pour l'axe des X
-          //    //labels: laData.labels // Utilisation des libellés comme données pour l'axe des X
-          //  },
-          //  y: {
-          //  }
-          //}
         }
       }
       />
     </div>
   );
-}
+};
+
 
 export default LineChart;
