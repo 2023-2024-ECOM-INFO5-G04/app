@@ -48,24 +48,7 @@ const laData = {
 
   return (<div>
       <h2>Graphique</h2>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={showDataset1}
-            onChange={() => toggleDataset("Dataset1")}
-          />
-          Show Dataset 1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={showDataset2}
-            onChange={() => toggleDataset("Dataset2")}
-          />
-          Show Dataset 2
-        </label>
-      </div>
+      
       <Line
         data={laData}
         options={
