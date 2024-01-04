@@ -2,21 +2,14 @@ import React, {useEffect, useState} from "react";
 import {Line} from "react-chartjs-2";
 import { Chart, CategoryScale, LinearScale, BarElement } from 'chart.js'
 import 'chart.js/auto'
+import zoomPlugin from "chartjs-plugin-zoom";
 
-
+Chart.register(zoomPlugin);
 Chart.register(CategoryScale, LinearScale, BarElement)
 
 const LineChart =() => {
 const [showDataset1, setShowDataset1] = useState(true);
 const [showDataset2, setShowDataset2] = useState(true);
-
-const toggleDataset = (dataset) => {
-  if (dataset === 'Dataset1') {
-    setShowDataset1(!showDataset1);
-  } else if (dataset === 'Dataset2') {
-    setShowDataset2(!showDataset2);
-  }
-};
 
 const labels = ["January", "February", "March", "April", "May", "June"];
 const laData = {
@@ -40,23 +33,34 @@ const laData = {
       borderWidth: 2,
       hidden: !showDataset2,
     },
-    // Add more datasets if needed...
   ],
 };
 
-
+const options = {
+  maintainAspectRatio: true,
+  responsive: true,
+  plugins: {
+    zoom: {
+      zoom: {
+        wheel: {
+          enabled: true
+        },
+        speed: 100,
+      },
+      pan: {
+        enabled: true,
+        speed: 100,
+      }
+    }
+  }
+}
 
   return (<div>
       <h2>Graphique</h2>
-      
+
       <Line
         data={laData}
-        options={
-        {
-          maintainAspectRatio: true,
-          responsive: true,
-        }
-      }
+        options={options}
       />
     </div>
   );
