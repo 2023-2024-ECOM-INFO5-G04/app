@@ -47,6 +47,7 @@ public class PatientServiceImpl implements PatientService {
         this.sdrepo = sdrepo;
     }
 
+    @Transactional
     public void importDataFromCSVForPatient(InputStream inputstream) {
        try {
             List<String[]> csvLines = CSVUtil.readCSV(inputstream);
