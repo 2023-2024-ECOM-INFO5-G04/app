@@ -5,7 +5,7 @@ import "./assignto.css"
 
 const AssignTo = (props) => {
 
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [selectedValue, setSelectedValue] = useState('soignant');
     const [nameIsValid, setNameIsValid] = useState(null);
 
     const handleSelectionChange = (e) => {
@@ -40,7 +40,6 @@ const AssignTo = (props) => {
             <FormGroup tag='fieldset' className="radioGroup">
                 <div className="dansRadioGroup">
                 <FormGroup check >
-
                     <Label check>
                         <Input type="radio" name="radio1" value='soignant' checked={selectedValue == 'soignant'} onChange={handleSelectionChange} />
                         Soignant
@@ -60,7 +59,7 @@ const AssignTo = (props) => {
             <FormGroup className="inputName" >
                 <Input
                     onChange={handleNameChange}
-                    placeholder="Renseignez le nom du patient ou du service" />
+                    placeholder="Renseignez le nom du soignant ou du service" />
                 {nameIsValid ? vFeedback : iFeedBack}
             </FormGroup>
         </div>

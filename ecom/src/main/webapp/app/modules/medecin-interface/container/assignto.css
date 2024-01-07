@@ -33,6 +33,7 @@
 .assignation {
   display: flex;
   flex-direction: row;
+  width: 60%;
 }
 
 /* .radio{
