@@ -79,7 +79,7 @@ export const Task = (props) => {
                 </FormGroup>
             </div>
             <div className='bodyT'>
-                <h5 style={{width:'15%'}}> Fréquence :</h5>
+                <h5 className='freq-tittle'> Fréquence :</h5>
                 <FormGroup
                     className='freq'
                     style={{ visibility: printFreq ? "visible" : "hidden" }}>

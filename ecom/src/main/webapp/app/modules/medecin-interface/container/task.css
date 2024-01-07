@@ -64,7 +64,12 @@
 .freq{
   width: 15%; 
   margin :10px;
-  margin-left: 10%
+  margin-left: 5%
+}
+
+.freq-tittle{
+  width:15%;
+  margin-left: 6px;
 }
 
 .select{
