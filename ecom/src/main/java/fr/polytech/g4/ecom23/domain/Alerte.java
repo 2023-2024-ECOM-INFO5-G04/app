@@ -31,6 +31,9 @@ public class Alerte implements Serializable {
     @Column(name = "commentaire")
     private String commentaire;
 
+    @Column(name = "denutrition")
+    private Boolean denutrition;
+
     @Column(name = "severite")
     private Boolean severite;
 
@@ -80,6 +83,19 @@ public class Alerte implements Serializable {
 
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
+    }
+
+    public Boolean getDenutrition() {
+        return this.denutrition;
+    }
+
+    public Alerte denutrition(Boolean denutrition) {
+        this.setDenutrition(denutrition);
+        return this;
+    }
+
+    public void setDenutrition(Boolean denutrition) {
+        this.denutrition = denutrition;
     }
 
     public Boolean getSeverite() {
@@ -140,6 +156,7 @@ public class Alerte implements Serializable {
             "id=" + getId() +
             ", date='" + getDate() + "'" +
             ", commentaire='" + getCommentaire() + "'" +
+            ", denutrition='" + getDenutrition() + "'" +
             ", severite='" + getSeverite() + "'" +
             "}";
     }

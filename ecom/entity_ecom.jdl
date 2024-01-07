@@ -62,11 +62,14 @@ entity Patient {
     sexe Sexe
     favori Boolean
     sarcopenie Boolean
+    absorptionreduite Boolean
+    agression Boolean
 }
 
 entity Alerte{
 	date LocalDate
     commentaire String
+  	denutrition Boolean
   	severite Boolean
 }
 
@@ -78,8 +81,6 @@ entity Suividonnees{
     massecorporelle Float
     quantitepoidsaliments Float
     quantitecaloriesaliments Float
-    absorptionreduite Boolean
-    agression Boolean
 }
 
 entity Notes{

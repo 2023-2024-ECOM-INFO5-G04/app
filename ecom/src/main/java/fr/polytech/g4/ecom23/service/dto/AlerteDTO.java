@@ -17,6 +17,8 @@ public class AlerteDTO implements Serializable {
 
     private String commentaire;
 
+    private Boolean denutrition;
+
     private Boolean severite;
 
     public Long getId() {
@@ -41,6 +43,14 @@ public class AlerteDTO implements Serializable {
 
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
+    }
+
+    public Boolean getDenutrition() {
+        return denutrition;
+    }
+
+    public void setDenutrition(Boolean denutrition) {
+        this.denutrition = denutrition;
     }
 
     public Boolean getSeverite() {
@@ -79,6 +89,7 @@ public class AlerteDTO implements Serializable {
             "id=" + getId() +
             ", date='" + getDate() + "'" +
             ", commentaire='" + getCommentaire() + "'" +
+            ", denutrition='" + getDenutrition() + "'" +
             ", severite='" + getSeverite() + "'" +
             "}";
     }

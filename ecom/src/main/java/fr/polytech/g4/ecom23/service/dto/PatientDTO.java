@@ -14,6 +14,8 @@ import javax.validation.constraints.*;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class PatientDTO implements Serializable {
 
+    private static String COMMENTAIRE = "";
+
     @NotNull
     private Long id;
 
@@ -36,6 +38,10 @@ public class PatientDTO implements Serializable {
     private Boolean favori;
 
     private Boolean sarcopenie;
+
+    private Boolean absorptionreduite;
+
+    private Boolean agression;
 
     private AlerteDTO alerte;
 
@@ -133,6 +139,22 @@ public class PatientDTO implements Serializable {
         this.sarcopenie = sarcopenie;
     }
 
+    public Boolean getAbsorptionreduite() {
+        return absorptionreduite;
+    }
+
+    public void setAbsorptionreduite(Boolean absorptionreduite) {
+        this.absorptionreduite = absorptionreduite;
+    }
+
+    public Boolean getAgression() {
+        return agression;
+    }
+
+    public void setAgression(Boolean agression) {
+        this.agression = agression;
+    }
+
     public AlerteDTO getAlerte() {
         return alerte;
     }
@@ -185,19 +207,25 @@ public class PatientDTO implements Serializable {
             ", sexe='" + getSexe() + "'" +
             ", favori='" + getFavori() + "'" +
             ", sarcopenie='" + getSarcopenie() + "'" +
+            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
+            ", agression='" + getAgression() + "'" +
             ", alerte=" + getAlerte() +
             ", etablissement=" + getEtablissement() +
             "}";
     }
 
-    private boolean IMC(List<SuividonneesDTO> list, float sub70, float more70) {
+    private boolean IMC(List<SuividonneesDTO> list, float limit) {
+        if (taille == null)
+            throw new RuntimeException("Le patient " + id + " n'a pas de taille");
         for (SuividonneesDTO suivi : list) {
             Float poidsActuel = suivi.getPoids();
             if (poidsActuel != null) {
                 float IMC = poidsActuel * poidsActuel / taille;
-                if (age < 70)
-                    return IMC < sub70;
-                return IMC < more70;
+                if (IMC < limit) {
+                    COMMENTAIRE += "IMC: " + IMC + ", inférieur à " + limit + "\n";
+                    return true;
+                }
+                return false;
             }
         }
         return false;
@@ -228,9 +256,9 @@ public class PatientDTO implements Serializable {
             if (!suivi.getDate().isAfter(d2)) {
                 if (!suivi.getDate().isBefore(d1)) {
                     try {
-                       Float value = getValue(suivi, donnee);
-                       if (value != null)
-                           values.add(value);
+                        Float value = getValue(suivi, donnee);
+                        if (value != null)
+                            values.add(value);
                     } catch (Exception e) {
                         return null;
                     }
@@ -271,13 +299,22 @@ public class PatientDTO implements Serializable {
     }
 
     private boolean weightLoss(List<SuividonneesDTO> list, int days1, float loss1, int days2, float loss2, float loss3) {
+        boolean weightLoss = false;
         Float evo1 = evolution(list, Donnee.POIDS, days1);
-        if (evo1 != null && evo1 <= -loss1)
-            return true;
         Float evo2 = evolution(list, Donnee.POIDS, days2);
-        if (evo2 != null && evo2 <= -loss2)
-            return true;
-        return weightLoss3(list, loss3);
+        if (evo1 != null && evo1 <= -loss1) {
+            COMMENTAIRE += "Perte de poids supérieure à " + loss1 + "% en " + days1 + " jours\n";
+            weightLoss = true;
+        }
+        if (evo2 != null && evo2 <= -loss2) {
+            COMMENTAIRE += "Perte de poids supérieure à " + loss2 + "% en " + days2 + " jours\n";
+            weightLoss = true;
+        }
+        if (weightLoss3(list, loss3)) {
+            COMMENTAIRE += "Perte de poids supérieure à " + loss3 + "% par rapport au poids habituel avant le début de la maladie\n";
+            weightLoss = true;
+        }
+        return false;
     }
 
     private boolean weightLoss3(List<SuividonneesDTO> list, float loss3) {
@@ -294,53 +331,60 @@ public class PatientDTO implements Serializable {
                     return false;
                 firstPoids = list.get(j).getPoids();
             }
-            if (firstPoids != null && lastPoids != null)
+            if (firstPoids != null && lastPoids != null) {
                 return (lastPoids - firstPoids) / firstPoids < -loss3;
+            }
         }
         return false;
     }
-
-
 
     private boolean phe1(List<SuividonneesDTO> list) {
         return weightLoss(list, 30, 0.05F, 183, 0.1F, 0.1F);
     }
 
     private boolean phe2(List<SuividonneesDTO> list) {
-        return IMC(list, 18.5f, 22);
-    }
-
-    private boolean phe3(List<SuividonneesDTO> list) {
         if (age < 70)
-            throw new RuntimeException("NYI");
-        else
-            throw new RuntimeException("NYI");
+            return IMC(list, 18.5f);
+        return IMC(list, 22f);
     }
 
-    private boolean eti1(List<SuividonneesDTO> list) {
-        Float evo1 = evolution(list, Donnee.CALORIES, 7);
-        if (evo1 != null && evo1 <= -50)
+    private boolean phe3() {
+        if (sarcopenie) {
+            COMMENTAIRE += "Sarcopénie confirmée\n";
             return true;
-        Float evo2 = evolution(list, Donnee.CALORIES, 14);
-        if (evo2 != null && evo2 < 0)
-            return true;
-        return false;
-    }
-
-    private boolean eti2(List<SuividonneesDTO> list) {
-        for (SuividonneesDTO suivi : list) {
-            Boolean absorptionreduite = suivi.getAbsorptionreduite();
-            if (absorptionreduite != null)
-                return absorptionreduite;
         }
         return false;
     }
 
-    private boolean eti3(List<SuividonneesDTO> list) {
-        for (SuividonneesDTO suivi : list) {
-            Boolean agression = suivi.getAgression();
-            if (agression != null)
-                return agression;
+    private boolean eti1(List<SuividonneesDTO> list) {
+        boolean critere = false;
+        int days1 = 7, days2 = 14;
+        float loss1 = 50f;
+        Float evo1 = evolution(list, Donnee.CALORIES, days1);
+        if (evo1 != null && evo1 <= -loss1) {
+            COMMENTAIRE += "Réduction de la prise alimentaire supérieure à " + loss1 + "% en " + days1 + " jours";
+            critere = true;
+        }
+        Float evo2 = evolution(list, Donnee.CALORIES, days2);
+        if (evo2 != null && evo2 < 0) {
+            COMMENTAIRE += "Réduction de la prise alimentaire en " + days2 + " jours";
+            critere = true;
+        }
+        return critere;
+    }
+
+    private boolean eti2() {
+        if (absorptionreduite) {
+            COMMENTAIRE += "Absorption réduite\n";
+            return true;
+        }
+        return false;
+    }
+
+    private boolean eti3() {
+        if (agression) {
+            COMMENTAIRE += "Situation d'agression\n";
+            return true;
         }
         return false;
     }
@@ -350,48 +394,73 @@ public class PatientDTO implements Serializable {
     }
 
     private boolean sev2(List<SuividonneesDTO> list) {
-        return IMC(list,17, 20);
+        if (age < 70)
+            return IMC(list, 17);
+        return IMC(list, 20);
     }
 
-    private boolean sev3(List<SuividonneesDTO> list) {
-        return albumine <= 30;
+    private boolean sev3() {
+        if (albumine <= 30) {
+            COMMENTAIRE += "Albuminémie < 30g/L\n";
+            return true;
+        }
+        return false;
     }
 
     private boolean phenotypique(List<SuividonneesDTO> list) {
-        return phe1(list) || phe2(list) || phe3(list);
+        boolean phenotypique = false;
+        if (phe1(list))
+            phenotypique = true;
+        if (phe2(list))
+            phenotypique = true;
+        if (phe3())
+            phenotypique = true;
+        return phenotypique;
     }
 
     private boolean etiologique(List<SuividonneesDTO> list) {
-        return eti1(list) || eti2(list) || eti3(list);
+        boolean etiologique = false;
+        if (eti1(list))
+            etiologique = true;
+        if (eti2())
+            etiologique = true;
+        if (eti3())
+            etiologique = true;
+        return etiologique;
     }
 
     private boolean severe(List<SuividonneesDTO> list) {
-        return sev1(list) || sev2(list) || sev3(list);
+        boolean severe = false;
+        if (sev1(list))
+            severe = true;
+        if (sev2(list))
+            severe = true;
+        if (sev3())
+            severe = true;
+        return severe;
     }
 
-    public AlerteDTO denutrition(SuividonneesService suiviService) {
-        List<SuividonneesDTO> all = suiviService.findAll();
-        List<SuividonneesDTO> list = new LinkedList<SuividonneesDTO>();
-        for (SuividonneesDTO suivi : all) {
+    public AlerteDTO denutrition(List<SuividonneesDTO> allSuividonnesDTO) {
+        List<SuividonneesDTO> list = new LinkedList<>();
+        for (SuividonneesDTO suivi : allSuividonnesDTO) {
             if (suivi.getPatient().getId().equals(id)) {
                 list.add(suivi);
             }
         }
-        if (list.isEmpty())
-            return null;
-        Collections.sort(list);
-        if (!phenotypique(list) && !etiologique(list))
-            return null;
         AlerteDTO alerteDTO = new AlerteDTO();
         alerteDTO.setDate(LocalDate.now());
-        if (severe(list)) {
-            alerteDTO.setSeverite(true);
-            alerteDTO.setCommentaire("TODO");
-        }
-        else {
-            alerteDTO.setSeverite(false);
-            alerteDTO.setCommentaire("TODO");
-        }
+        alerteDTO.setDenutrition(false);
+        alerteDTO.setSeverite(false);
+        alerteDTO.setCommentaire("");
+        if (list.isEmpty())
+            return alerteDTO;
+        Collections.sort(list);
+        COMMENTAIRE = "";
+        if (!phenotypique(list) && !etiologique(list))
+            return alerteDTO;
+        alerteDTO.setDenutrition(true);
+        alerteDTO.setSeverite(severe(list));
+        alerteDTO.setCommentaire(COMMENTAIRE);
         return alerteDTO;
     }
 

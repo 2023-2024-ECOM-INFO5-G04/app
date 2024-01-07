@@ -44,6 +44,12 @@
             <column name="sarcopenie" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="absorptionreduite" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="agression" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="alerte_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_patient__alerte_id" />
             </column>
@@ -81,6 +87,8 @@
             <column name="sexe" type="string"/>
             <column name="favori" type="boolean"/>
             <column name="sarcopenie" type="boolean"/>
+            <column name="absorptionreduite" type="boolean"/>
+            <column name="agression" type="boolean"/>
             <column name="etablissement_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

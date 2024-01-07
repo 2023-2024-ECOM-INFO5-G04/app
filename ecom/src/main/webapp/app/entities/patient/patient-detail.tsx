@@ -95,6 +95,18 @@ export const PatientDetail = () => {
           </dt>
           <dd>{patientEntity.sarcopenie ? 'true' : 'false'}</dd>
           <dt>
+            <span id="absorptionreduite">
+              <Translate contentKey="ecom23App.patient.absorptionreduite">Absorptionreduite</Translate>
+            </span>
+          </dt>
+          <dd>{patientEntity.absorptionreduite ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="agression">
+              <Translate contentKey="ecom23App.patient.agression">Agression</Translate>
+            </span>
+          </dt>
+          <dd>{patientEntity.agression ? 'true' : 'false'}</dd>
+          <dt>
             <Translate contentKey="ecom23App.patient.alerte">Alerte</Translate>
           </dt>
           <dd>{patientEntity.alerte ? patientEntity.alerte.id : ''}</dd>

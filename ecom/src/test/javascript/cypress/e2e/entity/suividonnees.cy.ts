@@ -224,12 +224,6 @@ describe('Suividonnees e2e test', () => {
 
       cy.get(`[data-cy="quantitecaloriesaliments"]`).type('63219').should('have.value', '63219');
 
-      cy.get(`[data-cy="absorptionreduite"]`).should('not.be.checked');
-      cy.get(`[data-cy="absorptionreduite"]`).click().should('be.checked');
-
-      cy.get(`[data-cy="agression"]`).should('not.be.checked');
-      cy.get(`[data-cy="agression"]`).click().should('be.checked');
-
       cy.get(`[data-cy="patient"]`).select(1);
 
       cy.get(entityCreateSaveButtonSelector).click();

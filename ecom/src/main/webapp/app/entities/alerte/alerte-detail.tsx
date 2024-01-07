@@ -45,6 +45,12 @@ export const AlerteDetail = () => {
           </dt>
           <dd>{alerteEntity.commentaire}</dd>
           <dt>
+            <span id="denutrition">
+              <Translate contentKey="ecom23App.alerte.denutrition">Denutrition</Translate>
+            </span>
+          </dt>
+          <dd>{alerteEntity.denutrition ? 'true' : 'false'}</dd>
+          <dt>
             <span id="severite">
               <Translate contentKey="ecom23App.alerte.severite">Severite</Translate>
             </span>

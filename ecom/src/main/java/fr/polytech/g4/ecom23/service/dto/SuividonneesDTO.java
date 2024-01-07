@@ -29,10 +29,6 @@ public class SuividonneesDTO implements Serializable, Comparable<SuividonneesDTO
 
     private Float quantitecaloriesaliments;
 
-    private Boolean absorptionreduite;
-
-    private Boolean agression;
-
     private PatientDTO patient;
 
     public Long getId() {
@@ -91,22 +87,6 @@ public class SuividonneesDTO implements Serializable, Comparable<SuividonneesDTO
         this.quantitecaloriesaliments = quantitecaloriesaliments;
     }
 
-    public Boolean getAbsorptionreduite() {
-        return absorptionreduite;
-    }
-
-    public void setAbsorptionreduite(Boolean absorptionreduite) {
-        this.absorptionreduite = absorptionreduite;
-    }
-
-    public Boolean getAgression() {
-        return agression;
-    }
-
-    public void setAgression(Boolean agression) {
-        this.agression = agression;
-    }
-
     public PatientDTO getPatient() {
         return patient;
     }
@@ -147,8 +127,6 @@ public class SuividonneesDTO implements Serializable, Comparable<SuividonneesDTO
             ", massecorporelle=" + getMassecorporelle() +
             ", quantitepoidsaliments=" + getQuantitepoidsaliments() +
             ", quantitecaloriesaliments=" + getQuantitecaloriesaliments() +
-            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
-            ", agression='" + getAgression() + "'" +
             ", patient=" + getPatient() +
             "}";
     }

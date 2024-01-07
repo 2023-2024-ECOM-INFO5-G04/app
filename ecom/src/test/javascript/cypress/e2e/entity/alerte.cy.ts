@@ -216,6 +216,9 @@ describe('Alerte e2e test', () => {
 
       cy.get(`[data-cy="commentaire"]`).type('Optional tan').should('have.value', 'Optional tan');
 
+      cy.get(`[data-cy="denutrition"]`).should('not.be.checked');
+      cy.get(`[data-cy="denutrition"]`).click().should('be.checked');
+
       cy.get(`[data-cy="severite"]`).should('not.be.checked');
       cy.get(`[data-cy="severite"]`).click().should('be.checked');
 
