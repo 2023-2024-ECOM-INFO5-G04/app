@@ -15,7 +15,7 @@ describe('Suividonnees e2e test', () => {
   const suividonneesPageUrlPattern = new RegExp('/suividonnees(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const suividonneesSample = {"date":"2023-11-06"};
+  // const suividonneesSample = {"date":"2023-11-07"};
 
   let suividonnees;
   // let patient;
@@ -30,7 +30,7 @@ describe('Suividonnees e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F","favori":true,"sarcopenie":false},
+      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F","favori":true,"sarcopenie":false,"absorptionreduite":true,"agression":false},
     }).then(({ body }) => {
       patient = body;
     });

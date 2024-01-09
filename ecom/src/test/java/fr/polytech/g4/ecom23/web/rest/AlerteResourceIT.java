@@ -73,7 +73,11 @@ class AlerteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alerte createEntity(EntityManager em) {
-        Alerte alerte = new Alerte().date(DEFAULT_DATE).commentaire(DEFAULT_COMMENTAIRE).denutrition(DEFAULT_DENUTRITION).severite(DEFAULT_SEVERITE);
+        Alerte alerte = new Alerte()
+            .date(DEFAULT_DATE)
+            .commentaire(DEFAULT_COMMENTAIRE)
+            .denutrition(DEFAULT_DENUTRITION)
+            .severite(DEFAULT_SEVERITE);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -94,7 +98,11 @@ class AlerteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alerte createUpdatedEntity(EntityManager em) {
-        Alerte alerte = new Alerte().date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION).severite(UPDATED_SEVERITE);
+        Alerte alerte = new Alerte()
+            .date(UPDATED_DATE)
+            .commentaire(UPDATED_COMMENTAIRE)
+            .denutrition(UPDATED_DENUTRITION)
+            .severite(UPDATED_SEVERITE);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -305,7 +313,7 @@ class AlerteResourceIT {
         Alerte partialUpdatedAlerte = new Alerte();
         partialUpdatedAlerte.setId(alerte.getId());
 
-        partialUpdatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).severite(UPDATED_SEVERITE);
+        partialUpdatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION);
 
         restAlerteMockMvc
             .perform(
@@ -321,7 +329,8 @@ class AlerteResourceIT {
         Alerte testAlerte = alerteList.get(alerteList.size() - 1);
         assertThat(testAlerte.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
-        assertThat(testAlerte.getSeverite()).isEqualTo(UPDATED_SEVERITE);
+        assertThat(testAlerte.getDenutrition()).isEqualTo(UPDATED_DENUTRITION);
+        assertThat(testAlerte.getSeverite()).isEqualTo(DEFAULT_SEVERITE);
     }
 
     @Test
@@ -336,7 +345,11 @@ class AlerteResourceIT {
         Alerte partialUpdatedAlerte = new Alerte();
         partialUpdatedAlerte.setId(alerte.getId());
 
-        partialUpdatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).severite(UPDATED_SEVERITE);
+        partialUpdatedAlerte
+            .date(UPDATED_DATE)
+            .commentaire(UPDATED_COMMENTAIRE)
+            .denutrition(UPDATED_DENUTRITION)
+            .severite(UPDATED_SEVERITE);
 
         restAlerteMockMvc
             .perform(
@@ -352,6 +365,7 @@ class AlerteResourceIT {
         Alerte testAlerte = alerteList.get(alerteList.size() - 1);
         assertThat(testAlerte.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
+        assertThat(testAlerte.getDenutrition()).isEqualTo(UPDATED_DENUTRITION);
         assertThat(testAlerte.getSeverite()).isEqualTo(UPDATED_SEVERITE);
     }
 

@@ -71,9 +71,9 @@ public class Patient implements Serializable {
     @JoinColumn(unique = true)
     private Alerte alerte;
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "medecin", "patient" }, allowSetters = true)
     private Set<Notes> notes = new HashSet<>();
 
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)

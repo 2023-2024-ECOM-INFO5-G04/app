@@ -55,8 +55,8 @@ export const NotesUpdate = () => {
     const entity = {
       ...notesEntity,
       ...values,
-      patient: medecins.find(it => it.id.toString() === values.patient.toString()),
-      medecin: patients.find(it => it.id.toString() === values.medecin.toString()),
+      medecin: medecins.find(it => it.id.toString() === values.medecin.toString()),
+      patient: patients.find(it => it.id.toString() === values.patient.toString()),
     };
 
     if (isNew) {
@@ -71,8 +71,8 @@ export const NotesUpdate = () => {
       ? {}
       : {
           ...notesEntity,
-          patient: notesEntity?.patient?.id,
           medecin: notesEntity?.medecin?.id,
+          patient: notesEntity?.patient?.id,
         };
 
   return (
@@ -108,10 +108,10 @@ export const NotesUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                id="notes-patient"
-                name="patient"
-                data-cy="patient"
-                label={translate('ecom23App.notes.patient')}
+                id="notes-medecin"
+                name="medecin"
+                data-cy="medecin"
+                label={translate('ecom23App.notes.medecin')}
                 type="select"
               >
                 <option value="" key="0" />
@@ -124,10 +124,10 @@ export const NotesUpdate = () => {
                   : null}
               </ValidatedField>
               <ValidatedField
-                id="notes-medecin"
-                name="medecin"
-                data-cy="medecin"
-                label={translate('ecom23App.notes.medecin')}
+                id="notes-patient"
+                name="patient"
+                data-cy="patient"
+                label={translate('ecom23App.notes.patient')}
                 type="select"
               >
                 <option value="" key="0" />

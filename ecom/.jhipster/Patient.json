@@ -75,7 +75,7 @@
     },
     {
       "otherEntityName": "notes",
-      "otherEntityRelationshipName": "medecin",
+      "otherEntityRelationshipName": "patient",
       "relationshipName": "notes",
       "relationshipType": "one-to-many"
     },
