@@ -14,7 +14,7 @@ const TabbedAlerts = () => {
     const fetchPatientsWithAlerts = async () => {
       try {
         const response = await axios.get('api/patients/');
-        const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null);
+        const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null && patient.alerte.denutrition === true);
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
           message: `Le patient ${patient.nom} est en situation de dénutrition`,
