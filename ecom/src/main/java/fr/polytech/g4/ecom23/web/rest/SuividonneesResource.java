@@ -197,6 +197,9 @@ public class SuividonneesResource {
             .build();
     }
 
+    /**
+     *  A DTO for the variables from SuiviDonnees entity necessary for plotting graphs
+     */
     public class CourbesDTO implements Serializable {
         private Float poids;
         private Float epa;
@@ -220,7 +223,9 @@ public class SuividonneesResource {
             return this.imc;
         }
     }
-
+    /**
+     *  A DTO for the variables from SuiviDonnees entity necessary for plotting graphs with their respective data
+     */
     public class DateCourbesDTO implements Serializable {
         private LocalDate date;
         private CourbesDTO courbes;
@@ -237,6 +242,12 @@ public class SuividonneesResource {
             return this.courbes;
         }
     }
+    /**
+     * {@code GET  /suividonnees/courbes/patient/:id : get the DateCourbes from the patient with the id.
+     *
+     * @param id the id of the patient to retrieve the respectives DateCourbesDTO.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of DateCourbes in body.
+     */
     @GetMapping("/suividonnees/courbes/patient/{id}")
     public List<DateCourbesDTO>getCourbesPatient(@PathVariable Long id) {
         List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
