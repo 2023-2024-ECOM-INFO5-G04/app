@@ -242,20 +242,13 @@ public class SuividonneesResource {
         List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
         List<DateCourbesDTO> allDateCourbes = new LinkedList<DateCourbesDTO>();
         for (SuividonneesDTO sd : allSuividonnees) {
-            sd.
             PatientDTO patient = sd.getPatient();
             if (patient.getId().equals(id)) {
                 Float poids = sd.getPoids();
-                Float taille = patient.getTaille();
-                Float tailleSq = (float) Math.pow(taille,2);
-                Float imc = poids/tailleSq;
-//                Double imc2 = sd.getPoids()/(Math.pow(patient.getTaille(),2));
-//                log.debug("imc2: " + imc2);
-//                Double imc = 54.5;
                 CourbesDTO courbes = new CourbesDTO();
                 courbes.setPoids(poids);
                 courbes.setEpa(sd.getEpa());
-                courbes.setImc(imc);
+                courbes.setImc(poids/((float) Math.pow(patient.getTaille(),2)));
                 DateCourbesDTO dateCourbes = new DateCourbesDTO();
                 dateCourbes.setCourbes(courbes);
                 dateCourbes.setDate(sd.getDate());
