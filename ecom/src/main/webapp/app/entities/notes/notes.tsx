@@ -55,10 +55,10 @@ export const Notes = () => {
                   <Translate contentKey="ecom23App.notes.commentaire">Commentaire</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.notes.patient">Patient</Translate>
+                  <Translate contentKey="ecom23App.notes.medecin">Medecin</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.notes.medecin">Medecin</Translate>
+                  <Translate contentKey="ecom23App.notes.patient">Patient</Translate>
                 </th>
                 <th />
               </tr>
@@ -72,8 +72,8 @@ export const Notes = () => {
                     </Button>
                   </td>
                   <td>{notes.commentaire}</td>
-                  <td>{notes.patient ? <Link to={`/medecin/${notes.patient.id}`}>{notes.patient.id}</Link> : ''}</td>
-                  <td>{notes.medecin ? <Link to={`/patient/${notes.medecin.id}`}>{notes.medecin.id}</Link> : ''}</td>
+                  <td>{notes.medecin ? <Link to={`/medecin/${notes.medecin.id}`}>{notes.medecin.id}</Link> : ''}</td>
+                  <td>{notes.patient ? <Link to={`/patient/${notes.patient.id}`}>{notes.patient.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/notes/${notes.id}`} color="info" size="sm" data-cy="entityDetailsButton">
