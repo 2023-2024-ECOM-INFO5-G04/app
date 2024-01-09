@@ -1,11 +1,11 @@
-id;nom;prenom;age;datearrivee;poidsactuel;albumine;taille;sexe;etablissement_id
-1;Steel partnerships;Zimbabwe Île-de-France groupware;10227;2023-11-07;67211;70322;54435;F;1
-2;Picardie;Account;41693;2023-11-07;60293;42875;74724;F;2
-3;purple;quantify Kyat access;84603;2023-11-06;42708;64784;48353;F;3
-4;Computer Languedoc-Roussillon port;Account;51479;2023-11-07;77695;26072;26341;M;4
-5;Unbranded efficient;withdrawal Home;34600;2023-11-06;20616;99151;39044;F;5
-6;Keyboard compressing Frozen;Concrete;9542;2023-11-06;79032;76609;17631;F;6
-7;customized;optimizing Steel turquoise;16766;2023-11-06;23622;67759;82449;M;7
-8;HTTP;technologies human-resource Plastic;63380;2023-11-06;11860;45244;22743;M;8
-9;Garden Borders;e-enable Metal back;24968;2023-11-06;9767;934;32212;F;9
-10;firmware;COM invoice Account;44225;2023-11-07;27053;50912;62229;M;10
+id;nom;prenom;age;datearrivee;poidsactuel;albumine;taille;sexe;favori;sarcopenie;etablissement_id
+1;Steel partnerships;Zimbabwe Île-de-France groupware;10227;2023-11-07;67211;70322;54435;F;false;true;1
+2;Computers sky Kids;a Wooden quantify;68836;2023-11-07;88711;31860;1621;F;true;true;2
+3;withdrawal panel;Languedoc-Roussillon port;29372;2023-11-07;48843;94576;51479;M;true;false;3
+4;sexy;Pants Omani Avon;31326;2023-11-07;34600;81132;20616;F;false;true;4
+5;Keyboard compressing Frozen;Concrete;9542;2023-11-06;79032;76609;17631;F;false;false;5
+6;Cambridgeshire override Movies;Charlemagne Progressive;42868;2023-11-07;85970;4453;40252;F;false;false;6
+7;human-resource Plastic;deposit Implemented;2566;2023-11-07;22626;51713;64212;M;true;false;7
+8;yellow real-time Gorgeous;Garden;3507;2023-11-07;32029;8610;67607;F;true;false;8
+9;c ubiquitous;impactful;2523;2023-11-07;12171;50385;94743;F;false;true;9
+10;programming models;c white Cotton;39991;2023-11-06;47867;1321;3634;F;false;false;10

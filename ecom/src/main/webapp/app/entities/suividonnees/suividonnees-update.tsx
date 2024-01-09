@@ -111,7 +111,18 @@ export const SuividonneesUpdate = () => {
                 data-cy="poids"
                 type="text"
               />
-              <ValidatedField label={translate('ecom23App.suividonnees.epa')} id="suividonnees-epa" name="epa" data-cy="epa" type="text" />
+              <ValidatedField
+                label={translate('ecom23App.suividonnees.epa')}
+                id="suividonnees-epa"
+                name="epa"
+                data-cy="epa"
+                type="text"
+                validate={{
+                  min: { value: 0, message: translate('entity.validation.min', { min: 0 }) },
+                  max: { value: 10, message: translate('entity.validation.max', { max: 10 }) },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
               <ValidatedField
                 label={translate('ecom23App.suividonnees.massecorporelle')}
                 id="suividonnees-massecorporelle"

@@ -33,6 +33,8 @@ public class Suividonnees implements Serializable {
     @Column(name = "poids")
     private Float poids;
 
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "10")
     @Column(name = "epa")
     private Float epa;
 

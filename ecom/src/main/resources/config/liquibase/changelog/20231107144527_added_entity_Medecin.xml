@@ -20,8 +20,8 @@
             <column name="prenom" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="compte_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_medecin__compte_id" />
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_medecin__user_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

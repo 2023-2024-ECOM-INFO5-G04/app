@@ -58,7 +58,7 @@ export const Medecin = () => {
                   <Translate contentKey="ecom23App.medecin.prenom">Prenom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.medecin.compte">Compte</Translate>
+                  <Translate contentKey="ecom23App.medecin.user">User</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.medecin.patients">Patients</Translate>
@@ -79,7 +79,7 @@ export const Medecin = () => {
                   </td>
                   <td>{medecin.nom}</td>
                   <td>{medecin.prenom}</td>
-                  <td>{medecin.compte ? <Link to={`/compte/${medecin.compte.id}`}>{medecin.compte.id}</Link> : ''}</td>
+                  <td>{medecin.user ? medecin.user.id : ''}</td>
                   <td>
                     {medecin.patients
                       ? medecin.patients.map((val, j) => (

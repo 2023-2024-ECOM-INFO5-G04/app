@@ -79,6 +79,8 @@ class PatientGatlingTest extends Simulation {
                 , "albumine":"0"
                 , "taille":"0"
                 , "sexe":"M"
+                , "favori":null
+                , "sarcopenie":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_patient_url"))).exitHereIfFailed
