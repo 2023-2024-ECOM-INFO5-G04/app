@@ -60,6 +60,12 @@ public class Patient implements Serializable {
     @Column(name = "sarcopenie")
     private Boolean sarcopenie;
 
+    @Column(name = "absorptionreduite")
+    private Boolean absorptionreduite;
+
+    @Column(name = "agression")
+    private Boolean agression;
+
     @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -238,6 +244,32 @@ public class Patient implements Serializable {
 
     public void setSarcopenie(Boolean sarcopenie) {
         this.sarcopenie = sarcopenie;
+    }
+
+    public Boolean getAbsorptionreduite() {
+        return this.absorptionreduite;
+    }
+
+    public Patient absorptionreduite(Boolean absorptionreduite) {
+        this.setAbsorptionreduite(absorptionreduite);
+        return this;
+    }
+
+    public void setAbsorptionreduite(Boolean absorptionreduite) {
+        this.absorptionreduite = absorptionreduite;
+    }
+
+    public Boolean getAgression() {
+        return this.agression;
+    }
+
+    public Patient agression(Boolean agression) {
+        this.setAgression(agression);
+        return this;
+    }
+
+    public void setAgression(Boolean agression) {
+        this.agression = agression;
     }
 
     public Alerte getAlerte() {
@@ -455,6 +487,8 @@ public class Patient implements Serializable {
             ", sexe='" + getSexe() + "'" +
             ", favori='" + getFavori() + "'" +
             ", sarcopenie='" + getSarcopenie() + "'" +
+            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
+            ", agression='" + getAgression() + "'" +
             "}";
     }
 }

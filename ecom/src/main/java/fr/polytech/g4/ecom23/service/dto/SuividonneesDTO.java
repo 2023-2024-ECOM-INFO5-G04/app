@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link fr.polytech.g4.ecom23.domain.Suividonnees} entity.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class SuividonneesDTO implements Serializable {
+public class SuividonneesDTO implements Serializable, Comparable<SuividonneesDTO> {
 
     @NotNull
     private Long id;
@@ -28,10 +28,6 @@ public class SuividonneesDTO implements Serializable {
     private Float quantitepoidsaliments;
 
     private Float quantitecaloriesaliments;
-
-    private Boolean absorptionreduite;
-
-    private Boolean agression;
 
     private PatientDTO patient;
 
@@ -91,22 +87,6 @@ public class SuividonneesDTO implements Serializable {
         this.quantitecaloriesaliments = quantitecaloriesaliments;
     }
 
-    public Boolean getAbsorptionreduite() {
-        return absorptionreduite;
-    }
-
-    public void setAbsorptionreduite(Boolean absorptionreduite) {
-        this.absorptionreduite = absorptionreduite;
-    }
-
-    public Boolean getAgression() {
-        return agression;
-    }
-
-    public void setAgression(Boolean agression) {
-        this.agression = agression;
-    }
-
     public PatientDTO getPatient() {
         return patient;
     }
@@ -147,9 +127,12 @@ public class SuividonneesDTO implements Serializable {
             ", massecorporelle=" + getMassecorporelle() +
             ", quantitepoidsaliments=" + getQuantitepoidsaliments() +
             ", quantitecaloriesaliments=" + getQuantitecaloriesaliments() +
-            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
-            ", agression='" + getAgression() + "'" +
             ", patient=" + getPatient() +
             "}";
+    }
+
+    @Override
+    public int compareTo(SuividonneesDTO suividonneesDTO) {
+        return - suividonneesDTO.getDate().compareTo(date);
     }
 }

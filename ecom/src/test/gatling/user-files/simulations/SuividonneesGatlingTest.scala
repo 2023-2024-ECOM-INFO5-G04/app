@@ -77,8 +77,6 @@ class SuividonneesGatlingTest extends Simulation {
                 , "massecorporelle":"0"
                 , "quantitepoidsaliments":"0"
                 , "quantitecaloriesaliments":"0"
-                , "absorptionreduite":null
-                , "agression":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_suividonnees_url"))).exitHereIfFailed

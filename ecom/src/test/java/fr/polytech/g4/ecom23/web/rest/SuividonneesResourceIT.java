@@ -52,12 +52,6 @@ class SuividonneesResourceIT {
     private static final Float DEFAULT_QUANTITECALORIESALIMENTS = 1F;
     private static final Float UPDATED_QUANTITECALORIESALIMENTS = 2F;
 
-    private static final Boolean DEFAULT_ABSORPTIONREDUITE = false;
-    private static final Boolean UPDATED_ABSORPTIONREDUITE = true;
-
-    private static final Boolean DEFAULT_AGRESSION = false;
-    private static final Boolean UPDATED_AGRESSION = true;
-
     private static final String ENTITY_API_URL = "/api/suividonnees";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -91,9 +85,7 @@ class SuividonneesResourceIT {
             .epa(DEFAULT_EPA)
             .massecorporelle(DEFAULT_MASSECORPORELLE)
             .quantitepoidsaliments(DEFAULT_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(DEFAULT_QUANTITECALORIESALIMENTS)
-            .absorptionreduite(DEFAULT_ABSORPTIONREDUITE)
-            .agression(DEFAULT_AGRESSION);
+            .quantitecaloriesaliments(DEFAULT_QUANTITECALORIESALIMENTS);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -120,9 +112,7 @@ class SuividonneesResourceIT {
             .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
-            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
-            .agression(UPDATED_AGRESSION);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -163,8 +153,6 @@ class SuividonneesResourceIT {
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(DEFAULT_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(DEFAULT_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(DEFAULT_QUANTITECALORIESALIMENTS);
-        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(DEFAULT_ABSORPTIONREDUITE);
-        assertThat(testSuividonnees.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -225,9 +213,7 @@ class SuividonneesResourceIT {
             .andExpect(jsonPath("$.[*].epa").value(hasItem(DEFAULT_EPA.doubleValue())))
             .andExpect(jsonPath("$.[*].massecorporelle").value(hasItem(DEFAULT_MASSECORPORELLE.doubleValue())))
             .andExpect(jsonPath("$.[*].quantitepoidsaliments").value(hasItem(DEFAULT_QUANTITEPOIDSALIMENTS.doubleValue())))
-            .andExpect(jsonPath("$.[*].quantitecaloriesaliments").value(hasItem(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue())))
-            .andExpect(jsonPath("$.[*].absorptionreduite").value(hasItem(DEFAULT_ABSORPTIONREDUITE.booleanValue())))
-            .andExpect(jsonPath("$.[*].agression").value(hasItem(DEFAULT_AGRESSION.booleanValue())));
+            .andExpect(jsonPath("$.[*].quantitecaloriesaliments").value(hasItem(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue())));
     }
 
     @Test
@@ -247,9 +233,7 @@ class SuividonneesResourceIT {
             .andExpect(jsonPath("$.epa").value(DEFAULT_EPA.doubleValue()))
             .andExpect(jsonPath("$.massecorporelle").value(DEFAULT_MASSECORPORELLE.doubleValue()))
             .andExpect(jsonPath("$.quantitepoidsaliments").value(DEFAULT_QUANTITEPOIDSALIMENTS.doubleValue()))
-            .andExpect(jsonPath("$.quantitecaloriesaliments").value(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue()))
-            .andExpect(jsonPath("$.absorptionreduite").value(DEFAULT_ABSORPTIONREDUITE.booleanValue()))
-            .andExpect(jsonPath("$.agression").value(DEFAULT_AGRESSION.booleanValue()));
+            .andExpect(jsonPath("$.quantitecaloriesaliments").value(DEFAULT_QUANTITECALORIESALIMENTS.doubleValue()));
     }
 
     @Test
@@ -277,9 +261,7 @@ class SuividonneesResourceIT {
             .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
-            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
-            .agression(UPDATED_AGRESSION);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
         SuividonneesDTO suividonneesDTO = suividonneesMapper.toDto(updatedSuividonnees);
 
         restSuividonneesMockMvc
@@ -300,8 +282,6 @@ class SuividonneesResourceIT {
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
-        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
-        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -386,9 +366,7 @@ class SuividonneesResourceIT {
         partialUpdatedSuividonnees
             .poids(UPDATED_POIDS)
             .massecorporelle(UPDATED_MASSECORPORELLE)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
-            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
-            .agression(UPDATED_AGRESSION);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
 
         restSuividonneesMockMvc
             .perform(
@@ -408,8 +386,6 @@ class SuividonneesResourceIT {
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(DEFAULT_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
-        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
-        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -430,9 +406,7 @@ class SuividonneesResourceIT {
             .epa(UPDATED_EPA)
             .massecorporelle(UPDATED_MASSECORPORELLE)
             .quantitepoidsaliments(UPDATED_QUANTITEPOIDSALIMENTS)
-            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS)
-            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
-            .agression(UPDATED_AGRESSION);
+            .quantitecaloriesaliments(UPDATED_QUANTITECALORIESALIMENTS);
 
         restSuividonneesMockMvc
             .perform(
@@ -452,8 +426,6 @@ class SuividonneesResourceIT {
         assertThat(testSuividonnees.getMassecorporelle()).isEqualTo(UPDATED_MASSECORPORELLE);
         assertThat(testSuividonnees.getQuantitepoidsaliments()).isEqualTo(UPDATED_QUANTITEPOIDSALIMENTS);
         assertThat(testSuividonnees.getQuantitecaloriesaliments()).isEqualTo(UPDATED_QUANTITECALORIESALIMENTS);
-        assertThat(testSuividonnees.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
-        assertThat(testSuividonnees.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
