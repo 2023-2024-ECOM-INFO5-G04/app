@@ -18,6 +18,8 @@ export interface IPatient {
   albumine?: number | null;
   taille?: number | null;
   sexe?: Sexe | null;
+  favori?: boolean | null;
+  sarcopenie?: boolean | null;
   alerte?: IAlerte | null;
   notes?: INotes[] | null;
   etablissement?: IEtablissement;
@@ -27,4 +29,7 @@ export interface IPatient {
   soignants?: ISoignant[] | null;
 }
 
-export const defaultValue: Readonly<IPatient> = {};
+export const defaultValue: Readonly<IPatient> = {
+  favori: false,
+  sarcopenie: false,
+};

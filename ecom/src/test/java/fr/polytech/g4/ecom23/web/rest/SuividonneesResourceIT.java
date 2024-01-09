@@ -40,8 +40,8 @@ class SuividonneesResourceIT {
     private static final Float DEFAULT_POIDS = 1F;
     private static final Float UPDATED_POIDS = 2F;
 
-    private static final Float DEFAULT_EPA = 1F;
-    private static final Float UPDATED_EPA = 2F;
+    private static final Float DEFAULT_EPA = 0F;
+    private static final Float UPDATED_EPA = 1F;
 
     private static final Float DEFAULT_MASSECORPORELLE = 1F;
     private static final Float UPDATED_MASSECORPORELLE = 2F;

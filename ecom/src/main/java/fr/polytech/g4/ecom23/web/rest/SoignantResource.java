@@ -50,7 +50,7 @@ public class SoignantResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/soignants")
-    public ResponseEntity<SoignantDTO> createSoignant(@Valid @RequestBody SoignantDTO soignantDTO) throws URISyntaxException {
+    public ResponseEntity<SoignantDTO> createSoignant(@RequestBody SoignantDTO soignantDTO) throws URISyntaxException {
         log.debug("REST request to save Soignant : {}", soignantDTO);
         if (soignantDTO.getId() != null) {
             throw new BadRequestAlertException("A new soignant cannot already have an ID", ENTITY_NAME, "idexists");

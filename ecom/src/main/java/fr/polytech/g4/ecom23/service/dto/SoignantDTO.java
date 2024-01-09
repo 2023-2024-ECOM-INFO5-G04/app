@@ -22,7 +22,7 @@ public class SoignantDTO implements Serializable {
 
     private SoignantMetier metier;
 
-    private CompteDTO compte;
+    private UserDTO user;
 
     private ServicesoignantDTO servicesoignant;
 
@@ -60,12 +60,12 @@ public class SoignantDTO implements Serializable {
         this.metier = metier;
     }
 
-    public CompteDTO getCompte() {
-        return compte;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setCompte(CompteDTO compte) {
-        this.compte = compte;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public ServicesoignantDTO getServicesoignant() {
@@ -113,7 +113,7 @@ public class SoignantDTO implements Serializable {
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
             ", metier='" + getMetier() + "'" +
-            ", compte=" + getCompte() +
+            ", user=" + getUser() +
             ", servicesoignant=" + getServicesoignant() +
             ", patients=" + getPatients() +
             "}";

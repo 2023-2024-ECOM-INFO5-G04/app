@@ -58,7 +58,7 @@ export const Administrateur = () => {
                   <Translate contentKey="ecom23App.administrateur.prenom">Prenom</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.administrateur.compte">Compte</Translate>
+                  <Translate contentKey="ecom23App.administrateur.user">User</Translate>
                 </th>
                 <th />
               </tr>
@@ -73,7 +73,7 @@ export const Administrateur = () => {
                   </td>
                   <td>{administrateur.nom}</td>
                   <td>{administrateur.prenom}</td>
-                  <td>{administrateur.compte ? <Link to={`/compte/${administrateur.compte.id}`}>{administrateur.compte.id}</Link> : ''}</td>
+                  <td>{administrateur.user ? administrateur.user.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/administrateur/${administrateur.id}`} color="info" size="sm" data-cy="entityDetailsButton">

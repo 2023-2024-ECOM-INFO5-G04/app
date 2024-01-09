@@ -61,7 +61,7 @@ export const Soignant = () => {
                   <Translate contentKey="ecom23App.soignant.metier">Metier</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.soignant.compte">Compte</Translate>
+                  <Translate contentKey="ecom23App.soignant.user">User</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.soignant.servicesoignant">Servicesoignant</Translate>
@@ -85,7 +85,7 @@ export const Soignant = () => {
                   <td>
                     <Translate contentKey={`ecom23App.SoignantMetier.${soignant.metier}`} />
                   </td>
-                  <td>{soignant.compte ? <Link to={`/compte/${soignant.compte.id}`}>{soignant.compte.id}</Link> : ''}</td>
+                  <td>{soignant.user ? soignant.user.id : ''}</td>
                   <td>
                     {soignant.servicesoignant ? (
                       <Link to={`/servicesoignant/${soignant.servicesoignant.id}`}>{soignant.servicesoignant.id}</Link>
