@@ -17,9 +17,9 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface MedecinMapper extends EntityMapper<MedecinDTO, Medecin> {
-    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
-    @Mapping(target = "patients", source = "patients", qualifiedByName = "patientIdSet")
-    @Mapping(target = "etablissements", source = "etablissements", qualifiedByName = "etablissementIdSet")
+    @Mapping(target = "user", source = "user")
+    @Mapping(target = "patients", source = "patients")
+    @Mapping(target = "etablissements", source = "etablissements")
     MedecinDTO toDto(Medecin s);
 
     @Mapping(target = "removePatients", ignore = true)

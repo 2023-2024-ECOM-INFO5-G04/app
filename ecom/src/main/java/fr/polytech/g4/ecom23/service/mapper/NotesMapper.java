@@ -13,8 +13,8 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface NotesMapper extends EntityMapper<NotesDTO, Notes> {
-    @Mapping(target = "medecin", source = "medecin", qualifiedByName = "medecinId")
-    @Mapping(target = "patient", source = "patient", qualifiedByName = "patientId")
+    @Mapping(target = "medecin", source = "medecin")
+    @Mapping(target = "patient", source = "patient")
     NotesDTO toDto(Notes s);
 
     @Named("medecinId")
