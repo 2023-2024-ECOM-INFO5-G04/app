@@ -19,8 +19,8 @@
       },
       "id": "ID",
       "commentaire": "Commentaire",
-      "patient": "Patient",
-      "medecin": "Medecin"
+      "medecin": "Medecin",
+      "patient": "Patient"
     }
   }
 }

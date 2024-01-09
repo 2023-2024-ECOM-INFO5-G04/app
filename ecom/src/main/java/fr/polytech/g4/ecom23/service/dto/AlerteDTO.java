@@ -21,6 +21,8 @@ public class AlerteDTO implements Serializable {
 
     private Boolean severite;
 
+    private Boolean consulte;
+
     public Long getId() {
         return id;
     }
@@ -61,6 +63,14 @@ public class AlerteDTO implements Serializable {
         this.severite = severite;
     }
 
+    public Boolean getConsulte() {
+        return consulte;
+    }
+
+    public void setConsulte(Boolean consulte) {
+        this.consulte = consulte;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -91,6 +101,7 @@ public class AlerteDTO implements Serializable {
             ", commentaire='" + getCommentaire() + "'" +
             ", denutrition='" + getDenutrition() + "'" +
             ", severite='" + getSeverite() + "'" +
+            ", consulte='" + getConsulte() + "'" +
             "}";
     }
 }

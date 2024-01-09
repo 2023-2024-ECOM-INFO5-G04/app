@@ -37,6 +37,9 @@ public class Alerte implements Serializable {
     @Column(name = "severite")
     private Boolean severite;
 
+    @Column(name = "consulte")
+    private Boolean consulte;
+
     @JsonIgnoreProperties(
         value = { "alerte", "notes", "etablissement", "suividonnees", "taches", "medecins", "soignants" },
         allowSetters = true
@@ -111,6 +114,19 @@ public class Alerte implements Serializable {
         this.severite = severite;
     }
 
+    public Boolean getConsulte() {
+        return this.consulte;
+    }
+
+    public Alerte consulte(Boolean consulte) {
+        this.setConsulte(consulte);
+        return this;
+    }
+
+    public void setConsulte(Boolean consulte) {
+        this.consulte = consulte;
+    }
+
     public Patient getPatient() {
         return this.patient;
     }
@@ -158,6 +174,7 @@ public class Alerte implements Serializable {
             ", commentaire='" + getCommentaire() + "'" +
             ", denutrition='" + getDenutrition() + "'" +
             ", severite='" + getSeverite() + "'" +
+            ", consulte='" + getConsulte() + "'" +
             "}";
     }
 }
