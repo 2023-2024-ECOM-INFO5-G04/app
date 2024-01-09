@@ -33,20 +33,20 @@ public class NotesDTO implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public PatientDTO getPatient() {
-        return patient;
-    }
-
-    public void setPatient(PatientDTO patient) {
-        this.patient = patient;
-    }
-
     public MedecinDTO getMedecin() {
         return medecin;
     }
 
     public void setMedecin(MedecinDTO medecin) {
         this.medecin = medecin;
+    }
+
+    public PatientDTO getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientDTO patient) {
+        this.patient = patient;
     }
 
     @Override
@@ -76,8 +76,8 @@ public class NotesDTO implements Serializable {
         return "NotesDTO{" +
             "id=" + getId() +
             ", commentaire='" + getCommentaire() + "'" +
-            ", patient=" + getPatient() +
             ", medecin=" + getMedecin() +
+            ", patient=" + getPatient() +
             "}";
     }
 }

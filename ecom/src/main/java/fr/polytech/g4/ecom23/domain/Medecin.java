@@ -47,9 +47,9 @@ public class Medecin implements Serializable {
     @JsonIgnoreProperties(value = { "medecin" }, allowSetters = true)
     private Set<Rappel> alertes = new HashSet<>();
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "medecin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "medecin", "patient" }, allowSetters = true)
     private Set<Notes> notes = new HashSet<>();
 
     @ManyToMany
@@ -123,6 +123,7 @@ public class Medecin implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
     public Medecin user(User user) {
         this.setUser(user);
         return this;
@@ -217,7 +218,7 @@ public class Medecin implements Serializable {
 
     public Medecin removeNotes(Notes notes) {
         this.notes.remove(notes);
-        notes.setPatient(null);
+        notes.setMedecin(null);
         return this;
     }
 

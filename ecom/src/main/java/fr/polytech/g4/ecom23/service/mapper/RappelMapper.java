@@ -11,7 +11,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface RappelMapper extends EntityMapper<RappelDTO, Rappel> {
-    @Mapping(target = "medecin", source = "medecin", qualifiedByName = "medecinId")
+    @Mapping(target = "medecin", source = "medecin")
     RappelDTO toDto(Rappel s);
 
     @Named("medecinId")

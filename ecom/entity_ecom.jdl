@@ -109,8 +109,8 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-    Medecin{notes} to Notes{patient}
-    Patient{notes} to Notes{medecin}
+    Medecin{notes} to Notes{medecin}
+    Patient{notes} to Notes{patient}
 }
 
 relationship OneToOne {

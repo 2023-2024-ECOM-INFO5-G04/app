@@ -30,7 +30,7 @@ describe('Tache e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"syndicate Optimized Provence-Alpes-Côte","prenom":"b","age":45388,"datearrivee":"2023-11-06","poidsactuel":30667,"albumine":42073,"taille":54970,"sexe":"M","favori":true,"sarcopenie":true},
+      body: {"nom":"syndicate Optimized Provence-Alpes-Côte","prenom":"b","age":45388,"datearrivee":"2023-11-06","poidsactuel":30667,"albumine":42073,"taille":54970,"sexe":"M","favori":true,"sarcopenie":true,"absorptionreduite":true,"agression":true},
     }).then(({ body }) => {
       patient = body;
     });
