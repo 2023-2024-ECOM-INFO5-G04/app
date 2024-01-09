@@ -6,6 +6,10 @@ import fr.polytech.g4.ecom23.service.SuividonneesService;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import javax.validation.constraints.*;
 
 /**
@@ -47,7 +51,7 @@ public class PatientDTO implements Serializable {
 
     private EtablissementDTO etablissement;
 
-    private enum Donnee {
+    public enum Donnee {
         POIDS, CALORIES
     }
 
@@ -214,7 +218,7 @@ public class PatientDTO implements Serializable {
             "}";
     }
 
-    private boolean IMC(List<SuividonneesDTO> list, float limit) {
+    public boolean IMC(List<SuividonneesDTO> list, float limit) {
         if (taille == null)
             throw new RuntimeException("Le patient " + id + " n'a pas de taille");
         for (SuividonneesDTO suivi : list) {
@@ -284,7 +288,7 @@ public class PatientDTO implements Serializable {
         }
     }
 
-    private Float evolution(List<SuividonneesDTO> list, Donnee donnee, int days) {
+    public Float evolution(List<SuividonneesDTO> list, Donnee donnee, int days) {
         Float movingAverage_t, movingAverage_t1;
         LocalDate t0 = LocalDate.now();
         LocalDate t1 = LocalDate.ofEpochDay(t0.toEpochDay() - days);
@@ -359,7 +363,7 @@ public class PatientDTO implements Serializable {
     private boolean eti1(List<SuividonneesDTO> list) {
         boolean critere = false;
         int days1 = 7, days2 = 14;
-        float loss1 = 50f;
+        float loss1 = 0.5f;
         Float evo1 = evolution(list, Donnee.CALORIES, days1);
         if (evo1 != null && evo1 <= -loss1) {
             COMMENTAIRE += "Réduction de la prise alimentaire supérieure à " + loss1 + "% en " + days1 + " jours";
@@ -454,7 +458,7 @@ public class PatientDTO implements Serializable {
         alerteDTO.setCommentaire("");
         if (list.isEmpty())
             return alerteDTO;
-        Collections.sort(list);
+        list.sort(new SuiviComparator());
         COMMENTAIRE = "";
         if (!phenotypique(list) && !etiologique(list))
             return alerteDTO;
@@ -464,4 +468,7 @@ public class PatientDTO implements Serializable {
         return alerteDTO;
     }
 
+
+
 }
+

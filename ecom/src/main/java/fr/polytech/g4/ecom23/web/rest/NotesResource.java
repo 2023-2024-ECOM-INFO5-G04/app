@@ -164,6 +164,7 @@ public class NotesResource {
             Optional<MedecinDTO> optionalMedecinDTO = medecinService.findOne(medecinId);
             if (optionalMedecinDTO.isEmpty())
                 return filteredList;
+            System.out.println("HEY");
             MedecinDTO medecinDTO = optionalMedecinDTO.get();
             PatientDTO patientDTO = null;
             for (PatientDTO p : medecinDTO.getPatients()) {
@@ -174,6 +175,7 @@ public class NotesResource {
             }
             if (patientDTO == null)
                 return filteredList;
+            System.out.println("YO");
             NotesDTO notesDTO = new NotesDTO();
             notesDTO.setMedecin(medecinDTO);
             notesDTO.setPatient(patientDTO);
