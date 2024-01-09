@@ -2,10 +2,14 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.SuividonneesRepository;
 import fr.polytech.g4.ecom23.service.SuividonneesService;
+import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
+
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -191,5 +195,77 @@ public class SuividonneesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     *  A DTO for the variables from SuiviDonnees entity necessary for plotting graphs
+     */
+    public class CourbesDTO implements Serializable {
+        private Float poids;
+        private Float epa;
+        private Float imc;
+        public void setPoids(Float poids) {
+            this.poids = poids;
+        }
+        public Float getPoids() {
+            return this.poids;
+        }
+        public void setEpa(Float epa) {
+            this.epa = epa;
+        }
+        public Float getEpa() {
+            return this.epa;
+        }
+        public void setImc(Float imc) {
+            this.imc = imc;
+        }
+        public Float getImc() {
+            return this.imc;
+        }
+    }
+    /**
+     *  A DTO for the variables from SuiviDonnees entity necessary for plotting graphs with their respective data
+     */
+    public class DateCourbesDTO implements Serializable {
+        private LocalDate date;
+        private CourbesDTO courbes;
+        public void setDate(LocalDate date) {
+            this.date = date;
+        }
+        public LocalDate getDate() {
+            return this.date;
+        }
+        public void setCourbes(CourbesDTO courbes) {
+            this.courbes = courbes;
+        }
+        public CourbesDTO getCourbes() {
+            return this.courbes;
+        }
+    }
+    /**
+     * {@code GET  /suividonnees/courbes/patient/:id : get the DateCourbes from the patient with the id.
+     *
+     * @param id the id of the patient to retrieve the respectives DateCourbesDTO.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of DateCourbes in body.
+     */
+    @GetMapping("/suividonnees/courbes/patient/{id}")
+    public List<DateCourbesDTO>getCourbesPatient(@PathVariable Long id) {
+        List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
+        List<DateCourbesDTO> allDateCourbes = new LinkedList<DateCourbesDTO>();
+        for (SuividonneesDTO sd : allSuividonnees) {
+            PatientDTO patient = sd.getPatient();
+            if (patient.getId().equals(id)) {
+                Float poids = sd.getPoids();
+                CourbesDTO courbes = new CourbesDTO();
+                courbes.setPoids(poids);
+                courbes.setEpa(sd.getEpa());
+                courbes.setImc(poids/((float) Math.pow(patient.getTaille(),2)));
+                DateCourbesDTO dateCourbes = new DateCourbesDTO();
+                dateCourbes.setCourbes(courbes);
+                dateCourbes.setDate(sd.getDate());
+                allDateCourbes.add(dateCourbes);
+            }
+        }
+        return allDateCourbes;
     }
 }
