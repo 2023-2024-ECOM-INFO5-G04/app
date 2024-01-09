@@ -55,14 +55,13 @@ const options = {
   }
 }
 
-  return (<div>
-      <h2>Graphique</h2>
+  return (
 
       <Line
         data={laData}
         options={options}
       />
-    </div>
+   
   );
 };
 
