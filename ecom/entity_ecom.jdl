@@ -95,7 +95,7 @@ relationship ManyToOne {
     Tache{patient(id) required} to Patient{taches}
     Soignant{servicesoignant(id) required} to Servicesoignant{soignant}
     Tache{servicesoignant } to Servicesoignant{taches}
-    Tache{soigant } to Soignant{taches}
+    Tache{soignant } to Soignant{taches}
 }
 
 relationship ManyToMany{

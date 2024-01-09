@@ -29,7 +29,7 @@
             <column name="servicesoignant_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="soigant_id" type="bigint">
+            <column name="soignant_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="medecin_id" type="bigint">
