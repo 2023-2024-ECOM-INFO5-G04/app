@@ -4,8 +4,11 @@ import fr.polytech.g4.ecom23.repository.SuividonneesRepository;
 import fr.polytech.g4.ecom23.service.SuividonneesService;
 import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
+
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -191,5 +194,57 @@ public class SuividonneesResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    public class CourbesDTO implements Serializable {
+        private Float poids;
+        private Float epa;
+
+        public void setPoids(Float poids) {
+            this.poids = poids;
+        }
+        public Float getPoids() {
+            return this.poids;
+        }
+        public void setEpa(Float epa) {
+            this.epa = epa;
+        }
+        public Float getEpa() {
+            return this.epa;
+        }
+    }
+
+    public class DateCourbesDTO implements Serializable {
+        private LocalDate date;
+        private CourbesDTO courbes;
+        public void setDate(LocalDate date) {
+            this.date = date;
+        }
+        public LocalDate getDate() {
+            return this.date;
+        }
+        public void setCourbes(CourbesDTO courbes) {
+            this.courbes = courbes;
+        }
+        public CourbesDTO getCourbes() {
+            return this.courbes;
+        }
+    }
+    @GetMapping("/suividonnees/courbes/patient/{id}")
+    public List<DateCourbesDTO>getCourbesPatient(@PathVariable Long id) {
+        List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
+        List<DateCourbesDTO> allDateCourbes = new LinkedList<DateCourbesDTO>();
+        for (SuividonneesDTO sd : allSuividonnees) {
+            if (sd.getPatient().getId().equals(id)) {
+                CourbesDTO courbes = new CourbesDTO();
+                courbes.setPoids(sd.getPoids());
+                courbes.setEpa(sd.getEpa());
+                DateCourbesDTO dateCourbes = new DateCourbesDTO();
+                dateCourbes.setCourbes(courbes);
+                dateCourbes.setDate(sd.getDate());
+                allDateCourbes.add(dateCourbes);
+            }
+        }
+        return allDateCourbes;
     }
 }
