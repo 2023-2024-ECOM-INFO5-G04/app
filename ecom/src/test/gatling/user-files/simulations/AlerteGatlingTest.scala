@@ -75,6 +75,7 @@ class AlerteGatlingTest extends Simulation {
                 , "commentaire":"SAMPLE_TEXT"
                 , "denutrition":null
                 , "severite":null
+                , "consulte":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_alerte_url"))).exitHereIfFailed
