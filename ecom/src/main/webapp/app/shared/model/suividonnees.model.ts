@@ -9,12 +9,8 @@ export interface ISuividonnees {
   massecorporelle?: number | null;
   quantitepoidsaliments?: number | null;
   quantitecaloriesaliments?: number | null;
-  absorptionreduite?: boolean | null;
-  agression?: boolean | null;
   patient?: IPatient;
 }
 
 export const defaultValue: Readonly<ISuividonnees> = {
-  absorptionreduite: false,
-  agression: false,
 };

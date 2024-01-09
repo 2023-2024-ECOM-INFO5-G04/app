@@ -32,12 +32,6 @@
             <column name="quantitecaloriesaliments" type="${floatType}">
                 <constraints nullable="true" />
             </column>
-            <column name="absorptionreduite" type="boolean">
-                <constraints nullable="true" />
-            </column>
-            <column name="agression" type="boolean">
-                <constraints nullable="true" />
-            </column>
             <column name="patient_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -68,8 +62,6 @@
             <column name="massecorporelle" type="numeric"/>
             <column name="quantitepoidsaliments" type="numeric"/>
             <column name="quantitecaloriesaliments" type="numeric"/>
-            <column name="absorptionreduite" type="boolean"/>
-            <column name="agression" type="boolean"/>
             <column name="patient_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

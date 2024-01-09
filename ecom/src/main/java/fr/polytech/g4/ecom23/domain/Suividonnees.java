@@ -47,12 +47,6 @@ public class Suividonnees implements Serializable {
     @Column(name = "quantitecaloriesaliments")
     private Float quantitecaloriesaliments;
 
-    @Column(name = "absorptionreduite")
-    private Boolean absorptionreduite;
-
-    @Column(name = "agression")
-    private Boolean agression;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(
@@ -154,32 +148,6 @@ public class Suividonnees implements Serializable {
         this.quantitecaloriesaliments = quantitecaloriesaliments;
     }
 
-    public Boolean getAbsorptionreduite() {
-        return this.absorptionreduite;
-    }
-
-    public Suividonnees absorptionreduite(Boolean absorptionreduite) {
-        this.setAbsorptionreduite(absorptionreduite);
-        return this;
-    }
-
-    public void setAbsorptionreduite(Boolean absorptionreduite) {
-        this.absorptionreduite = absorptionreduite;
-    }
-
-    public Boolean getAgression() {
-        return this.agression;
-    }
-
-    public Suividonnees agression(Boolean agression) {
-        this.setAgression(agression);
-        return this;
-    }
-
-    public void setAgression(Boolean agression) {
-        this.agression = agression;
-    }
-
     public Patient getPatient() {
         return this.patient;
     }
@@ -223,8 +191,6 @@ public class Suividonnees implements Serializable {
             ", massecorporelle=" + getMassecorporelle() +
             ", quantitepoidsaliments=" + getQuantitepoidsaliments() +
             ", quantitecaloriesaliments=" + getQuantitecaloriesaliments() +
-            ", absorptionreduite='" + getAbsorptionreduite() + "'" +
-            ", agression='" + getAgression() + "'" +
             "}";
     }
 }

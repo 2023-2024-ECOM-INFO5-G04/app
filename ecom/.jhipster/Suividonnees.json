@@ -37,14 +37,6 @@
     {
       "fieldName": "quantitecaloriesaliments",
       "fieldType": "Float"
-    },
-    {
-      "fieldName": "absorptionreduite",
-      "fieldType": "Boolean"
-    },
-    {
-      "fieldName": "agression",
-      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

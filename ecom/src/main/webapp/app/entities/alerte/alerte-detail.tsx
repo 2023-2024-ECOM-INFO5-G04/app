@@ -50,6 +50,12 @@ export const AlerteDetail = () => {
             </span>
           </dt>
           <dd>{alerteEntity.denutrition ? 'true' : 'false'}</dd>
+          <dt>
+            <span id="severite">
+              <Translate contentKey="ecom23App.alerte.severite">Severite</Translate>
+            </span>
+          </dt>
+          <dd>{alerteEntity.severite ? 'true' : 'false'}</dd>
         </dl>
         <Button tag={Link} to="/alerte" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -1,10 +1,10 @@
-import { plainToClass } from "class-transformer"; 
+import { plainToClass } from "class-transformer";
 
-export class PatientData { 
-    id: number; 
-    nom: string; 
-    prenom: string; 
-    age: number; 
+export class PatientData {
+    id: number;
+    nom: string;
+    prenom: string;
+    age: number;
     datearrivee: string;
     poidsactuel: number;
     albumine: number;
@@ -18,7 +18,7 @@ export class Alerte {
   id: number;
   date: string;
   commentaire: string;
-  denutrition: boolean;
+  severite: boolean;
 }
 
 export class Etablissement {
@@ -28,10 +28,9 @@ export class Etablissement {
   telephone: string;
 }
 
-export function donneesPatient(jsonObject) {
-    
-    return(plainToClass(PatientData, jsonObject))
 
+export function donneesPatient(jsonObject) {
+    return(plainToClass(PatientData, jsonObject))
 }
 
 export default donneesPatient;

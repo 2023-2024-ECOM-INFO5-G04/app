@@ -145,22 +145,6 @@ export const SuividonneesUpdate = () => {
                 type="text"
               />
               <ValidatedField
-                label={translate('ecom23App.suividonnees.absorptionreduite')}
-                id="suividonnees-absorptionreduite"
-                name="absorptionreduite"
-                data-cy="absorptionreduite"
-                check
-                type="checkbox"
-              />
-              <ValidatedField
-                label={translate('ecom23App.suividonnees.agression')}
-                id="suividonnees-agression"
-                name="agression"
-                data-cy="agression"
-                check
-                type="checkbox"
-              />
-              <ValidatedField
                 id="suividonnees-patient"
                 name="patient"
                 data-cy="patient"

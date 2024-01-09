@@ -50,6 +50,14 @@
     {
       "fieldName": "sarcopenie",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "absorptionreduite",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "agression",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

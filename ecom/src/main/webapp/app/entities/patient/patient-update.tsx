@@ -172,6 +172,22 @@ export const PatientUpdate = () => {
                 type="checkbox"
               />
               <ValidatedField
+                label={translate('ecom23App.patient.absorptionreduite')}
+                id="patient-absorptionreduite"
+                name="absorptionreduite"
+                data-cy="absorptionreduite"
+                check
+                type="checkbox"
+              />
+              <ValidatedField
+                label={translate('ecom23App.patient.agression')}
+                id="patient-agression"
+                name="agression"
+                data-cy="agression"
+                check
+                type="checkbox"
+              />
+              <ValidatedField
                 id="patient-alerte"
                 name="alerte"
                 data-cy="alerte"

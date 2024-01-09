@@ -71,18 +71,6 @@ export const SuividonneesDetail = () => {
           </dt>
           <dd>{suividonneesEntity.quantitecaloriesaliments}</dd>
           <dt>
-            <span id="absorptionreduite">
-              <Translate contentKey="ecom23App.suividonnees.absorptionreduite">Absorptionreduite</Translate>
-            </span>
-          </dt>
-          <dd>{suividonneesEntity.absorptionreduite ? 'true' : 'false'}</dd>
-          <dt>
-            <span id="agression">
-              <Translate contentKey="ecom23App.suividonnees.agression">Agression</Translate>
-            </span>
-          </dt>
-          <dd>{suividonneesEntity.agression ? 'true' : 'false'}</dd>
-          <dt>
             <Translate contentKey="ecom23App.suividonnees.patient">Patient</Translate>
           </dt>
           <dd>{suividonneesEntity.patient ? suividonneesEntity.patient.id : ''}</dd>
