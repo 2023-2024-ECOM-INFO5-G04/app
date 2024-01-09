@@ -18,7 +18,7 @@ const TabbedAlerts = () => {
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
           message: `Le patient ${patient.nom} est en situation de dénutrition`,
-          clicked: false,
+          clicked: patient.alerte.consulte,
           id : patient,
         }));
 
@@ -72,7 +72,22 @@ const TabbedAlerts = () => {
   const handleAlertClick = async (type, index) => {
     const updatedAlerts = { ...alerts }; //Necessité de updatedAlerts car il ne faut pas modifier directement alerts
     if (!updatedAlerts[type][index].clicked) {
-      updatedAlerts[type][index].clicked = true;
+      //updatedAlerts[type][index].id.alerte = true;
+      const data =
+        {
+          "id": updatedAlerts[type][index].id.alerte.id,
+          "date": updatedAlerts[type][index].id.alerte.date,
+          "commentaire": updatedAlerts[type][index].id.alerte.commentaire,
+          "denutrition": updatedAlerts[type][index].id.alerte.denutrition,
+          "severite": updatedAlerts[type][index].id.alerte.severite,
+          "consulte": true
+        }
+      const response = await axios.patch(`/api/alertes/${updatedAlerts[type][index].id.alerte.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
     }
     setAlerts(updatedAlerts);
   };
@@ -121,9 +136,6 @@ const TabbedAlerts = () => {
   const handleDropdownToggle = () => {
     // Masquer la pastille lorsque le menu déroulant est ouvert
     setShowPastille(false);
-    console.log(`showPastille`, showPastille);
-    console.log(`lastTaille`, lastTaille);
-    console.log(`Taille`, alerts.denutrition.length);
   };
 
 
