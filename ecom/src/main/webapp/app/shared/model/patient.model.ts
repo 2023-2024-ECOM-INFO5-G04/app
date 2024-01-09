@@ -20,6 +20,8 @@ export interface IPatient {
   sexe?: Sexe | null;
   favori?: boolean | null;
   sarcopenie?: boolean | null;
+  absorptionreduite?: boolean | null;
+  agression?: boolean | null;
   alerte?: IAlerte | null;
   notes?: INotes[] | null;
   etablissement?: IEtablissement;
@@ -32,4 +34,6 @@ export interface IPatient {
 export const defaultValue: Readonly<IPatient> = {
   favori: false,
   sarcopenie: false,
+  absorptionreduite: false,
+  agression: false,
 };

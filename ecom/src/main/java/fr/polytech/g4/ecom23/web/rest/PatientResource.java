@@ -1,7 +1,10 @@
 package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.PatientRepository;
+import fr.polytech.g4.ecom23.service.AlerteService;
 import fr.polytech.g4.ecom23.service.PatientService;
+import fr.polytech.g4.ecom23.service.SuividonneesService;
+import fr.polytech.g4.ecom23.service.dto.AlerteDTO;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 
@@ -39,10 +42,16 @@ public class PatientResource {
 
     private final PatientService patientService;
 
+    private final AlerteService alerteService;
+
+    private final SuividonneesService suividonneesService;
+
     private final PatientRepository patientRepository;
 
-    public PatientResource(PatientService patientService, PatientRepository patientRepository) {
+    public PatientResource(PatientService patientService, AlerteService alerteService, SuividonneesService suividonneesService, PatientRepository patientRepository) {
         this.patientService = patientService;
+        this.alerteService = alerteService;
+        this.suividonneesService = suividonneesService;
         this.patientRepository = patientRepository;
     }
 
@@ -199,5 +208,26 @@ public class PatientResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PatchMapping("/patients/updatedenutrition")
+    public List<PatientDTO> updateDenutrition() throws URISyntaxException {
+        log.debug("REST request to update Alerte of all Patients");
+        List<PatientDTO> list = patientService.findAll();
+        for (PatientDTO patientDTO : list) {
+            AlerteDTO alerteDTO = patientDTO.getAlerte();
+            if (alerteDTO == null) {
+                alerteDTO = alerteService.save(new AlerteDTO());
+                patientDTO.setAlerte(alerteDTO);
+                patientService.partialUpdate(patientDTO);
+            }
+            AlerteDTO newAlerteDTO = patientDTO.denutrition(suividonneesService.findAll());
+            alerteDTO.setDenutrition(newAlerteDTO.getDenutrition());
+            alerteDTO.setSeverite(newAlerteDTO.getSeverite());
+            alerteDTO.setDate(newAlerteDTO.getDate());
+            alerteDTO.setCommentaire(newAlerteDTO.getCommentaire());
+            alerteService.partialUpdate(alerteDTO);
+        }
+        return patientService.findAll();
     }
 }

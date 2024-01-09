@@ -30,7 +30,7 @@ describe('Alerte e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"c deposit Slovaquie","prenom":"e-markets Bedfordshire","age":40248,"datearrivee":"2023-11-07","poidsactuel":7025,"albumine":23012,"taille":10307,"sexe":"F","favori":true,"sarcopenie":true},
+      body: {"nom":"c deposit Slovaquie","prenom":"e-markets Bedfordshire","age":40248,"datearrivee":"2023-11-07","poidsactuel":7025,"albumine":23012,"taille":10307,"sexe":"F","favori":true,"sarcopenie":true,"absorptionreduite":false,"agression":false},
     }).then(({ body }) => {
       patient = body;
     });
@@ -218,6 +218,9 @@ describe('Alerte e2e test', () => {
 
       cy.get(`[data-cy="denutrition"]`).should('not.be.checked');
       cy.get(`[data-cy="denutrition"]`).click().should('be.checked');
+
+      cy.get(`[data-cy="severite"]`).should('not.be.checked');
+      cy.get(`[data-cy="severite"]`).click().should('be.checked');
 
       cy.get(`[data-cy="patient"]`).select(1);
 

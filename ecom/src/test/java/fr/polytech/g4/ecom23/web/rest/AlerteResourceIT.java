@@ -43,6 +43,9 @@ class AlerteResourceIT {
     private static final Boolean DEFAULT_DENUTRITION = false;
     private static final Boolean UPDATED_DENUTRITION = true;
 
+    private static final Boolean DEFAULT_SEVERITE = false;
+    private static final Boolean UPDATED_SEVERITE = true;
+
     private static final String ENTITY_API_URL = "/api/alertes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -70,7 +73,11 @@ class AlerteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alerte createEntity(EntityManager em) {
-        Alerte alerte = new Alerte().date(DEFAULT_DATE).commentaire(DEFAULT_COMMENTAIRE).denutrition(DEFAULT_DENUTRITION);
+        Alerte alerte = new Alerte()
+            .date(DEFAULT_DATE)
+            .commentaire(DEFAULT_COMMENTAIRE)
+            .denutrition(DEFAULT_DENUTRITION)
+            .severite(DEFAULT_SEVERITE);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -91,7 +98,11 @@ class AlerteResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Alerte createUpdatedEntity(EntityManager em) {
-        Alerte alerte = new Alerte().date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION);
+        Alerte alerte = new Alerte()
+            .date(UPDATED_DATE)
+            .commentaire(UPDATED_COMMENTAIRE)
+            .denutrition(UPDATED_DENUTRITION)
+            .severite(UPDATED_SEVERITE);
         // Add required entity
         Patient patient;
         if (TestUtil.findAll(em, Patient.class).isEmpty()) {
@@ -127,6 +138,7 @@ class AlerteResourceIT {
         assertThat(testAlerte.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(DEFAULT_COMMENTAIRE);
         assertThat(testAlerte.getDenutrition()).isEqualTo(DEFAULT_DENUTRITION);
+        assertThat(testAlerte.getSeverite()).isEqualTo(DEFAULT_SEVERITE);
     }
 
     @Test
@@ -162,7 +174,8 @@ class AlerteResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(alerte.getId().intValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].commentaire").value(hasItem(DEFAULT_COMMENTAIRE)))
-            .andExpect(jsonPath("$.[*].denutrition").value(hasItem(DEFAULT_DENUTRITION.booleanValue())));
+            .andExpect(jsonPath("$.[*].denutrition").value(hasItem(DEFAULT_DENUTRITION.booleanValue())))
+            .andExpect(jsonPath("$.[*].severite").value(hasItem(DEFAULT_SEVERITE.booleanValue())));
     }
 
     @Test
@@ -179,7 +192,8 @@ class AlerteResourceIT {
             .andExpect(jsonPath("$.id").value(alerte.getId().intValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.commentaire").value(DEFAULT_COMMENTAIRE))
-            .andExpect(jsonPath("$.denutrition").value(DEFAULT_DENUTRITION.booleanValue()));
+            .andExpect(jsonPath("$.denutrition").value(DEFAULT_DENUTRITION.booleanValue()))
+            .andExpect(jsonPath("$.severite").value(DEFAULT_SEVERITE.booleanValue()));
     }
 
     @Test
@@ -201,7 +215,7 @@ class AlerteResourceIT {
         Alerte updatedAlerte = alerteRepository.findById(alerte.getId()).get();
         // Disconnect from session so that the updates on updatedAlerte are not directly saved in db
         em.detach(updatedAlerte);
-        updatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION);
+        updatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION).severite(UPDATED_SEVERITE);
         AlerteDTO alerteDTO = alerteMapper.toDto(updatedAlerte);
 
         restAlerteMockMvc
@@ -219,6 +233,7 @@ class AlerteResourceIT {
         assertThat(testAlerte.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
         assertThat(testAlerte.getDenutrition()).isEqualTo(UPDATED_DENUTRITION);
+        assertThat(testAlerte.getSeverite()).isEqualTo(UPDATED_SEVERITE);
     }
 
     @Test
@@ -315,6 +330,7 @@ class AlerteResourceIT {
         assertThat(testAlerte.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
         assertThat(testAlerte.getDenutrition()).isEqualTo(UPDATED_DENUTRITION);
+        assertThat(testAlerte.getSeverite()).isEqualTo(DEFAULT_SEVERITE);
     }
 
     @Test
@@ -329,7 +345,11 @@ class AlerteResourceIT {
         Alerte partialUpdatedAlerte = new Alerte();
         partialUpdatedAlerte.setId(alerte.getId());
 
-        partialUpdatedAlerte.date(UPDATED_DATE).commentaire(UPDATED_COMMENTAIRE).denutrition(UPDATED_DENUTRITION);
+        partialUpdatedAlerte
+            .date(UPDATED_DATE)
+            .commentaire(UPDATED_COMMENTAIRE)
+            .denutrition(UPDATED_DENUTRITION)
+            .severite(UPDATED_SEVERITE);
 
         restAlerteMockMvc
             .perform(
@@ -346,6 +366,7 @@ class AlerteResourceIT {
         assertThat(testAlerte.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testAlerte.getCommentaire()).isEqualTo(UPDATED_COMMENTAIRE);
         assertThat(testAlerte.getDenutrition()).isEqualTo(UPDATED_DENUTRITION);
+        assertThat(testAlerte.getSeverite()).isEqualTo(UPDATED_SEVERITE);
     }
 
     @Test

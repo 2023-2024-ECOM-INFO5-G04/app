@@ -70,12 +70,6 @@ export const Suividonnees = () => {
                   <Translate contentKey="ecom23App.suividonnees.quantitecaloriesaliments">Quantitecaloriesaliments</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.suividonnees.absorptionreduite">Absorptionreduite</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="ecom23App.suividonnees.agression">Agression</Translate>
-                </th>
-                <th>
                   <Translate contentKey="ecom23App.suividonnees.patient">Patient</Translate>
                 </th>
                 <th />
@@ -95,8 +89,6 @@ export const Suividonnees = () => {
                   <td>{suividonnees.massecorporelle}</td>
                   <td>{suividonnees.quantitepoidsaliments}</td>
                   <td>{suividonnees.quantitecaloriesaliments}</td>
-                  <td>{suividonnees.absorptionreduite ? 'true' : 'false'}</td>
-                  <td>{suividonnees.agression ? 'true' : 'false'}</td>
                   <td>{suividonnees.patient ? <Link to={`/patient/${suividonnees.patient.id}`}>{suividonnees.patient.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

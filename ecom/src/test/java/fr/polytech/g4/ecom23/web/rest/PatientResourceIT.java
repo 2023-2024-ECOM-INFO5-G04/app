@@ -67,6 +67,12 @@ class PatientResourceIT {
     private static final Boolean DEFAULT_SARCOPENIE = false;
     private static final Boolean UPDATED_SARCOPENIE = true;
 
+    private static final Boolean DEFAULT_ABSORPTIONREDUITE = false;
+    private static final Boolean UPDATED_ABSORPTIONREDUITE = true;
+
+    private static final Boolean DEFAULT_AGRESSION = false;
+    private static final Boolean UPDATED_AGRESSION = true;
+
     private static final String ENTITY_API_URL = "/api/patients";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -107,7 +113,9 @@ class PatientResourceIT {
             .taille(DEFAULT_TAILLE)
             .sexe(DEFAULT_SEXE)
             .favori(DEFAULT_FAVORI)
-            .sarcopenie(DEFAULT_SARCOPENIE);
+            .sarcopenie(DEFAULT_SARCOPENIE)
+            .absorptionreduite(DEFAULT_ABSORPTIONREDUITE)
+            .agression(DEFAULT_AGRESSION);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -138,7 +146,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -181,6 +191,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(DEFAULT_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -223,7 +235,9 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.[*].taille").value(hasItem(DEFAULT_TAILLE.doubleValue())))
             .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE.toString())))
             .andExpect(jsonPath("$.[*].favori").value(hasItem(DEFAULT_FAVORI.booleanValue())))
-            .andExpect(jsonPath("$.[*].sarcopenie").value(hasItem(DEFAULT_SARCOPENIE.booleanValue())));
+            .andExpect(jsonPath("$.[*].sarcopenie").value(hasItem(DEFAULT_SARCOPENIE.booleanValue())))
+            .andExpect(jsonPath("$.[*].absorptionreduite").value(hasItem(DEFAULT_ABSORPTIONREDUITE.booleanValue())))
+            .andExpect(jsonPath("$.[*].agression").value(hasItem(DEFAULT_AGRESSION.booleanValue())));
     }
 
     @Test
@@ -247,7 +261,9 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.taille").value(DEFAULT_TAILLE.doubleValue()))
             .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE.toString()))
             .andExpect(jsonPath("$.favori").value(DEFAULT_FAVORI.booleanValue()))
-            .andExpect(jsonPath("$.sarcopenie").value(DEFAULT_SARCOPENIE.booleanValue()));
+            .andExpect(jsonPath("$.sarcopenie").value(DEFAULT_SARCOPENIE.booleanValue()))
+            .andExpect(jsonPath("$.absorptionreduite").value(DEFAULT_ABSORPTIONREDUITE.booleanValue()))
+            .andExpect(jsonPath("$.agression").value(DEFAULT_AGRESSION.booleanValue()));
     }
 
     @Test
@@ -279,7 +295,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -304,6 +322,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -388,7 +408,8 @@ class PatientResourceIT {
             .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
-            .albumine(UPDATED_ALBUMINE);
+            .albumine(UPDATED_ALBUMINE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE);
 
         restPatientMockMvc
             .perform(
@@ -412,6 +433,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -436,7 +459,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restPatientMockMvc
             .perform(
@@ -460,6 +485,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test

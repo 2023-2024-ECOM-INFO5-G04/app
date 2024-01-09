@@ -108,6 +108,14 @@ export const AlerteUpdate = () => {
                 check
                 type="checkbox"
               />
+              <ValidatedField
+                label={translate('ecom23App.alerte.severite')}
+                id="alerte-severite"
+                name="severite"
+                data-cy="severite"
+                check
+                type="checkbox"
+              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/alerte" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

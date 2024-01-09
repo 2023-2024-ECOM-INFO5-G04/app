@@ -39,13 +39,13 @@ export const NotesDetail = () => {
           </dt>
           <dd>{notesEntity.commentaire}</dd>
           <dt>
-            <Translate contentKey="ecom23App.notes.patient">Patient</Translate>
-          </dt>
-          <dd>{notesEntity.patient ? notesEntity.patient.id : ''}</dd>
-          <dt>
             <Translate contentKey="ecom23App.notes.medecin">Medecin</Translate>
           </dt>
           <dd>{notesEntity.medecin ? notesEntity.medecin.id : ''}</dd>
+          <dt>
+            <Translate contentKey="ecom23App.notes.patient">Patient</Translate>
+          </dt>
+          <dd>{notesEntity.patient ? notesEntity.patient.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/notes" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
