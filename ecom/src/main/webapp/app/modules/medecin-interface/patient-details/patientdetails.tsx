@@ -52,8 +52,9 @@ export const VisualisationPatientDetail = () => {
             patient={patient}
           />
         </Col>
+        <Col md='9'>
         {fenetre ? component1 : component2}
-
+        </Col>
       </Row>
     </div>);
 

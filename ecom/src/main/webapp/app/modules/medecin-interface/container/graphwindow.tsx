@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Button } from "reactstrap"
 import "./graphwindow.css"
 
+import LineChart from "app/modules/medecin-interface/graphe/graphe";
+
 
 export const GraphWindow = (props) => {
 
@@ -9,16 +11,15 @@ export const GraphWindow = (props) => {
 
         <Col className='back'>
             <div className='head'>
-                header
+                <h2>Graphique</h2>
             </div >
             <div className='body'>
-                body
+                <LineChart />
             </div>
             <div className='foot'>
-                footer
-
+ 
                 <Button onClick={props.handleClick}
-                className="valider-button">
+                    className="tache-button">
                     Ajouter une tache
                 </Button>
             </div>
