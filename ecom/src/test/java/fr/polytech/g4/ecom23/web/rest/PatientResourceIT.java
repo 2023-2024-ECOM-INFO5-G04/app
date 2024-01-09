@@ -290,7 +290,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -315,6 +317,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -399,7 +403,8 @@ class PatientResourceIT {
             .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
-            .albumine(UPDATED_ALBUMINE);
+            .albumine(UPDATED_ALBUMINE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE);
 
         restPatientMockMvc
             .perform(
@@ -423,6 +428,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -447,7 +454,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restPatientMockMvc
             .perform(
@@ -471,6 +480,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test

@@ -12,5 +12,4 @@ export interface ISuividonnees {
   patient?: IPatient;
 }
 
-export const defaultValue: Readonly<ISuividonnees> = {
-};
+export const defaultValue: Readonly<ISuividonnees> = {};
