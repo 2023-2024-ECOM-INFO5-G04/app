@@ -19,7 +19,7 @@ import org.mapstruct.*;
 public interface TacheMapper extends EntityMapper<TacheDTO, Tache> {
     @Mapping(target = "patient", source = "patient")
     @Mapping(target = "servicesoignant", source = "servicesoignant")
-    @Mapping(target = "soigant", source = "soigant")
+    @Mapping(target = "soignant", source = "soignant")
     @Mapping(target = "medecin", source = "medecin")
     TacheDTO toDto(Tache s);
 
