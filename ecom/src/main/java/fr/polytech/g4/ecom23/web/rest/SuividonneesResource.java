@@ -2,6 +2,7 @@ package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.SuividonneesRepository;
 import fr.polytech.g4.ecom23.service.SuividonneesService;
+import fr.polytech.g4.ecom23.service.dto.PatientDTO;
 import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 
@@ -199,7 +200,7 @@ public class SuividonneesResource {
     public class CourbesDTO implements Serializable {
         private Float poids;
         private Float epa;
-
+        private Float imc;
         public void setPoids(Float poids) {
             this.poids = poids;
         }
@@ -211,6 +212,12 @@ public class SuividonneesResource {
         }
         public Float getEpa() {
             return this.epa;
+        }
+        public void setImc(Float imc) {
+            this.imc = imc;
+        }
+        public Float getImc() {
+            return this.imc;
         }
     }
 
@@ -235,10 +242,20 @@ public class SuividonneesResource {
         List<SuividonneesDTO> allSuividonnees =  suividonneesService.findAll();
         List<DateCourbesDTO> allDateCourbes = new LinkedList<DateCourbesDTO>();
         for (SuividonneesDTO sd : allSuividonnees) {
-            if (sd.getPatient().getId().equals(id)) {
+            sd.
+            PatientDTO patient = sd.getPatient();
+            if (patient.getId().equals(id)) {
+                Float poids = sd.getPoids();
+                Float taille = patient.getTaille();
+                Float tailleSq = (float) Math.pow(taille,2);
+                Float imc = poids/tailleSq;
+//                Double imc2 = sd.getPoids()/(Math.pow(patient.getTaille(),2));
+//                log.debug("imc2: " + imc2);
+//                Double imc = 54.5;
                 CourbesDTO courbes = new CourbesDTO();
-                courbes.setPoids(sd.getPoids());
+                courbes.setPoids(poids);
                 courbes.setEpa(sd.getEpa());
+                courbes.setImc(imc);
                 DateCourbesDTO dateCourbes = new DateCourbesDTO();
                 dateCourbes.setCourbes(courbes);
                 dateCourbes.setDate(sd.getDate());
