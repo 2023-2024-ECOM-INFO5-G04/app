@@ -20,6 +20,10 @@
     {
       "fieldName": "severite",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "consulte",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,
