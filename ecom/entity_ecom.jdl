@@ -71,6 +71,7 @@ entity Alerte{
     commentaire String
   	denutrition Boolean
   	severite Boolean
+  	consulte Boolean
 }
 
 entity Suividonnees{

@@ -222,6 +222,9 @@ describe('Alerte e2e test', () => {
       cy.get(`[data-cy="severite"]`).should('not.be.checked');
       cy.get(`[data-cy="severite"]`).click().should('be.checked');
 
+      cy.get(`[data-cy="consulte"]`).should('not.be.checked');
+      cy.get(`[data-cy="consulte"]`).click().should('be.checked');
+
       cy.get(`[data-cy="patient"]`).select(1);
 
       cy.get(entityCreateSaveButtonSelector).click();

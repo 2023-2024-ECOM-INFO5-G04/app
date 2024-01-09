@@ -26,6 +26,9 @@
             <column name="severite" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="consulte" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -51,6 +54,7 @@
             <column name="commentaire" type="string"/>
             <column name="denutrition" type="boolean"/>
             <column name="severite" type="boolean"/>
+            <column name="consulte" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
