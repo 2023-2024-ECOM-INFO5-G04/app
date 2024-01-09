@@ -55,6 +55,13 @@ public class PatientResource {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * {@code POST  /import-patient} : Create new patients and suividonnees by importation of data.
+     *
+     * @param file a CSV file containing a list of patient and their measures associated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)}.
+     * @throws IOException if there is a problem with the reading of the CSV.
+     */
     @PostMapping("/import-patient")
     public ResponseEntity<String> importDataForPatient(@RequestBody MultipartFile file) throws IOException {
         patientService.importDataFromCSVForPatient(file.getInputStream());
