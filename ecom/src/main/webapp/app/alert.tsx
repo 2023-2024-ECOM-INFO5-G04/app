@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 // A noter:  j'ai un attribu "type", ici il n'y a que denutrition. Il est laissé volontairement car il pourrait permettre de faire d'autres menu déroulant a l'avenir (alerte concernant des infos autres).
 
+const maj = () => {
+  const response = axios.patch('api/patients/updatedenutrition');
+}
 const TabbedAlerts = () => {
   const [alerts, setAlerts] = useState({
     denutrition: [],
@@ -17,7 +20,7 @@ const TabbedAlerts = () => {
         const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null && patient.alerte.denutrition === true);
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
-          message: `Le patient ${patient.nom} est en situation de dénutrition`,
+          message: `Le patient ${patient.nom} est en situation de ${patient.alerte.commentaire}`,
           clicked: patient.alerte.consulte,
           id : patient,
         }));
@@ -38,6 +41,7 @@ const TabbedAlerts = () => {
   // Permet la mise a jour régulière de la liste des alerte
   useEffect(() => {
     const fetchDataInterval = setInterval(() => {
+      maj();
       fetchPatientsWithAlerts();
     }, 10000); // en milisecondes (ici ça donne 10 secondes)
     return () => {
