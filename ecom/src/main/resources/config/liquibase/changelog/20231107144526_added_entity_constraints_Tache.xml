@@ -20,9 +20,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="servicesoignant"/>
 
-        <addForeignKeyConstraint baseColumnNames="soigant_id"
+        <addForeignKeyConstraint baseColumnNames="soignant_id"
                                  baseTableName="tache"
-                                 constraintName="fk_tache__soigant_id"
+                                 constraintName="fk_tache__soignant_id"
                                  referencedColumnNames="id"
                                  referencedTableName="soignant"/>
 

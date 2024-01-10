@@ -65,7 +65,7 @@ export const TacheUpdate = () => {
       ...values,
       patient: patients.find(it => it.id.toString() === values.patient.toString()),
       servicesoignant: servicesoignants.find(it => it.id.toString() === values.servicesoignant.toString()),
-      soigant: soignants.find(it => it.id.toString() === values.soigant.toString()),
+      soignant: soignants.find(it => it.id.toString() === values.soignant.toString()),
       medecin: medecins.find(it => it.id.toString() === values.medecin.toString()),
     };
 
@@ -83,7 +83,7 @@ export const TacheUpdate = () => {
           ...tacheEntity,
           patient: tacheEntity?.patient?.id,
           servicesoignant: tacheEntity?.servicesoignant?.id,
-          soigant: tacheEntity?.soigant?.id,
+          soignant: tacheEntity?.soignant?.id,
           medecin: tacheEntity?.medecin?.id,
         };
 
@@ -165,10 +165,10 @@ export const TacheUpdate = () => {
                   : null}
               </ValidatedField>
               <ValidatedField
-                id="tache-soigant"
-                name="soigant"
-                data-cy="soigant"
-                label={translate('ecom23App.tache.soigant')}
+                id="tache-soignant"
+                name="soignant"
+                data-cy="soignant"
+                label={translate('ecom23App.tache.soignant')}
                 type="select"
               >
                 <option value="" key="0" />

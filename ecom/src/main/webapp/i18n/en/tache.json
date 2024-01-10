@@ -23,7 +23,7 @@
       "effectuee": "Effectuee",
       "patient": "Patient",
       "servicesoignant": "Servicesoignant",
-      "soigant": "Soigant",
+      "soignant": "Soignant",
       "medecin": "Medecin"
     }
   }
