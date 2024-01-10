@@ -23,7 +23,7 @@ public class TacheDTO implements Serializable {
 
     private ServicesoignantDTO servicesoignant;
 
-    private SoignantDTO soigant;
+    private SoignantDTO soignant;
 
     private MedecinDTO medecin;
 
@@ -75,12 +75,12 @@ public class TacheDTO implements Serializable {
         this.servicesoignant = servicesoignant;
     }
 
-    public SoignantDTO getSoigant() {
-        return soigant;
+    public SoignantDTO getSoignant() {
+        return soignant;
     }
 
-    public void setSoigant(SoignantDTO soigant) {
-        this.soigant = soigant;
+    public void setSoignant(SoignantDTO soignant) {
+        this.soignant = soignant;
     }
 
     public MedecinDTO getMedecin() {
@@ -122,7 +122,7 @@ public class TacheDTO implements Serializable {
             ", effectuee='" + getEffectuee() + "'" +
             ", patient=" + getPatient() +
             ", servicesoignant=" + getServicesoignant() +
-            ", soigant=" + getSoigant() +
+            ", soignant=" + getSoignant() +
             ", medecin=" + getMedecin() +
             "}";
     }
