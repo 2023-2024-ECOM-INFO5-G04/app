@@ -2,8 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './patientselection.css';
 import PatientsList from '../patients-list/patientslist';
-import { Etablissement, PatientData } from '../classes/patient-class';
+import { Etablissement, PatientData, donneesEtablissement } from '../classes/patient-class';
 import { FormGroup, Input } from 'reactstrap';
+import axios from 'axios';
 
 export const SelectionPatient = props => {
   const [selectedEtablissement, setSelectedEtablissement] = useState<Etablissement>(new Etablissement());
@@ -14,6 +15,9 @@ export const SelectionPatient = props => {
   const [ESelector, setESelector] = useState<number>(0); // on a selectionné un etablissement
   const [NSelector, setNSelector] = useState<string>(''); // on a renseigné un nom
   const [ASelector, setASelector] = useState<boolean>(false); //on a trié par date d'arrivée
+
+  const [etablissements, setEtablissements] = useState<Etablissement[]>([]);
+
 
 
   useEffect(() => {
@@ -42,13 +46,42 @@ export const SelectionPatient = props => {
   }, [patientsByE, patientsByN]);
 
   const allPatients = props.patients;
-  let etablissements: Etablissement[] = [];
+  let etablissementsTemp: Etablissement[] = [];
 
   allPatients.map(patient => {
-    if (!etablissements.includes(patient.etablissement)) {
-      etablissements.push(patient.etablissement);
+    if (!etablissementsTemp.includes(patient.etablissement)) {
+      etablissementsTemp.push(patient.etablissement);
     }
   });
+
+  useEffect(() => {
+    console.log('Appel noms');
+
+
+    const promessesRequetes = etablissementsTemp.map(etablissement => {
+      return axios.get('api/etablissements/' + etablissement.id)
+        .then(response => {
+          return donneesEtablissement(response.data);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la requête pour un établissement :', error);
+          return null;
+        });
+    });
+
+
+    Promise.all(promessesRequetes)
+      .then(etablissementsModifies => {
+        setEtablissements(prevEtablissements => [...prevEtablissements, ...etablissementsModifies]);
+      })
+      .catch(erreur => {
+        console.error('Erreur lors de la résolution des promesses :', erreur);
+      });
+  }, []);
+
+
+
+
 
   const IDtoEtablissement = (Id: number) => {
     const etablissementTrouve = etablissements.find(etablissement => etablissement.id === Id);
@@ -126,7 +159,7 @@ export const SelectionPatient = props => {
             {etablissements &&
               etablissements.map(etablissement => (
                 <option key={etablissement.id} value={etablissement.id}>
-                  {etablissement.id}
+                  {etablissement.nom}
                 </option>
               ))}
           </select>

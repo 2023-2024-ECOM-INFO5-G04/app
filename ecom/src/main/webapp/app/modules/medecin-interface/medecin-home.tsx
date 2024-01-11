@@ -22,20 +22,23 @@ export const VisualisationPage = () => {
         .then(patientData => setPatientData(resp))
         .catch(error => {
           if (error.response) {
-            // La requête a été effectuée, mais le serveur a répondu avec un code d'erreur
             console.log('Erreur de réponse du serveur :', error.response.data);
             console.log('Statut de la réponse du serveur :', error.response.status);
           } else if (error.request) {
-            // La requête a été effectuée, mais aucune réponse n'a été reçue
             console.log('Aucune réponse reçue du serveur');
           } else {
-            // Une erreur s'est produite lors de la configuration de la requête
             console.log('Erreur de configuration de la requête :', error.message);
           }
           console.log('Erreur complète :', error.config);
         });
+      setRequeteEffectuee(true);
     }
+
   }, [requeteEffectuee]);
+
+  
+
+
 
   if (patientData === null) {
     return <div>Un problème est servenu, vous êtes vous identifié.e ?</div>;

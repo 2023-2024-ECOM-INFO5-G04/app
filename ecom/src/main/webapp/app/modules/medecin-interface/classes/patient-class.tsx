@@ -28,6 +28,10 @@ export class Etablissement {
   telephone: string;
 }
 
+export function donneesEtablissement(jsonObject){
+  return(plainToClass(Etablissement, jsonObject))
+}
+
 export function donneesPatient(jsonObject) {
     
     return(plainToClass(PatientData, jsonObject))
