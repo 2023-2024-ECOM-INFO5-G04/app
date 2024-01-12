@@ -46,9 +46,9 @@ export const PatientPreview = props => {
         taille : {patient.taille} <br />
         sexe : {patient.sexe} <br />
         albumine : {patient.albumine} <br />
-        Admis dans l'établissement {patient.etablissement.id} ({patient.etablissement.nom}) <br />
-        depuis le {patient.datearrivee} <br />à l'adresse {patient.etablissement.adresse} <br />
-        joignable au {patient.etablissement.telephone} <br />
+        Admis dans l'établissement : {patient.etablissement.nom} <br />
+        depuis le : {patient.datearrivee} <br />à l'adresse {patient.etablissement.adresse} <br />
+        joignable au : {patient.etablissement.telephone} <br />
       </div>
 
       {donnees && (

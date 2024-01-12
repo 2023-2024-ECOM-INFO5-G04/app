@@ -56,8 +56,6 @@ export const SelectionPatient = props => {
 
   useEffect(() => {
     console.log('Appel noms');
-
-
     const promessesRequetes = etablissementsTemp.map(etablissement => {
       return axios.get('api/etablissements/' + etablissement.id)
         .then(response => {
@@ -68,8 +66,6 @@ export const SelectionPatient = props => {
           return null;
         });
     });
-
-
     Promise.all(promessesRequetes)
       .then(etablissementsModifies => {
         setEtablissements(prevEtablissements => [...prevEtablissements, ...etablissementsModifies]);
@@ -79,6 +75,17 @@ export const SelectionPatient = props => {
       });
   }, []);
 
+  useEffect(() => {
+
+    if (etablissements.length > 0) {
+      allPatients.map(patient => {
+
+        patient.etablissement = IDtoEtablissement(patient.etablissement.id)
+      }
+      )
+    }
+
+  }, [etablissements]);
 
 
 
