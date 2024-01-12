@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 // A noter:  j'ai un attribu "type", ici il n'y a que denutrition. Il est laissé volontairement car il pourrait permettre de faire d'autres menu déroulant a l'avenir (alerte concernant des infos autres).
 
+const maj = () => {
+  const response = axios.patch('api/patients/updatedenutrition');
+}
 const TabbedAlerts = () => {
   const [alerts, setAlerts] = useState({
     denutrition: [],
@@ -14,11 +17,11 @@ const TabbedAlerts = () => {
     const fetchPatientsWithAlerts = async () => {
       try {
         const response = await axios.get('api/patients/');
-        const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null);
+        const patientsWithAlerts = response.data.filter(patient => patient.alerte !== null && patient.alerte.denutrition === true);
 
         const infoAlerts = patientsWithAlerts.map(patient => ({
-          message: `Le patient ${patient.nom} est en situation de dénutrition`,
-          clicked: false,
+          message: `Le patient ${patient.nom} est en situation de ${patient.alerte.commentaire}`,
+          clicked: patient.alerte.consulte,
           id : patient,
         }));
 
@@ -38,6 +41,7 @@ const TabbedAlerts = () => {
   // Permet la mise a jour régulière de la liste des alerte
   useEffect(() => {
     const fetchDataInterval = setInterval(() => {
+      maj();
       fetchPatientsWithAlerts();
     }, 10000); // en milisecondes (ici ça donne 10 secondes)
     return () => {
@@ -72,7 +76,22 @@ const TabbedAlerts = () => {
   const handleAlertClick = async (type, index) => {
     const updatedAlerts = { ...alerts }; //Necessité de updatedAlerts car il ne faut pas modifier directement alerts
     if (!updatedAlerts[type][index].clicked) {
-      updatedAlerts[type][index].clicked = true;
+      //updatedAlerts[type][index].id.alerte = true;
+      const data =
+        {
+          "id": updatedAlerts[type][index].id.alerte.id,
+          "date": updatedAlerts[type][index].id.alerte.date,
+          "commentaire": updatedAlerts[type][index].id.alerte.commentaire,
+          "denutrition": updatedAlerts[type][index].id.alerte.denutrition,
+          "severite": updatedAlerts[type][index].id.alerte.severite,
+          "consulte": true
+        }
+      const response = await axios.patch(`/api/alertes/${updatedAlerts[type][index].id.alerte.id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
     }
     setAlerts(updatedAlerts);
   };
@@ -121,9 +140,6 @@ const TabbedAlerts = () => {
   const handleDropdownToggle = () => {
     // Masquer la pastille lorsque le menu déroulant est ouvert
     setShowPastille(false);
-    console.log(`showPastille`, showPastille);
-    console.log(`lastTaille`, lastTaille);
-    console.log(`Taille`, alerts.denutrition.length);
   };
 
 

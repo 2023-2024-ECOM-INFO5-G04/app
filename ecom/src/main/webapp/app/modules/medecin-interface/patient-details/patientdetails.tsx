@@ -32,11 +32,14 @@ export const VisualisationPatientDetail = () => {
 
 
 
- 
+
 
 
   const component1 = <GraphWindow
-    handleClick={handleClickF} />;
+    handleClick={handleClickF}
+    numPa = {patient.id}
+  />;
+
 
   const component2 = <Task
   handleClick={handleClickT}/>
@@ -58,12 +61,12 @@ export const VisualisationPatientDetail = () => {
       </Row>
     </div>);
 
-   
+
       // <div style={{ flex: 1 }}>
       //   <LineChart />
       // </div>
-    
- 
+
+
 };
 
 export default VisualisationPatientDetail;
