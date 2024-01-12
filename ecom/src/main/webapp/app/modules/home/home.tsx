@@ -16,7 +16,8 @@ import { size } from 'lodash';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
-
+  const roles = account.authorities;
+  const isMed = roles?.includes('ROLE_MEDECIN') ?? false;
 
 
 
@@ -66,15 +67,16 @@ export const Home = () => {
       <Col md="4" className="pad" style={{ backgroundColor: '##c6c6c6' }}>
 
 
-        {rappels ? (
-          <div>
-            <h2 style={{ marginTop: '15px' }}> Pour ne rien oublier :</h2>
-            <Rappel
-              rappels={trierParDate(rappels)}
-            /> </div>) : (<div>
-              <FontAwesomeIcon icon={faStethoscope} />
-            </div>)
-        }
+        {isMed && (
+          rappels ? (
+            <div>
+              <h2 style={{ marginTop: '15px' }}> Pour ne rien oublier :</h2>
+              <Rappel
+                rappels={trierParDate(rappels)}
+              /> </div>) : (<div>
+                <FontAwesomeIcon icon={faStethoscope} />
+              </div>)
+        )}
 
 
 
@@ -85,13 +87,13 @@ export const Home = () => {
         </h2>
 
 
+        {isMed && (
+          <Link className='custom-link'
+            to="/visualisation">
+            <FontAwesomeIcon icon={faSearch} />
+            Rechercher un patient
 
-        <Link className='custom-link'
-          to="/visualisation">
-          <FontAwesomeIcon icon={faSearch} />
-          Rechercher un patient
-
-        </Link>
+          </Link>)}
 
         <span className="hipster rounded" />
         <div style={{ fontSize: 'xx-small' }}>
@@ -99,22 +101,24 @@ export const Home = () => {
         </div>
       </Col>
       <Col md="4">
-        {account?.login ? (
-          <div>
-            <Alert color="success">
-              <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                You are logged in as user {account.login}.
-              </Translate>
-            </Alert>
 
-          </div>
-        ) : (
-          <div>
-            <Alert color="warning">
-              Attention ! Vous n'êtes pas connecté.e.
-            </Alert>
-          </div>
-        )}
+        {
+          account?.login ? (
+            <div>
+              <Alert color="success">
+                <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
+                  You are logged in as user {account.login}.
+                </Translate>
+              </Alert>
+
+            </div>
+          ) : (
+            <div>
+              <Alert color="warning">
+                Attention ! Vous n'êtes pas connecté.e.
+              </Alert>
+            </div>
+          )}
 
       </Col>
     </Row>
