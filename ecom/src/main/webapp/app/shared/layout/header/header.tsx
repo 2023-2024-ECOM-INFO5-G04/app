@@ -14,6 +14,8 @@ import TabbedAlerts from "app/alert";
 export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isMed: boolean;
+  isSoi: boolean;
   ribbonEnv: string;
   isInProduction: boolean;
   isOpenAPIEnabled: boolean;
@@ -53,7 +55,7 @@ const Header = (props: IHeaderProps) => {
         <Brand />
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ms-auto" navbar>
-            {props.isAuthenticated && <TabbedAlerts />}
+            {props.isAuthenticated && props.isMed && <TabbedAlerts />}
             <Home />
             {props.isAuthenticated && <EntitiesMenu />}
             {props.isAuthenticated && props.isAdmin && (

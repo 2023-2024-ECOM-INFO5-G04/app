@@ -48,7 +48,7 @@ public class Tache implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "servicesoignant", "patients", "taches" }, allowSetters = true)
-    private Soignant soigant;
+    private Soignant soignant;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
@@ -134,16 +134,16 @@ public class Tache implements Serializable {
         return this;
     }
 
-    public Soignant getSoigant() {
-        return this.soigant;
+    public Soignant getSoignant() {
+        return this.soignant;
     }
 
-    public void setSoigant(Soignant soignant) {
-        this.soigant = soignant;
+    public void setSoignant(Soignant soignant) {
+        this.soignant = soignant;
     }
 
-    public Tache soigant(Soignant soignant) {
-        this.setSoigant(soignant);
+    public Tache soignant(Soignant soignant) {
+        this.setSoignant(soignant);
         return this;
     }
 

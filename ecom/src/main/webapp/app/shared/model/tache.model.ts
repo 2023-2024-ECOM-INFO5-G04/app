@@ -11,7 +11,7 @@ export interface ITache {
   effectuee?: boolean | null;
   patient?: IPatient;
   servicesoignant?: IServicesoignant | null;
-  soigant?: ISoignant | null;
+  soignant?: ISoignant | null;
   medecin?: IMedecin | null;
 }
 

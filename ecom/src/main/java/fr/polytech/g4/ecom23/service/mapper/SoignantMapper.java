@@ -17,9 +17,9 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface SoignantMapper extends EntityMapper<SoignantDTO, Soignant> {
-    @Mapping(target = "user", source = "user", qualifiedByName = "userId")
-    @Mapping(target = "servicesoignant", source = "servicesoignant", qualifiedByName = "servicesoignantId")
-    @Mapping(target = "patients", source = "patients", qualifiedByName = "patientIdSet")
+    @Mapping(target = "user", source = "user")
+    @Mapping(target = "servicesoignant", source = "servicesoignant")
+    @Mapping(target = "patients", source = "patients")
     SoignantDTO toDto(Soignant s);
 
     @Mapping(target = "removePatients", ignore = true)

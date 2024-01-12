@@ -8,15 +8,15 @@
     -->
     <changeSet id="20231107144533-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="patient_id"
-                                 baseTableName="notes"
-                                 constraintName="fk_notes__patient_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="medecin"/>
-
         <addForeignKeyConstraint baseColumnNames="medecin_id"
                                  baseTableName="notes"
                                  constraintName="fk_notes__medecin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medecin"/>
+
+        <addForeignKeyConstraint baseColumnNames="patient_id"
+                                 baseTableName="notes"
+                                 constraintName="fk_notes__patient_id"
                                  referencedColumnNames="id"
                                  referencedTableName="patient"/>
     </changeSet>

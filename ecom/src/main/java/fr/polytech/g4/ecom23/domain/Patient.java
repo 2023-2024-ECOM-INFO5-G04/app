@@ -71,12 +71,12 @@ public class Patient implements Serializable {
     @JoinColumn(unique = true)
     private Alerte alerte;
 
-    @OneToMany(mappedBy = "medecin")
+    @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "medecin", "patient" }, allowSetters = true)
     private Set<Notes> notes = new HashSet<>();
 
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
     @JsonIgnoreProperties(value = { "patients", "medecins" }, allowSetters = true)
     private Etablissement etablissement;
@@ -88,7 +88,7 @@ public class Patient implements Serializable {
 
     @OneToMany(mappedBy = "patient")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soigant", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soignant", "medecin" }, allowSetters = true)
     private Set<Tache> taches = new HashSet<>();
 
     @ManyToMany(mappedBy = "patients")

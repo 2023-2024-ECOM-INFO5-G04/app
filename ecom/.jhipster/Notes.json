@@ -19,13 +19,13 @@
     {
       "otherEntityName": "medecin",
       "otherEntityRelationshipName": "notes",
-      "relationshipName": "patient",
+      "relationshipName": "medecin",
       "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "patient",
       "otherEntityRelationshipName": "notes",
-      "relationshipName": "medecin",
+      "relationshipName": "patient",
       "relationshipType": "many-to-one"
     }
   ],

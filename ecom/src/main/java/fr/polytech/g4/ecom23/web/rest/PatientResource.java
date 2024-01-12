@@ -6,9 +6,12 @@ import fr.polytech.g4.ecom23.service.PatientService;
 import fr.polytech.g4.ecom23.service.SuividonneesService;
 import fr.polytech.g4.ecom23.service.dto.AlerteDTO;
 import fr.polytech.g4.ecom23.service.dto.PatientDTO;
+import fr.polytech.g4.ecom23.service.dto.SuiviComparator;
+import fr.polytech.g4.ecom23.service.dto.SuividonneesDTO;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 
 import java.io.IOException;
+import java.net.ResponseCache;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -20,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,6 +59,13 @@ public class PatientResource {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * {@code POST  /import-patient} : Create new patients and suividonnees by importation of data.
+     *
+     * @param file a CSV file containing a list of patient and their measures associated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)}.
+     * @throws IOException if there is a problem with the reading of the CSV.
+     */
     @PostMapping("/import-patient")
     public ResponseEntity<String> importDataForPatient(@RequestBody MultipartFile file) throws IOException {
         patientService.importDataFromCSVForPatient(file.getInputStream());
@@ -230,4 +241,19 @@ public class PatientResource {
         }
         return patientService.findAll();
     }
+
+    @GetMapping("/patients/{id}/epa")
+    public Float getLastEPA(@PathVariable Long id) {
+        List<SuividonneesDTO> list = suividonneesService.findAll();
+        list.sort(new SuiviComparator());
+        for (SuividonneesDTO suivi : list) {
+            if (!suivi.getPatient().getId().equals(id))
+                continue;
+            Float epa = suivi.getEpa();
+            if (epa != null)
+                return epa;
+        }
+        throw new RuntimeException("Patient " + id + " does not exist or does not have EPA");
+    }
+
 }

@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +100,9 @@ class PatientResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Patient createEntity(EntityManager em) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
         Patient patient = new Patient()
             .nom(DEFAULT_NOM)
             .prenom(DEFAULT_PRENOM)
@@ -290,7 +295,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -315,6 +322,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -399,7 +408,8 @@ class PatientResourceIT {
             .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
-            .albumine(UPDATED_ALBUMINE);
+            .albumine(UPDATED_ALBUMINE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE);
 
         restPatientMockMvc
             .perform(
@@ -423,6 +433,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -447,7 +459,9 @@ class PatientResourceIT {
             .taille(UPDATED_TAILLE)
             .sexe(UPDATED_SEXE)
             .favori(UPDATED_FAVORI)
-            .sarcopenie(UPDATED_SARCOPENIE);
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restPatientMockMvc
             .perform(
@@ -471,6 +485,8 @@ class PatientResourceIT {
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
         assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test

@@ -71,6 +71,7 @@ entity Alerte{
     commentaire String
   	denutrition Boolean
   	severite Boolean
+  	consulte Boolean
 }
 
 entity Suividonnees{
@@ -94,7 +95,7 @@ relationship ManyToOne {
     Tache{patient(id) required} to Patient{taches}
     Soignant{servicesoignant(id) required} to Servicesoignant{soignant}
     Tache{servicesoignant } to Servicesoignant{taches}
-    Tache{soigant } to Soignant{taches}
+    Tache{soignant } to Soignant{taches}
 }
 
 relationship ManyToMany{
@@ -109,8 +110,8 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-    Medecin{notes} to Notes{patient}
-    Patient{notes} to Notes{medecin}
+    Medecin{notes} to Notes{medecin}
+    Patient{notes} to Notes{patient}
 }
 
 relationship OneToOne {
