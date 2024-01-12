@@ -302,7 +302,7 @@ public class PatientDTO implements Serializable {
         return (movingAverage_t - movingAverage_t1) / movingAverage_t1;
     }
 
-    private boolean weightLoss(List<SuividonneesDTO> list, int days1, float loss1, int days2, float loss2, float loss3) {
+    public boolean weightLoss(List<SuividonneesDTO> list, int days1, float loss1, int days2, float loss2, float loss3) {
         boolean weightLoss = false;
         Float evo1 = evolution(list, Donnee.POIDS, days1);
         Float evo2 = evolution(list, Donnee.POIDS, days2);
@@ -318,10 +318,10 @@ public class PatientDTO implements Serializable {
             COMMENTAIRE += "Perte de poids supérieure à " + loss3 + "% par rapport au poids habituel avant le début de la maladie\n";
             weightLoss = true;
         }
-        return false;
+        return weightLoss;
     }
 
-    private boolean weightLoss3(List<SuividonneesDTO> list, float loss3) {
+    public boolean weightLoss3(List<SuividonneesDTO> list, float loss3) {
         int size = list.size();
         Float firstPoids = null;
         Float lastPoids = null;
@@ -342,17 +342,17 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private boolean phe1(List<SuividonneesDTO> list) {
+    public boolean phe1(List<SuividonneesDTO> list) {
         return weightLoss(list, 30, 0.05F, 183, 0.1F, 0.1F);
     }
 
-    private boolean phe2(List<SuividonneesDTO> list) {
+    public boolean phe2(List<SuividonneesDTO> list) {
         if (age < 70)
             return IMC(list, 18.5f);
         return IMC(list, 22f);
     }
 
-    private boolean phe3() {
+    public boolean phe3() {
         if (sarcopenie) {
             COMMENTAIRE += "Sarcopénie confirmée\n";
             return true;
@@ -360,7 +360,7 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private boolean eti1(List<SuividonneesDTO> list) {
+    public boolean eti1(List<SuividonneesDTO> list) {
         boolean critere = false;
         int days1 = 7, days2 = 14;
         float loss1 = 0.5f;
@@ -377,7 +377,7 @@ public class PatientDTO implements Serializable {
         return critere;
     }
 
-    private boolean eti2() {
+    public boolean eti2() {
         if (absorptionreduite) {
             COMMENTAIRE += "Absorption réduite\n";
             return true;
@@ -385,7 +385,7 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private boolean eti3() {
+    public boolean eti3() {
         if (agression) {
             COMMENTAIRE += "Situation d'agression\n";
             return true;
@@ -393,17 +393,17 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private boolean sev1(List<SuividonneesDTO> list) {
+    public boolean sev1(List<SuividonneesDTO> list) {
         return weightLoss(list, 30, 0.1F, 183, 0.15F, 0.15F);
     }
 
-    private boolean sev2(List<SuividonneesDTO> list) {
+    public boolean sev2(List<SuividonneesDTO> list) {
         if (age < 70)
             return IMC(list, 17);
         return IMC(list, 20);
     }
 
-    private boolean sev3() {
+    public boolean sev3() {
         if (albumine <= 30) {
             COMMENTAIRE += "Albuminémie < 30g/L\n";
             return true;
@@ -411,7 +411,7 @@ public class PatientDTO implements Serializable {
         return false;
     }
 
-    private boolean phenotypique(List<SuividonneesDTO> list) {
+    public boolean phenotypique(List<SuividonneesDTO> list) {
         boolean phenotypique = false;
         if (phe1(list))
             phenotypique = true;
@@ -422,7 +422,7 @@ public class PatientDTO implements Serializable {
         return phenotypique;
     }
 
-    private boolean etiologique(List<SuividonneesDTO> list) {
+    public boolean etiologique(List<SuividonneesDTO> list) {
         boolean etiologique = false;
         if (eti1(list))
             etiologique = true;
@@ -433,7 +433,7 @@ public class PatientDTO implements Serializable {
         return etiologique;
     }
 
-    private boolean severe(List<SuividonneesDTO> list) {
+    public boolean severe(List<SuividonneesDTO> list) {
         boolean severe = false;
         if (sev1(list))
             severe = true;
