@@ -46,7 +46,7 @@ export const VisualisationPage = () => {
 
   return (
     <div style={{ height: '80vh' }}>
-      <h1 className='title'> Visualisation des données patients</h1>
+      <h1 className='title'> Rechercher un patient</h1>
       <div className="medecin-home">
         <SelectionPatient patients={patientData} />
       </div>

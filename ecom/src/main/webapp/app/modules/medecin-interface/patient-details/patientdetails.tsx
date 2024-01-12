@@ -31,10 +31,6 @@ export const VisualisationPatientDetail = () => {
   }
 
 
-
- 
-
-
   const component1 = <GraphWindow
     handleClick={handleClickF} />;
 
@@ -57,12 +53,6 @@ export const VisualisationPatientDetail = () => {
         </Col>
       </Row>
     </div>);
-
-   
-      // <div style={{ flex: 1 }}>
-      //   <LineChart />
-      // </div>
-    
  
 };
 
