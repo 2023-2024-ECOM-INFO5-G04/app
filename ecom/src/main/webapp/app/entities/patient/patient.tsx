@@ -76,6 +76,18 @@ export const Patient = () => {
                   <Translate contentKey="ecom23App.patient.sexe">Sexe</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="ecom23App.patient.favori">Favori</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.patient.sarcopenie">Sarcopenie</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.patient.absorptionreduite">Absorptionreduite</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.patient.agression">Agression</Translate>
+                </th>
+                <th>
                   <Translate contentKey="ecom23App.patient.alerte">Alerte</Translate>
                 </th>
                 <th>
@@ -104,6 +116,10 @@ export const Patient = () => {
                   <td>
                     <Translate contentKey={`ecom23App.Sexe.${patient.sexe}`} />
                   </td>
+                  <td>{patient.favori ? 'true' : 'false'}</td>
+                  <td>{patient.sarcopenie ? 'true' : 'false'}</td>
+                  <td>{patient.absorptionreduite ? 'true' : 'false'}</td>
+                  <td>{patient.agression ? 'true' : 'false'}</td>
                   <td>{patient.alerte ? <Link to={`/alerte/${patient.alerte.id}`}>{patient.alerte.id}</Link> : ''}</td>
                   <td>
                     {patient.etablissement ? <Link to={`/etablissement/${patient.etablissement.id}`}>{patient.etablissement.id}</Link> : ''}

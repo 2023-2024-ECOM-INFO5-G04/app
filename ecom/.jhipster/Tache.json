@@ -41,7 +41,7 @@
     {
       "otherEntityName": "soignant",
       "otherEntityRelationshipName": "taches",
-      "relationshipName": "soigant",
+      "relationshipName": "soignant",
       "relationshipType": "many-to-one"
     },
     {

@@ -1,11 +1,11 @@
-id;nom;prenom;age;datearrivee;poidsactuel;albumine;taille;sexe;etablissement_id
-1;Steel partnerships;Zimbabwe Île-de-France groupware;10227;2023-11-07;67211;70322;54435;F;1
-2;Picardie;Account;41693;2023-11-07;60293;42875;74724;F;2
-3;purple;quantify Kyat access;84603;2023-11-06;42708;64784;48353;F;3
-4;Computer Languedoc-Roussillon port;Account;51479;2023-11-07;77695;26072;26341;M;4
-5;Unbranded efficient;withdrawal Home;34600;2023-11-06;20616;99151;39044;F;5
-6;Keyboard compressing Frozen;Concrete;9542;2023-11-06;79032;76609;17631;F;6
-7;customized;optimizing Steel turquoise;16766;2023-11-06;23622;67759;82449;M;7
-8;HTTP;technologies human-resource Plastic;63380;2023-11-06;11860;45244;22743;M;8
-9;Garden Borders;e-enable Metal back;24968;2023-11-06;9767;934;32212;F;9
-10;firmware;COM invoice Account;44225;2023-11-07;27053;50912;62229;M;10
+id;nom;prenom;age;datearrivee;poidsactuel;albumine;taille;sexe;favori;sarcopenie;absorptionreduite;agression;etablissement_id
+1;Steel partnerships;Zimbabwe Île-de-France groupware;10227;2023-11-07;67211;70322;54435;F;false;true;true;false;1
+2;Account;Kids reboot;19297;2023-11-07;9121;72962;76053;F;false;true;true;true;2
+3;Toys;systems Credit Generic;58471;2023-11-07;70953;25274;56062;M;true;false;true;true;3
+4;compress sexy;Pants Omani Avon;31326;2023-11-07;34600;81132;20616;F;false;true;true;false;4
+5;transparent;Frozen Small maroon;9542;2023-11-06;79032;76609;17631;F;false;false;true;true;5
+6;optimizing Steel turquoise;a;82449;2023-11-07;22518;85970;4453;M;true;false;false;false;6
+7;Cambridgeshire;high-level payment Dauphine;50247;2023-11-07;32770;22626;51713;F;false;true;false;true;7
+8;Metal;Movies bandwidth throughput;32745;2023-11-07;8610;67607;86488;F;false;true;true;true;8
+9;ubiquitous definition;Tools Cambridgeshire;17953;2023-11-06;62382;84991;89833;F;false;true;true;true;9
+10;synthesizing Fully-configurable Kuwaiti;extend Books;4487;2023-11-07;42069;18406;94175;M;false;false;true;false;10

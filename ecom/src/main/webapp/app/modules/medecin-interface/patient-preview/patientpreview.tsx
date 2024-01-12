@@ -50,13 +50,13 @@ export const PatientPreview = props => {
         depuis le : {patient.datearrivee} <br />à l'adresse {patient.etablissement.adresse} <br />
         joignable au : {patient.etablissement.telephone} <br />
       </div>
-
       {donnees && (
         <Note
           patient={patient}
           note={donnees}
         />
       )}
+
     </div>
   );
 };

@@ -21,6 +21,8 @@
       "date": "Date",
       "commentaire": "Commentaire",
       "denutrition": "Denutrition",
+      "severite": "Severite",
+      "consulte": "Consulte",
       "patient": "Patient"
     }
   }

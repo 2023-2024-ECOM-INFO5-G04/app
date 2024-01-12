@@ -24,7 +24,6 @@
     <include file="config/liquibase/changelog/20231107144526_added_entity_Tache.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231107144527_added_entity_Medecin.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231107144528_added_entity_Rappel.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20231107144529_added_entity_Compte.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231107144530_added_entity_Patient.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231107144531_added_entity_Alerte.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20231107144532_added_entity_Suividonnees.xml" relativeToChangelogFile="false"/>

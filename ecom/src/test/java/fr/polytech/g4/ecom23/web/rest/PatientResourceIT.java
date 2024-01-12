@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,18 @@ class PatientResourceIT {
     private static final Sexe DEFAULT_SEXE = Sexe.M;
     private static final Sexe UPDATED_SEXE = Sexe.F;
 
+    private static final Boolean DEFAULT_FAVORI = false;
+    private static final Boolean UPDATED_FAVORI = true;
+
+    private static final Boolean DEFAULT_SARCOPENIE = false;
+    private static final Boolean UPDATED_SARCOPENIE = true;
+
+    private static final Boolean DEFAULT_ABSORPTIONREDUITE = false;
+    private static final Boolean UPDATED_ABSORPTIONREDUITE = true;
+
+    private static final Boolean DEFAULT_AGRESSION = false;
+    private static final Boolean UPDATED_AGRESSION = true;
+
     private static final String ENTITY_API_URL = "/api/patients";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -86,6 +100,9 @@ class PatientResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Patient createEntity(EntityManager em) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
         Patient patient = new Patient()
             .nom(DEFAULT_NOM)
             .prenom(DEFAULT_PRENOM)
@@ -94,7 +111,11 @@ class PatientResourceIT {
             .poidsactuel(DEFAULT_POIDSACTUEL)
             .albumine(DEFAULT_ALBUMINE)
             .taille(DEFAULT_TAILLE)
-            .sexe(DEFAULT_SEXE);
+            .sexe(DEFAULT_SEXE)
+            .favori(DEFAULT_FAVORI)
+            .sarcopenie(DEFAULT_SARCOPENIE)
+            .absorptionreduite(DEFAULT_ABSORPTIONREDUITE)
+            .agression(DEFAULT_AGRESSION);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -123,7 +144,11 @@ class PatientResourceIT {
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
             .taille(UPDATED_TAILLE)
-            .sexe(UPDATED_SEXE);
+            .sexe(UPDATED_SEXE)
+            .favori(UPDATED_FAVORI)
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         // Add required entity
         Etablissement etablissement;
         if (TestUtil.findAll(em, Etablissement.class).isEmpty()) {
@@ -164,6 +189,10 @@ class PatientResourceIT {
         assertThat(testPatient.getAlbumine()).isEqualTo(DEFAULT_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
+        assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
+        assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(DEFAULT_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -204,7 +233,11 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.[*].poidsactuel").value(hasItem(DEFAULT_POIDSACTUEL.doubleValue())))
             .andExpect(jsonPath("$.[*].albumine").value(hasItem(DEFAULT_ALBUMINE.doubleValue())))
             .andExpect(jsonPath("$.[*].taille").value(hasItem(DEFAULT_TAILLE.doubleValue())))
-            .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE.toString())));
+            .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE.toString())))
+            .andExpect(jsonPath("$.[*].favori").value(hasItem(DEFAULT_FAVORI.booleanValue())))
+            .andExpect(jsonPath("$.[*].sarcopenie").value(hasItem(DEFAULT_SARCOPENIE.booleanValue())))
+            .andExpect(jsonPath("$.[*].absorptionreduite").value(hasItem(DEFAULT_ABSORPTIONREDUITE.booleanValue())))
+            .andExpect(jsonPath("$.[*].agression").value(hasItem(DEFAULT_AGRESSION.booleanValue())));
     }
 
     @Test
@@ -226,7 +259,11 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.poidsactuel").value(DEFAULT_POIDSACTUEL.doubleValue()))
             .andExpect(jsonPath("$.albumine").value(DEFAULT_ALBUMINE.doubleValue()))
             .andExpect(jsonPath("$.taille").value(DEFAULT_TAILLE.doubleValue()))
-            .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE.toString()));
+            .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE.toString()))
+            .andExpect(jsonPath("$.favori").value(DEFAULT_FAVORI.booleanValue()))
+            .andExpect(jsonPath("$.sarcopenie").value(DEFAULT_SARCOPENIE.booleanValue()))
+            .andExpect(jsonPath("$.absorptionreduite").value(DEFAULT_ABSORPTIONREDUITE.booleanValue()))
+            .andExpect(jsonPath("$.agression").value(DEFAULT_AGRESSION.booleanValue()));
     }
 
     @Test
@@ -256,7 +293,11 @@ class PatientResourceIT {
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
             .taille(UPDATED_TAILLE)
-            .sexe(UPDATED_SEXE);
+            .sexe(UPDATED_SEXE)
+            .favori(UPDATED_FAVORI)
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -279,6 +320,10 @@ class PatientResourceIT {
         assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
+        assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
+        assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test
@@ -363,7 +408,8 @@ class PatientResourceIT {
             .prenom(UPDATED_PRENOM)
             .age(UPDATED_AGE)
             .datearrivee(UPDATED_DATEARRIVEE)
-            .albumine(UPDATED_ALBUMINE);
+            .albumine(UPDATED_ALBUMINE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE);
 
         restPatientMockMvc
             .perform(
@@ -385,6 +431,10 @@ class PatientResourceIT {
         assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(DEFAULT_TAILLE);
         assertThat(testPatient.getSexe()).isEqualTo(DEFAULT_SEXE);
+        assertThat(testPatient.getFavori()).isEqualTo(DEFAULT_FAVORI);
+        assertThat(testPatient.getSarcopenie()).isEqualTo(DEFAULT_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(DEFAULT_AGRESSION);
     }
 
     @Test
@@ -407,7 +457,11 @@ class PatientResourceIT {
             .poidsactuel(UPDATED_POIDSACTUEL)
             .albumine(UPDATED_ALBUMINE)
             .taille(UPDATED_TAILLE)
-            .sexe(UPDATED_SEXE);
+            .sexe(UPDATED_SEXE)
+            .favori(UPDATED_FAVORI)
+            .sarcopenie(UPDATED_SARCOPENIE)
+            .absorptionreduite(UPDATED_ABSORPTIONREDUITE)
+            .agression(UPDATED_AGRESSION);
 
         restPatientMockMvc
             .perform(
@@ -429,6 +483,10 @@ class PatientResourceIT {
         assertThat(testPatient.getAlbumine()).isEqualTo(UPDATED_ALBUMINE);
         assertThat(testPatient.getTaille()).isEqualTo(UPDATED_TAILLE);
         assertThat(testPatient.getSexe()).isEqualTo(UPDATED_SEXE);
+        assertThat(testPatient.getFavori()).isEqualTo(UPDATED_FAVORI);
+        assertThat(testPatient.getSarcopenie()).isEqualTo(UPDATED_SARCOPENIE);
+        assertThat(testPatient.getAbsorptionreduite()).isEqualTo(UPDATED_ABSORPTIONREDUITE);
+        assertThat(testPatient.getAgression()).isEqualTo(UPDATED_AGRESSION);
     }
 
     @Test

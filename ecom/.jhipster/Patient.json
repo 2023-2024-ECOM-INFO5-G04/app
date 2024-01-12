@@ -42,6 +42,22 @@
       "fieldName": "sexe",
       "fieldType": "Sexe",
       "fieldValues": "M,F"
+    },
+    {
+      "fieldName": "favori",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "sarcopenie",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "absorptionreduite",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "agression",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,
@@ -59,7 +75,7 @@
     },
     {
       "otherEntityName": "notes",
-      "otherEntityRelationshipName": "medecin",
+      "otherEntityRelationshipName": "patient",
       "relationshipName": "notes",
       "relationshipType": "one-to-many"
     },

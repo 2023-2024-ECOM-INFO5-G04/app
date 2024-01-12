@@ -47,11 +47,11 @@ public class Tache implements Serializable {
     private Servicesoignant servicesoignant;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "compte", "servicesoignant", "patients", "taches" }, allowSetters = true)
-    private Soignant soigant;
+    @JsonIgnoreProperties(value = { "user", "servicesoignant", "patients", "taches" }, allowSetters = true)
+    private Soignant soignant;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "compte", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
     private Medecin medecin;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -134,16 +134,16 @@ public class Tache implements Serializable {
         return this;
     }
 
-    public Soignant getSoigant() {
-        return this.soigant;
+    public Soignant getSoignant() {
+        return this.soignant;
     }
 
-    public void setSoigant(Soignant soignant) {
-        this.soigant = soignant;
+    public void setSoignant(Soignant soignant) {
+        this.soignant = soignant;
     }
 
-    public Tache soigant(Soignant soignant) {
-        this.setSoigant(soignant);
+    public Tache soignant(Soignant soignant) {
+        this.setSoignant(soignant);
         return this;
     }
 

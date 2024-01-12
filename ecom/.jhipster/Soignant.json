@@ -31,10 +31,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "compte",
+      "otherEntityName": "user",
       "otherEntityRelationshipName": "soignant",
       "ownerSide": true,
-      "relationshipName": "compte",
+      "relationshipName": "user",
       "relationshipType": "one-to-one"
     },
     {
@@ -54,7 +54,7 @@
     },
     {
       "otherEntityName": "tache",
-      "otherEntityRelationshipName": "soigant",
+      "otherEntityRelationshipName": "soignant",
       "relationshipName": "taches",
       "relationshipType": "one-to-many"
     }

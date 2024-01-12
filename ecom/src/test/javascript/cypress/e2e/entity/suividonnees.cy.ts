@@ -15,7 +15,7 @@ describe('Suividonnees e2e test', () => {
   const suividonneesPageUrlPattern = new RegExp('/suividonnees(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  // const suividonneesSample = {"date":"2023-11-06"};
+  // const suividonneesSample = {"date":"2023-11-07"};
 
   let suividonnees;
   // let patient;
@@ -30,7 +30,7 @@ describe('Suividonnees e2e test', () => {
     cy.authenticatedRequest({
       method: 'POST',
       url: '/api/patients',
-      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F"},
+      body: {"nom":"rich c hardware","prenom":"e-tailers local","age":97443,"datearrivee":"2023-11-07","poidsactuel":87134,"albumine":70866,"taille":97357,"sexe":"F","favori":true,"sarcopenie":false,"absorptionreduite":true,"agression":false},
     }).then(({ body }) => {
       patient = body;
     });
@@ -216,19 +216,13 @@ describe('Suividonnees e2e test', () => {
 
       cy.get(`[data-cy="poids"]`).type('98248').should('have.value', '98248');
 
-      cy.get(`[data-cy="epa"]`).type('80781').should('have.value', '80781');
+      cy.get(`[data-cy="epa"]`).type('8').should('have.value', '8');
 
       cy.get(`[data-cy="massecorporelle"]`).type('50635').should('have.value', '50635');
 
       cy.get(`[data-cy="quantitepoidsaliments"]`).type('73158').should('have.value', '73158');
 
       cy.get(`[data-cy="quantitecaloriesaliments"]`).type('63219').should('have.value', '63219');
-
-      cy.get(`[data-cy="absorptionreduite"]`).should('not.be.checked');
-      cy.get(`[data-cy="absorptionreduite"]`).click().should('be.checked');
-
-      cy.get(`[data-cy="agression"]`).should('not.be.checked');
-      cy.get(`[data-cy="agression"]`).click().should('be.checked');
 
       cy.get(`[data-cy="patient"]`).select(1);
 

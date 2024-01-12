@@ -60,6 +60,12 @@ export const Alerte = () => {
                 <th>
                   <Translate contentKey="ecom23App.alerte.denutrition">Denutrition</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="ecom23App.alerte.severite">Severite</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="ecom23App.alerte.consulte">Consulte</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -74,6 +80,8 @@ export const Alerte = () => {
                   <td>{alerte.date ? <TextFormat type="date" value={alerte.date} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{alerte.commentaire}</td>
                   <td>{alerte.denutrition ? 'true' : 'false'}</td>
+                  <td>{alerte.severite ? 'true' : 'false'}</td>
+                  <td>{alerte.consulte ? 'true' : 'false'}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/alerte/${alerte.id}`} color="info" size="sm" data-cy="entityDetailsButton">

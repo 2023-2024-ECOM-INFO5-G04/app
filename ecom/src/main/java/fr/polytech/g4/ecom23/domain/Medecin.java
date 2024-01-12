@@ -33,14 +33,13 @@ public class Medecin implements Serializable {
     @Column(name = "prenom")
     private String prenom;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Compte compte;
+    private User user;
 
     @OneToMany(mappedBy = "medecin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soigant", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soignant", "medecin" }, allowSetters = true)
     private Set<Tache> taches = new HashSet<>();
 
     @OneToMany(mappedBy = "medecin")
@@ -48,9 +47,9 @@ public class Medecin implements Serializable {
     @JsonIgnoreProperties(value = { "medecin" }, allowSetters = true)
     private Set<Rappel> alertes = new HashSet<>();
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "medecin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "medecin", "patient" }, allowSetters = true)
     private Set<Notes> notes = new HashSet<>();
 
     @ManyToMany
@@ -117,16 +116,16 @@ public class Medecin implements Serializable {
         this.prenom = prenom;
     }
 
-    public Compte getCompte() {
-        return this.compte;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Medecin compte(Compte compte) {
-        this.setCompte(compte);
+    public Medecin user(User user) {
+        this.setUser(user);
         return this;
     }
 
@@ -219,7 +218,7 @@ public class Medecin implements Serializable {
 
     public Medecin removeNotes(Notes notes) {
         this.notes.remove(notes);
-        notes.setPatient(null);
+        notes.setMedecin(null);
         return this;
     }
 

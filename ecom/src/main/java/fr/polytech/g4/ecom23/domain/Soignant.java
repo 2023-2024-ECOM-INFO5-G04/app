@@ -38,10 +38,9 @@ public class Soignant implements Serializable {
     @Column(name = "metier")
     private SoignantMetier metier;
 
-    @JsonIgnoreProperties(value = { "soignant", "medecin", "administrateur" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private Compte compte;
+    private User user;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -61,9 +60,9 @@ public class Soignant implements Serializable {
     )
     private Set<Patient> patients = new HashSet<>();
 
-    @OneToMany(mappedBy = "soigant")
+    @OneToMany(mappedBy = "soignant")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soigant", "medecin" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "servicesoignant", "soignant", "medecin" }, allowSetters = true)
     private Set<Tache> taches = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -120,16 +119,16 @@ public class Soignant implements Serializable {
         this.metier = metier;
     }
 
-    public Compte getCompte() {
-        return this.compte;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setCompte(Compte compte) {
-        this.compte = compte;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Soignant compte(Compte compte) {
-        this.setCompte(compte);
+    public Soignant user(User user) {
+        this.setUser(user);
         return this;
     }
 
@@ -177,10 +176,10 @@ public class Soignant implements Serializable {
 
     public void setTaches(Set<Tache> taches) {
         if (this.taches != null) {
-            this.taches.forEach(i -> i.setSoigant(null));
+            this.taches.forEach(i -> i.setSoignant(null));
         }
         if (taches != null) {
-            taches.forEach(i -> i.setSoigant(this));
+            taches.forEach(i -> i.setSoignant(this));
         }
         this.taches = taches;
     }
@@ -192,13 +191,13 @@ public class Soignant implements Serializable {
 
     public Soignant addTaches(Tache tache) {
         this.taches.add(tache);
-        tache.setSoigant(this);
+        tache.setSoignant(this);
         return this;
     }
 
     public Soignant removeTaches(Tache tache) {
         this.taches.remove(tache);
-        tache.setSoigant(null);
+        tache.setSoignant(null);
         return this;
     }
 

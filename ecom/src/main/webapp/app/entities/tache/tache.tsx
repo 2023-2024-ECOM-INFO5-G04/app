@@ -67,7 +67,7 @@ export const Tache = () => {
                   <Translate contentKey="ecom23App.tache.servicesoignant">Servicesoignant</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="ecom23App.tache.soigant">Soigant</Translate>
+                  <Translate contentKey="ecom23App.tache.soignant">Soignant</Translate>
                 </th>
                 <th>
                   <Translate contentKey="ecom23App.tache.medecin">Medecin</Translate>
@@ -94,7 +94,7 @@ export const Tache = () => {
                       ''
                     )}
                   </td>
-                  <td>{tache.soigant ? <Link to={`/soignant/${tache.soigant.id}`}>{tache.soigant.id}</Link> : ''}</td>
+                  <td>{tache.soignant ? <Link to={`/soignant/${tache.soignant.id}`}>{tache.soignant.id}</Link> : ''}</td>
                   <td>{tache.medecin ? <Link to={`/medecin/${tache.medecin.id}`}>{tache.medecin.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

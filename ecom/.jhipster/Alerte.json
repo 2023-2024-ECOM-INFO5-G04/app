@@ -16,6 +16,14 @@
     {
       "fieldName": "denutrition",
       "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "severite",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "consulte",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

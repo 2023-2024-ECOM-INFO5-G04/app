@@ -26,10 +26,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "compte",
+      "otherEntityName": "user",
       "otherEntityRelationshipName": "medecin",
       "ownerSide": true,
-      "relationshipName": "compte",
+      "relationshipName": "user",
       "relationshipType": "one-to-one"
     },
     {
@@ -46,7 +46,7 @@
     },
     {
       "otherEntityName": "notes",
-      "otherEntityRelationshipName": "patient",
+      "otherEntityRelationshipName": "medecin",
       "relationshipName": "notes",
       "relationshipType": "one-to-many"
     },

@@ -258,6 +258,18 @@ describe('Patient e2e test', () => {
 
       cy.get(`[data-cy="sexe"]`).select('M');
 
+      cy.get(`[data-cy="favori"]`).should('not.be.checked');
+      cy.get(`[data-cy="favori"]`).click().should('be.checked');
+
+      cy.get(`[data-cy="sarcopenie"]`).should('not.be.checked');
+      cy.get(`[data-cy="sarcopenie"]`).click().should('be.checked');
+
+      cy.get(`[data-cy="absorptionreduite"]`).should('not.be.checked');
+      cy.get(`[data-cy="absorptionreduite"]`).click().should('be.checked');
+
+      cy.get(`[data-cy="agression"]`).should('not.be.checked');
+      cy.get(`[data-cy="agression"]`).click().should('be.checked');
+
       cy.get(`[data-cy="etablissement"]`).select(1);
 
       cy.get(entityCreateSaveButtonSelector).click();

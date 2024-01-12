@@ -6,9 +6,13 @@ export interface IAlerte {
   date?: string | null;
   commentaire?: string | null;
   denutrition?: boolean | null;
+  severite?: boolean | null;
+  consulte?: boolean | null;
   patient?: IPatient;
 }
 
 export const defaultValue: Readonly<IAlerte> = {
   denutrition: false,
+  severite: false,
+  consulte: false,
 };

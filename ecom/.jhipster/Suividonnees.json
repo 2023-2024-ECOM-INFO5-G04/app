@@ -21,7 +21,10 @@
     },
     {
       "fieldName": "epa",
-      "fieldType": "Float"
+      "fieldType": "Float",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "10",
+      "fieldValidateRulesMin": "0"
     },
     {
       "fieldName": "massecorporelle",
@@ -34,14 +37,6 @@
     {
       "fieldName": "quantitecaloriesaliments",
       "fieldType": "Float"
-    },
-    {
-      "fieldName": "absorptionreduite",
-      "fieldType": "Boolean"
-    },
-    {
-      "fieldName": "agression",
-      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

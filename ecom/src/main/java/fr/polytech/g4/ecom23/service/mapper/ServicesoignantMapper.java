@@ -11,7 +11,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface ServicesoignantMapper extends EntityMapper<ServicesoignantDTO, Servicesoignant> {
-    @Mapping(target = "etablissement", source = "etablissement", qualifiedByName = "etablissementId")
+    @Mapping(target = "etablissement", source = "etablissement")
     ServicesoignantDTO toDto(Servicesoignant s);
 
     @Named("etablissementId")

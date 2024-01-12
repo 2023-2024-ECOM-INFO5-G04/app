@@ -27,7 +27,7 @@ public class Notes implements Serializable {
     private String commentaire;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "compte", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "taches", "alertes", "notes", "patients", "etablissements" }, allowSetters = true)
     private Medecin medecin;
 
     @ManyToOne
@@ -65,19 +65,6 @@ public class Notes implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public Patient getPatient() {
-        return this.patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Notes patient(Patient patient) {
-        this.setPatient(patient);
-        return this;
-    }
-
     public Medecin getMedecin() {
         return this.medecin;
     }
@@ -88,6 +75,19 @@ public class Notes implements Serializable {
 
     public Notes medecin(Medecin medecin) {
         this.setMedecin(medecin);
+        return this;
+    }
+
+    public Patient getPatient() {
+        return this.patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Notes patient(Patient patient) {
+        this.setPatient(patient);
         return this;
     }
 

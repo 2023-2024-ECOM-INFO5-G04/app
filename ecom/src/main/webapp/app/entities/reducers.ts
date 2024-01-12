@@ -5,7 +5,6 @@ import administrateur from 'app/entities/administrateur/administrateur.reducer';
 import tache from 'app/entities/tache/tache.reducer';
 import medecin from 'app/entities/medecin/medecin.reducer';
 import rappel from 'app/entities/rappel/rappel.reducer';
-import compte from 'app/entities/compte/compte.reducer';
 import patient from 'app/entities/patient/patient.reducer';
 import alerte from 'app/entities/alerte/alerte.reducer';
 import suividonnees from 'app/entities/suividonnees/suividonnees.reducer';
@@ -20,7 +19,6 @@ const entitiesReducers = {
   tache,
   medecin,
   rappel,
-  compte,
   patient,
   alerte,
   suividonnees,

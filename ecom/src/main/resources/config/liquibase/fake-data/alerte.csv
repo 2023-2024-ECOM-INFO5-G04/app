@@ -1,11 +1,11 @@
-id;date;commentaire;denutrition
-1;2023-11-07;Designer;false
-2;2023-11-06;Balanced mint Shoes;false
-3;2023-11-06;a;false
-4;2023-11-06;relationships;true
-5;2023-11-07;c;false
-6;2023-11-06;24/365 Licensed Kroon;false
-7;2023-11-07;Kyat Faubourg-Saint-Denis Plastic;false
-8;2023-11-06;intuitive;true
-9;2023-11-07;Consultant Books withdrawal;false
-10;2023-11-07;Producteur;true
+id;date;commentaire;denutrition;severite;consulte
+1;2023-11-07;Designer;false;true;true
+2;2023-11-07;Electronics;false;false;true
+3;2023-11-07;Manager;false;true;false
+4;2023-11-06;relationships;true;false;false
+5;2023-11-06;array array markets;true;true;false
+6;2023-11-07;Handcrafted;false;false;true
+7;2023-11-07;Account;false;false;false
+8;2023-11-07;radical virtual Electronics;false;true;false
+9;2023-11-07;Producteur;true;false;false
+10;2023-11-07;bricks-and-clicks Picardie envisioneer;true;false;true
