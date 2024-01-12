@@ -3,6 +3,7 @@ import { Card, CardTitle, CardSubtitle, CardText, Button, Input } from 'reactstr
 import './note.css';
 import axios from 'axios';
 
+
 export const Note = (props) => {
   const [contenu, setContenu] = useState(props.note.commentaire);
   const [contenuModifiable, setContenuModifiable] = useState('');
@@ -10,7 +11,8 @@ export const Note = (props) => {
 
   const name = props.patient.nom;
   const noteId = props.note.id;
-  console.log('id', noteId);
+  console.log('noteID', noteId);
+
 
   const urlNotePatch = 'api/notes/' + noteId + '/commentaire?commentaire=';
   //normalement les données de mise à jour sont dans le corps pour une requête patch

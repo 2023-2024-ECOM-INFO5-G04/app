@@ -3,18 +3,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './patientpreview.css';
 import { Note } from '../note/note';
-
-
-///TODO :
-//nouvelle requete pour recuperer les donnees de l'établissement
-
-//recuperer l'ID du medecin avec les roles, pour le moment tout le temps le meme medecin
+import { useAppSelector } from 'app/config/store';
 
 export const PatientPreview = props => {
   const patient = props.patient;
-  const medecinID = '1'
   const patientId = patient.id.toString();
-  const url = 'api/notes?medecin=' + medecinID + '&patient=' + patientId;
+
+  const authentication = useAppSelector(state => state.authentication);
+  const userID = authentication ? authentication.account.id : null;
+  console.log('userID', userID);
+
+  const url = 'api/notes?medecin=' + userID + '&patient=' + patientId;
 
 
   const [donnees, setDonnees] = useState(null);
