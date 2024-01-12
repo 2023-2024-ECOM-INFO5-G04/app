@@ -30,9 +30,11 @@ export const VisualisationPatientDetail = () => {
     console.log(fenetre);
   }
 
-
   const component1 = <GraphWindow
-    handleClick={handleClickF} />;
+    handleClick={handleClickF}
+    numPa = {patient.id}
+  />;
+
 
   const component2 = <Task
   handleClick={handleClickT}/>
@@ -53,7 +55,7 @@ export const VisualisationPatientDetail = () => {
         </Col>
       </Row>
     </div>);
- 
+
 };
 
 export default VisualisationPatientDetail;
