@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -100,8 +99,6 @@ class PatientResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Patient createEntity(EntityManager em) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
 
         Patient patient = new Patient()
             .nom(DEFAULT_NOM)
