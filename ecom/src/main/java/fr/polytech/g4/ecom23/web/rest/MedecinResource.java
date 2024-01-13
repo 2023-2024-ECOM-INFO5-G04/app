@@ -1,12 +1,8 @@
 package fr.polytech.g4.ecom23.web.rest;
 
-import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.repository.MedecinRepository;
 import fr.polytech.g4.ecom23.service.MedecinService;
-import fr.polytech.g4.ecom23.service.UserService;
 import fr.polytech.g4.ecom23.service.dto.MedecinDTO;
-import fr.polytech.g4.ecom23.service.mapper.MedecinMapper;
-import fr.polytech.g4.ecom23.service.mapper.MedecinMapperImpl;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,17 +35,13 @@ public class MedecinResource {
 
     private final MedecinService medecinService;
 
-    private final UserService userService;
 
     private final MedecinRepository medecinRepository;
 
-    private final MedecinMapper medecinMapper;
 
-    public MedecinResource(MedecinService medecinService, UserService userService, MedecinRepository medecinRepository, MedecinMapper medecinMapper) {
+    public MedecinResource(MedecinService medecinService, MedecinRepository medecinRepository) {
         this.medecinService = medecinService;
-        this.userService = userService;
         this.medecinRepository = medecinRepository;
-        this.medecinMapper = medecinMapper;
     }
 
     /**
@@ -183,6 +175,12 @@ public class MedecinResource {
             .build();
     }
 
+    /**
+     * {@code GET  /medecins/:id} : get the medecin associated to a user given.
+     *
+     * @param id the id of the User
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the medecinDTO, or with status {@code 404 (Not Found)}.
+     */
     @GetMapping("/medecins/user/{id}")
     public ResponseEntity<MedecinDTO> getMedecinByUser(@PathVariable Long id){
         log.debug("REST request to get Medecin with user: {}", id);
