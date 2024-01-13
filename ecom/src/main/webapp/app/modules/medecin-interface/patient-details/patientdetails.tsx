@@ -30,11 +30,6 @@ export const VisualisationPatientDetail = () => {
     console.log(fenetre);
   }
 
-
-
-
-
-
   const component1 = <GraphWindow
     handleClick={handleClickF}
     numPa = {patient.id}
@@ -60,12 +55,6 @@ export const VisualisationPatientDetail = () => {
         </Col>
       </Row>
     </div>);
-
-
-      // <div style={{ flex: 1 }}>
-      //   <LineChart />
-      // </div>
-
 
 };
 
