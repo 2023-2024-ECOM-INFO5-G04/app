@@ -19,7 +19,7 @@ const FormRappel = (props) => {
         const dateInputMS = (new Date(dateInput)).getTime();
         const dateMS = Date.now();
 
-        if (dateInputMS - dateMS > 0) { //valide
+        if (dateInputMS - dateMS >= 0) { //valide
             date = dateInput;
             console.log('date valide');
         }

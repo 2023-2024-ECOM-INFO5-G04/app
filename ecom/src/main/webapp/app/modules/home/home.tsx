@@ -69,14 +69,18 @@ export const Home = () => {
       .map(item => ({ ...item, date: new Date(item.date) }))
       .sort((a, b) => a.date.getTime() - b.date.getTime())
       .map(item => ({ ...item, date: item.date.toISOString().split('T')[0] }));
+      const dataSansPerimes = dataTriee.filter(rappel => (new Date(rappel.date)).getTime() >= Date.now());
 
-    return dataTriee;
+
+    return dataSansPerimes;
   }
+
+  
 
   function restreindreRappels10(data: RappelData[]): RappelData[] {
     const dataRestreinte: RappelData[] = []
     for (let i = 0; i < 10; i++) {
-      dataRestreinte.push(data[i])
+      data[i] ? dataRestreinte.push(data[i]) : null;
     }
     return dataRestreinte;
   }
