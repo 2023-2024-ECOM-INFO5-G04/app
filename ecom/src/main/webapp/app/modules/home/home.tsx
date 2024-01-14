@@ -34,11 +34,10 @@ export const Home = () => {
   const dateFormatted = year.toString() + '-' + month + '-' + day.toString();
 
 
-
   let resp;
 
   useEffect(() => {
-    if (!requeteEffectueeR && isMed) {
+    if (!rappels && isMed) {
       axios
         .get('api/rappels')
         .then(response => {
@@ -61,7 +60,7 @@ export const Home = () => {
           console.log('Erreur complète :', error.config);
         });
     }
-  }, [requeteEffectueeR]);
+  }, [rappels]);
 
 
   function trierParDate(data: RappelData[]): RappelData[] {
@@ -69,13 +68,13 @@ export const Home = () => {
       .map(item => ({ ...item, date: new Date(item.date) }))
       .sort((a, b) => a.date.getTime() - b.date.getTime())
       .map(item => ({ ...item, date: item.date.toISOString().split('T')[0] }));
-      const dataSansPerimes = dataTriee.filter(rappel => (new Date(rappel.date)).getTime() >= Date.now());
+    const dataSansPerimes = dataTriee.filter(rappel => (new Date(rappel.date)).getTime() >= Date.now());
 
 
     return dataSansPerimes;
   }
 
-  
+
 
   function restreindreRappels10(data: RappelData[]): RappelData[] {
     const dataRestreinte: RappelData[] = []
@@ -99,8 +98,9 @@ export const Home = () => {
           Swal.fire({
             text: "Rappel ajouté avec succès.📅",
             icon: 'success',
-            timer: 2000
+            timer: 1000
           })
+          setRequeteEffectueeR(false);
         }
         )
         .catch(error => {
@@ -123,7 +123,7 @@ export const Home = () => {
   function handleClick() {
     console.log("ajouter un rappel clické");
 
-    setRappelCreation(true);
+    setRappelCreation(!rappelCreation);
 
 
   }
@@ -172,11 +172,11 @@ export const Home = () => {
           Image de <a href="https://fr.freepik.com/vecteurs-libre/medecin-tenant-presse-papiers_2094267.htm#query=medecine&position=11&from_view=search&track=sph&uuid=58253a42-6d76-4fd7-add1-d629f8eb26d6">Freepik</a>
         </div>
       </Col>
-      <Col md="4">
+      <Col md="4" className='col3'>
 
         {
           account?.login ? (
-            <div>
+            <div className='identification'>
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                   You are logged in as user {account.login}.
@@ -185,21 +185,26 @@ export const Home = () => {
 
             </div>
           ) : (
-            <div>
+            <div className='identification'>
               <Alert color="warning">
                 Attention ! Vous n'êtes pas connecté.e.
               </Alert>
             </div>
           )}
 
-        <Button onClick={handleClick}>
-          Ajouter un rappel
-        </Button>
-        {rappelCreation && (
-          <FormRappel
-            submitRappel={creerRappel}
-            date={dateFormatted} />
-        )}
+        <div className='form-container'>
+
+          <Button onClick={handleClick}
+          color='dark'
+          className='switch-bouton'>
+            {rappelCreation ? 'Terminer' : 'Ajouter un rappel'}
+          </Button>
+          {rappelCreation && (
+            <FormRappel
+              submitRappel={creerRappel}
+              date={dateFormatted} />
+          )}
+        </div>
 
       </Col>
     </Row>

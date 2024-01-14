@@ -7,37 +7,36 @@ Main page styles
   height: 350px;
   background: url('../../../content/images/medecin.jpg') no-repeat center top;
   background-size: contain;
-  flex :2
+  flex: 2;
 }
 
-.custom-link{
+.custom-link {
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin : 25px;
+  margin: 25px;
   font-size: large;
-  color:black;
-  flex:1;
- 
+  color: black;
+  flex: 1;
 }
 
-.rappels{
+.rappels {
   background-color: #4dd396;
 
- 
   cursor: pointer;
 }
 
-.rappels:hover{
-  background-color: #4089c1;}
-
-.titleH{
-  justify-content: center;
-  flex :0.5;
+.rappels:hover {
+  background-color: #4089c1;
 }
 
-.col2{
+.titleH {
+  justify-content: center;
+  flex: 0.5;
+}
+
+.col2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,6 +47,32 @@ Main page styles
   margin-bottom: 1em;
 }
 
-.rappels-list{
+.rappels-list {
   height: 80vh;
+}
+
+.col3 {
+  display: flex;
+  flex-direction: column;
+  margin: 3em;
+}
+
+.identification {
+  align-items: start;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  align-items: center;
+  
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.switch-bouton {
+  margin-bottom: '1em';
+  width: 50%;
 }

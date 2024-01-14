@@ -2,6 +2,7 @@ import React from "react";
 import { Input, Button } from 'reactstrap';
 
 import Swal from 'sweetalert2';
+import './formRappel.css'
 
 const FormRappel = (props) => {
 
@@ -58,16 +59,21 @@ const FormRappel = (props) => {
     }
 
     return (
-        <div className="">
+        <div className="form">
             <Input onChange={(e) => commentaire = e.target.value}
-                placeholder="Description">
+                placeholder="Description"
+                className="descritpion"
+               >
             </Input>
             <Input
                 name="date"
                 type="date"
                 onChange={(e) => checkDate(e.target.value)}
+                className="date-Input"
             />
-            <Button onClick={sendForm}>
+            <Button onClick={sendForm}
+            className="ajouter-bouton"
+            color="info">
                 Ajouter
             </Button>
         </div>
