@@ -1,8 +1,12 @@
 package fr.polytech.g4.ecom23.web.rest;
 
+import fr.polytech.g4.ecom23.domain.User;
 import fr.polytech.g4.ecom23.repository.MedecinRepository;
 import fr.polytech.g4.ecom23.service.MedecinService;
+import fr.polytech.g4.ecom23.service.UserService;
 import fr.polytech.g4.ecom23.service.dto.MedecinDTO;
+import fr.polytech.g4.ecom23.service.mapper.MedecinMapper;
+import fr.polytech.g4.ecom23.service.mapper.MedecinMapperImpl;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,11 +39,17 @@ public class MedecinResource {
 
     private final MedecinService medecinService;
 
+    private final UserService userService;
+
     private final MedecinRepository medecinRepository;
 
-    public MedecinResource(MedecinService medecinService, MedecinRepository medecinRepository) {
+    private final MedecinMapper medecinMapper;
+
+    public MedecinResource(MedecinService medecinService, UserService userService, MedecinRepository medecinRepository, MedecinMapper medecinMapper) {
         this.medecinService = medecinService;
+        this.userService = userService;
         this.medecinRepository = medecinRepository;
+        this.medecinMapper = medecinMapper;
     }
 
     /**
@@ -171,5 +181,18 @@ public class MedecinResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/medecins/user/{id}")
+    public ResponseEntity<MedecinDTO> getMedecinByUser(@PathVariable Long id){
+        log.debug("REST request to get Medecin with user: {}", id);
+        List<MedecinDTO> medecins = medecinService.findAll();
+        for (MedecinDTO medecin : medecins) {
+            if (medecin.getUser().getId().equals(id)){
+                return ResponseEntity.ok(medecin);
+            }
+        }
+            return ResponseEntity.notFound().build();
+
     }
 }

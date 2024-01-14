@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './patientslist.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import axios from 'axios';
+
 
 export const PatientsList = props => {
   const getColor = denutrition => {
@@ -11,17 +12,44 @@ export const PatientsList = props => {
     return '#5EC286';
   };
 
-  // const [patients, setPatients] = props.patients
   const patients = props.patients;
+  // let EPAarray : { [key: string]: number }= {};
+
+  const [EPA, setEPA] = useState<{ [key: string]: number }>({});
+
+
+  useEffect(() => {
+    patients.map(patient => {
+      axios
+        .get('api/patients/' + patient.id + '/epa')
+        .then(response => {
+          setEPA((previousEPA) => ({
+            ...previousEPA,
+            [patient.id.toString()]: response.data
+          }))
+        })
+        .catch(error => {
+          console.error('Erreur lors de la requête pour l EPA :', error);
+          return null;
+        });
+    })
+  }, []);
+
 
   return (
     <div className="patients-list-scrollable">
       <ul>
         {patients.map(patient => (
-          <div key={patient.id}>
-            <Link className="patient-summary" style={{ backgroundColor: getColor(patient.alerte) }} to="/patientdetails" state={patient}>
+          <div key={patient.id}
+          className='container-patient'
+          >
+            <Link className="patient-summary" to="/patientdetails" style={{ backgroundColor: getColor(patient.alerte) }} state={patient}>
               {patient.nom}
+
             </Link>
+            <div className='display-EPA'>
+            EPA : {EPA && EPA[patient.id.toString()]}
+            </div>
           </div>
         ))}
       </ul>
