@@ -4,10 +4,15 @@ import SelectionPatient from './patient-selection/patientselection';
 import axios from 'axios';
 import './medecinhome.css';
 import donneesPatient from './classes/patient-class';
+import { useAppSelector } from 'app/config/store';
+import { Alert } from 'reactstrap';
 
 export const VisualisationPage = () => {
   const [patientData, setPatientData] = useState(null);
   const [requeteEffectuee, setRequeteEffectuee] = useState(false);
+  const account = useAppSelector(state => state.authentication.account);
+  const roles = account.authorities;
+  const isMed = roles?.includes('ROLE_MEDECIN') ?? false;
 
   let resp;
 
@@ -36,7 +41,7 @@ export const VisualisationPage = () => {
 
   }, [requeteEffectuee]);
 
-  
+
 
 
 
@@ -47,9 +52,15 @@ export const VisualisationPage = () => {
   return (
     <div style={{ height: '80vh' }}>
       <h1 className='title'> Rechercher un patient</h1>
-      <div className="medecin-home">
+      {isMed ? (<div className="medecin-home">
         <SelectionPatient patients={patientData} />
-      </div>
+      </div>)
+        :
+        (<Alert color='info'>
+          Seul le médecin peut consulter les donées des patients
+        </Alert>)}
+
+
     </div>
   );
 };
