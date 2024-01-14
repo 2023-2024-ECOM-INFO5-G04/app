@@ -36,7 +36,7 @@ export class Medecin {
   etablissements: Etablissement[];
 }
 
-class Note {
+export class NoteData {
   id: number = 0;
   commentaire: string = "";
   medecin: Medecin;
@@ -44,7 +44,7 @@ class Note {
 }
 
 export function donneesNote(jsonObject){
-    return plainToClass(Note, jsonObject);
+    return plainToClass(NoteData, jsonObject);
 }
 
 

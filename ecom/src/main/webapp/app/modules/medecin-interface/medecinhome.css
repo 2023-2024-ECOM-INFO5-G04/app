@@ -3,9 +3,10 @@
 }
 
 .title {
-  text-align: center;
+  text-align: start;
   font-size: xx-large;
   margin: 20px;
+  margin-left: 40px;
   letter-spacing: 3px;
-  text-decoration: underline overline solid #4089c1;
+  /* text-decoration: underline overline solid #4089c1; */
 }
