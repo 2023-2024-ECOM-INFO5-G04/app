@@ -15,13 +15,14 @@ const [showDataset3, setShowDataset3] = useState(true);
 const id = props.id;
 
 const [chartData, setChartData] = useState({ labels: [], datasets: [] });
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+  const getLineColor = (key) => {
+    if (key === 'poids'){
+      return 'red';
+    } else if (key === 'epa') {
+      return 'green';
+    } else {
+      return 'blue';
     }
-    return color;
   };
 
   useEffect(() => {
@@ -29,18 +30,23 @@ const [chartData, setChartData] = useState({ labels: [], datasets: [] });
       try {
         const response = await axios.get(`/api/suividonnees/courbes/patient/${id}`)
         const apiData = response.data;
-        const labels = apiData.map(data => data.date);
+
+        const startDate = new Date("2021-01-01");
+        const endDate = new Date("2023-12-31");
+        const dateRange = getDates(startDate, endDate);
+
+        // Ce que je fais, c'est que je récupère une range de date, et je fais correspondre les deux jeux de données, ce qui me permet d'avoir toute les dates et pas seulement cette des prise de mesures.
         const datasets = Object.keys(apiData[0].courbes).map(key => ({
           label: key,
-          data: apiData.map(data => data.courbes[key]),
+          data: dateRange.map(date => apiData.find(data => data.date === date)?.courbes[key] || null),
           fill: false,
-          borderColor: getRandomColor(),
+          borderColor: getLineColor(key),
           backgroundColor: 'rgba(255, 255, 255, 0.2)',
           borderWidth: 2,
           hidden: (key === 'poids' && !showDataset1) || (key === 'epa' && !showDataset2) || (key === 'imc' && !showDataset3),
         }));
 
-        setChartData({ labels, datasets });
+        setChartData({ labels: dateRange, datasets });
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
       }
@@ -58,7 +64,7 @@ const options = {
         wheel: {
           enabled: true
         },
-        speed: 100,
+        speed: 1,
       },
       pan: {
         enabled: true,
@@ -78,5 +84,15 @@ const options = {
   );
 };
 
+const getDates = (startDate, endDate) => {
+  const dates = [];
+  let currentDate = new Date(startDate);
 
+  while (currentDate <= endDate) {
+    dates.push(currentDate.toISOString().split('T')[0]); // Format de date AAAA-MM-JJ
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  console.log('les dates', dates)
+  return dates;
+};
 export default LineChart;
