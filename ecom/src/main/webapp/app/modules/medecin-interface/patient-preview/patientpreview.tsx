@@ -4,6 +4,7 @@ import axios from 'axios';
 import './patientpreview.css';
 import { Note } from '../note/note';
 import { useAppSelector } from 'app/config/store';
+import { useSearchParams } from 'react-router-dom';
 
 export const PatientPreview = props => {
   const patient = props.patient;
@@ -13,10 +14,23 @@ export const PatientPreview = props => {
   const userID = authentication ? authentication.account.id : null;
   console.log('userID', userID);
 
-  const url = 'api/notes?medecin=' + userID + '&patient=' + patientId;
+  const [url, setUrl] = useState('')
 
 
   const [donnees, setDonnees] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get('api/medecins/user/' + userID)
+      .then(response => {
+        setUrl('api/notes?medecin=' + response.data.id + '&patient=' + patientId)
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête pour l EPA :', error);
+        return null;
+      });
+  }, []);
+
 
   useEffect(() => {
     const effectFunction = async () => {
@@ -32,7 +46,7 @@ export const PatientPreview = props => {
     };
 
     effectFunction();
-  }, []);
+  }, [url]);
 
   return (
     <div className="preview">
