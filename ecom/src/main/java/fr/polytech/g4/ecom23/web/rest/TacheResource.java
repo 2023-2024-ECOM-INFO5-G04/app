@@ -1,16 +1,17 @@
 package fr.polytech.g4.ecom23.web.rest;
 
 import fr.polytech.g4.ecom23.repository.TacheRepository;
-import fr.polytech.g4.ecom23.service.TacheService;
-import fr.polytech.g4.ecom23.service.dto.TacheDTO;
+import fr.polytech.g4.ecom23.service.*;
+import fr.polytech.g4.ecom23.service.dto.*;
 import fr.polytech.g4.ecom23.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import io.undertow.util.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,10 +36,22 @@ public class TacheResource {
 
     private final TacheService tacheService;
 
+    private final SoignantService soignantService;
+
+    private final MedecinService medecinService;
+
+    private final PatientService patientService;
+
+    private final ServicesoignantService servicesoignantService;
+
     private final TacheRepository tacheRepository;
 
-    public TacheResource(TacheService tacheService, TacheRepository tacheRepository) {
+    public TacheResource(TacheService tacheService, SoignantService soignantService, MedecinService medecinService, PatientService patientService, ServicesoignantService servicesoignantService, TacheRepository tacheRepository) {
         this.tacheService = tacheService;
+        this.soignantService = soignantService;
+        this.medecinService = medecinService;
+        this.patientService = patientService;
+        this.servicesoignantService = servicesoignantService;
         this.tacheRepository = tacheRepository;
     }
 
@@ -170,5 +183,103 @@ public class TacheResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/taches/form")
+    public List<TacheDTO> createTaches(
+        @RequestParam Long medecin,
+        @RequestParam Long patient,
+        @RequestParam Boolean soignant,
+        @RequestParam String nom,
+        @RequestParam LocalDate debut,
+        @RequestParam(defaultValue = "") LocalDate fin,
+        @RequestParam(defaultValue = "") Long frequence,
+        @RequestParam(defaultValue = "") Long joursperiode,
+        @RequestParam(defaultValue = "") String commentaire
+    ) throws BadRequestException {
+        if (frequence == null && joursperiode != null || frequence != null && joursperiode == null)
+            throw new BadRequestException("frequence et typeFrequence doivent être soit tous les deux remplis soit tous les deux vides");
+
+        SoignantDTO soignantDTO = null;
+        ServicesoignantDTO servicesoignantDTO = null;
+
+        Optional<MedecinDTO> optionalMedecinDTO = medecinService.findOne(medecin);
+        if (optionalMedecinDTO.isEmpty())
+            throw new BadRequestException("Ce médecin n'existe pas");
+        MedecinDTO medecinDTO = optionalMedecinDTO.get();
+        Optional<PatientDTO> optionalPatientDTO = patientService.findOne(patient);
+        if (optionalPatientDTO.isEmpty())
+            throw new BadRequestException("Ce patient n'existe pas");
+        PatientDTO patientDTO = optionalPatientDTO.get();
+
+        if (soignant) {
+            List<SoignantDTO> soignants = soignantService.findAll();
+            for (SoignantDTO s : soignants) {
+                if (s.getNom().equals(nom)) {
+                    soignantDTO = s;
+                    break;
+                }
+            }
+            if (soignantDTO == null)
+                throw new BadRequestException("Le soignant \"" + nom + "\" n'existe pas");
+        }
+        else {
+            List<ServicesoignantDTO> services = servicesoignantService.findAll();
+            for (ServicesoignantDTO s : services) {
+                if (s.getType().equals(nom) && s.getEtablissement().equals(patientDTO.getEtablissement())) {
+                    servicesoignantDTO = s;
+                    break;
+                }
+            }
+            if (servicesoignantDTO == null)
+                throw new BadRequestException("Le service soignant \"" + nom + "\" n'existe pas");
+        }
+
+        if (joursperiode == null && frequence == null) {
+            TacheDTO t = new TacheDTO();
+            t.setServicesoignant(servicesoignantDTO);
+            t.setSoignant(soignantDTO);
+            t.setDate(debut);
+            t.setPatient(patientDTO);
+            t.setEffectuee(false);
+            t.setMedecin(medecinDTO);
+            t.setCommentaire(commentaire);
+            t = tacheService.save(t);
+            return Collections.singletonList(t);
+        }
+
+        if (fin == null)
+            fin = debut.plusYears(3);
+
+        List<TacheDTO> taches = new LinkedList<>();
+
+
+        int nTaches = 0;
+        int i = 0;
+        float limit = (float) frequence / joursperiode;
+        while (!debut.plusDays(i).isAfter(fin)) {
+            if ((float) nTaches / (i+1) >= limit) {
+                System.out.println("HEY");
+                i++;
+            }
+            else {
+                System.out.println("YO");
+                TacheDTO t = new TacheDTO();
+                t.setDate(debut.plusDays(i));
+                t.setCommentaire(commentaire);
+                t.setEffectuee(false);
+                t.setMedecin(medecinDTO);
+                t.setPatient(patientDTO);
+                t.setSoignant(soignantDTO);
+                t.setServicesoignant(servicesoignantDTO);
+                t = tacheService.save(t);
+                taches.add(t);
+                nTaches++;
+            }
+
+        }
+
+        return taches;
+
     }
 }
