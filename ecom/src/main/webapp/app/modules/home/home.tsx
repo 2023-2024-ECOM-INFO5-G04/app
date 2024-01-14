@@ -12,7 +12,6 @@ import { useAppSelector } from 'app/config/store';
 
 import donneesRappel, { RappelData } from '../medecin-interface/classes/rappels-class';
 import Rappel from './rappels';
-import { size } from 'lodash';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -27,7 +26,7 @@ export const Home = () => {
   let resp;
 
   useEffect(() => {
-    if (!requeteEffectuee) {
+    if (!requeteEffectuee && isMed) {
       axios
         .get('api/rappels')
         .then(response => {

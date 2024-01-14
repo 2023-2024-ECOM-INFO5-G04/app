@@ -9,9 +9,27 @@
 
 .card{
     margin: 10px;
+    margin-top: 2em;
 
 }
 
 .bouton{
     margin : 5px;
+}
+
+.infos-generales {
+    background-color:#f4faff;
+    padding : 0.5em;
+    margin-top: 2em;
+}
+
+.infos-poids {
+    /* background-color: #CBD1E5; */
+    background-color:#f4faff;
+    padding : 0.5em;
+}
+
+.infos-etablissement {
+    background-color: #f4faff;
+    padding : 0.5em;
 }

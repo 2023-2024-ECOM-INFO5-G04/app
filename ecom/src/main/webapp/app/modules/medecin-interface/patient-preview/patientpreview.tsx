@@ -54,14 +54,25 @@ export const PatientPreview = props => {
         <h1>
           {patient.nom} {patient.prenom}
         </h1>
-        age : {patient.age} <br />
-        poids : {patient.age} <br />
-        taille : {patient.taille} <br />
-        sexe : {patient.sexe} <br />
-        albumine : {patient.albumine} <br />
-        Admis dans l'établissement : {patient.etablissement.nom} <br />
-        depuis le : {patient.datearrivee} <br />à l'adresse {patient.etablissement.adresse} <br />
-        joignable au : {patient.etablissement.telephone} <br />
+
+        <div className='infos-generales'>
+          Age : {patient.age} <br />
+          Taille : {patient.taille} <br />
+          Sexe : {patient.sexe} <br />
+        </div>
+
+        <div className='infos-poids'>
+          <b> Poids : {patient.age} </b> <br />
+          <b> Albumine : {patient.albumine} </b><br />
+        </div>
+
+        <div className='infos-etablissement'>
+          Admis dans l'établissement : {patient.etablissement.nom} <br />
+          Depuis le : {patient.datearrivee} <br />
+          À l'adresse : {patient.etablissement.adresse} <br />
+          Joignable au : {patient.etablissement.telephone} <br />
+        </div>
+
       </div>
       {donnees && (
         <Note
