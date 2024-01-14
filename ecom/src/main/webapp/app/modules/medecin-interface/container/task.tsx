@@ -15,8 +15,7 @@ import { width } from '@fortawesome/free-solid-svg-icons/faCogs';
 //TODO :
 // feedback en alerte quand on valide et quitte la page
 
-//TODO : 
-//aligner fréquence et fois par
+
 
 
 export const Task = (props) => {

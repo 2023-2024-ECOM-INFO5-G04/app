@@ -42,7 +42,6 @@ export const SelectionPatient = props => {
       patientsTemp = (trierParDate(patientsTemp))
     }
     setPatients(patientsTemp);
-    // setPatients(patientsByE.filter(element => patientsByN.includes(element)));
   }, [patientsByE, patientsByN]);
 
   const allPatients = props.patients;

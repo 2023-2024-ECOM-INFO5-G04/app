@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PatientsList from './patients-list/patientslist';
 import SelectionPatient from './patient-selection/patientselection';
 import axios from 'axios';
 import './medecinhome.css';

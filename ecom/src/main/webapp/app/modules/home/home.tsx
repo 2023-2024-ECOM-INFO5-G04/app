@@ -1,9 +1,11 @@
 import './home.scss';
 
+import Swal from 'sweetalert2';
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-import { Row, Col, Alert } from 'reactstrap';
+import { Row, Col, Alert, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStethoscope } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -12,45 +14,55 @@ import { useAppSelector } from 'app/config/store';
 
 import donneesRappel, { RappelData } from '../medecin-interface/classes/rappels-class';
 import Rappel from './rappels';
+import FormRappel from './formRappel';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
   const roles = account.authorities;
   const isMed = roles?.includes('ROLE_MEDECIN') ?? false;
 
-
-
   const [rappels, setRappels] = useState(null);
-  const [requeteEffectuee, setRequeteEffectuee] = useState(false);
+  const [requeteEffectueeR, setRequeteEffectueeR] = useState(false);
+  const [rappelCreation, setRappelCreation] = useState(false);
+
+  const date = new Date();
+  const day = date.getDate();
+  const mOnth = date.getMonth() + 1;
+  const month = mOnth < 10 ? '0' + mOnth : mOnth;
+  const year = date.getFullYear();
+
+  const dateFormatted = year.toString() + '-' + month + '-' + day.toString();
+
+
 
   let resp;
 
   useEffect(() => {
-    if (!requeteEffectuee && isMed) {
+    if (!requeteEffectueeR && isMed) {
       axios
         .get('api/rappels')
         .then(response => {
           console.log("Réponse de l'API :", response.data);
           resp = donneesRappel(response.data);
         })
-        .then(patientData => setRappels(resp))
-
+        .then(() => {
+          setRappels(resp)
+          setRequeteEffectueeR(true);
+        })
         .catch(error => {
           if (error.response) {
-            // La requête a été effectuée, mais le serveur a répondu avec un code d'erreur
             console.log('Erreur de réponse du serveur :', error.response.data);
             console.log('Statut de la réponse du serveur :', error.response.status);
           } else if (error.request) {
-            // La requête a été effectuée, mais aucune réponse n'a été reçue
             console.log('Aucune réponse reçue du serveur');
           } else {
-            // Une erreur s'est produite lors de la configuration de la requête
             console.log('Erreur de configuration de la requête :', error.message);
           }
           console.log('Erreur complète :', error.config);
         });
     }
-  }, [requeteEffectuee]);
+  }, [requeteEffectueeR]);
+
 
   function trierParDate(data: RappelData[]): RappelData[] {
     const dataTriee = data
@@ -61,6 +73,63 @@ export const Home = () => {
     return dataTriee;
   }
 
+  function restreindreRappels10(data: RappelData[]): RappelData[] {
+    const dataRestreinte: RappelData[] = []
+    for (let i = 0; i < 10; i++) {
+      dataRestreinte.push(data[i])
+    }
+    return dataRestreinte;
+  }
+
+  const creerRappel = (date: string, commentaire: string) => {
+
+    console.log("creer rappel : ajouter clické");
+
+    if (rappelCreation) {
+      console.log('com', commentaire);
+      console.log('date', date);
+      axios
+        .post('api/rappels', { effectue: false, date: date, commentaire: commentaire })
+        .then(response => {
+          console.log("Réponse de l'API :", response.data);
+          Swal.fire({
+            text: "Rappel ajouté avec succès.📅",
+            icon: 'success',
+            timer: 2000
+          })
+        }
+        )
+        .catch(error => {
+          if (error.response) {
+            console.log('Erreur de réponse du serveur :', error.response.data);
+            console.log('Statut de la réponse du serveur :', error.response.status);
+          } else if (error.request) {
+            console.log('Aucune réponse reçue du serveur');
+          } else {
+            console.log('Erreur de configuration de la requête :', error.message);
+          }
+          console.log('Erreur complète :', error.config);
+        })
+    }
+
+  }
+
+
+
+  function handleClick() {
+    console.log("ajouter un rappel clické");
+
+    setRappelCreation(true);
+
+
+  }
+
+
+
+
+
+
+
   return (
     <Row style={{ height: '80vh' }}>
       <Col md="4" className="pad" style={{ backgroundColor: '##c6c6c6' }}>
@@ -68,10 +137,10 @@ export const Home = () => {
 
         {isMed && (
           rappels ? (
-            <div>
-              <h2 style={{ marginTop: '15px' }}> Pour ne rien oublier :</h2>
+            <div className='rappels-list'>
+              <h2 className='rappels-title'> Pour ne rien oublier :</h2>
               <Rappel
-                rappels={trierParDate(rappels)}
+                rappels={restreindreRappels10(trierParDate(rappels))}
               /> </div>) : (<div>
                 <FontAwesomeIcon icon={faStethoscope} />
               </div>)
@@ -118,6 +187,15 @@ export const Home = () => {
               </Alert>
             </div>
           )}
+
+        <Button onClick={handleClick}>
+          Ajouter un rappel
+        </Button>
+        {rappelCreation && (
+          <FormRappel
+            submitRappel={creerRappel}
+            date={dateFormatted} />
+        )}
 
       </Col>
     </Row>
