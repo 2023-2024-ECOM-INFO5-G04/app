@@ -9,7 +9,11 @@ const Footer = () => (
     <Row>
       <Col md="12">
         <p>
-          <Translate contentKey="footer">Your footer</Translate>
+          {/* Ecom 2023-2024 : Clément, Jamile, Mathis, Michelle, Léa */}
+          {/* Que les hommes et mes confrères m’accordent leur estime
+si je suis fidèle à mes promesses; que je sois déshonoré(e) et méprisé(e)
+si j’y manque. */}
+          "Je promets et je jure d’être fidèle aux lois de l’honneur et de la probité."
         </p>
       </Col>
     </Row>
