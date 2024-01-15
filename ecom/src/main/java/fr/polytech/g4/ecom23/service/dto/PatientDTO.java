@@ -357,7 +357,7 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean phe3() {
-        if (sarcopenie)
+        if (sarcopenie == null)
             return false;
         if (sarcopenie) {
             COMMENTAIRE += "Sarcopénie confirmée\n";
