@@ -357,6 +357,8 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean phe3() {
+        if (sarcopenie)
+            return false;
         if (sarcopenie) {
             COMMENTAIRE += "Sarcopénie confirmée\n";
             return true;
@@ -382,6 +384,8 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean eti2() {
+        if (absorptionreduite == null)
+            return false;
         if (absorptionreduite) {
             COMMENTAIRE += "Absorption réduite\n";
             return true;
@@ -390,6 +394,8 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean eti3() {
+        if (agression == null)
+            return false;
         if (agression) {
             COMMENTAIRE += "Situation d'agression\n";
             return true;
