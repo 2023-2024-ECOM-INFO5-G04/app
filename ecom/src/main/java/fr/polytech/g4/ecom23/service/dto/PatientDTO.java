@@ -226,7 +226,7 @@ public class PatientDTO implements Serializable {
             if (poidsActuel != null) {
                 float IMC = poidsActuel * poidsActuel / taille;
                 if (IMC < limit) {
-                    COMMENTAIRE += "IMC: " + IMC + ", inférieur à " + limit + "\n";
+                    addComment("IMC: " + IMC + ", inférieur à " + limit + "\n");
                     return true;
                 }
                 return false;
@@ -307,15 +307,15 @@ public class PatientDTO implements Serializable {
         Float evo1 = evolution(list, Donnee.POIDS, days1);
         Float evo2 = evolution(list, Donnee.POIDS, days2);
         if (evo1 != null && evo1 <= -loss1) {
-            COMMENTAIRE += "Perte de poids supérieure à " + loss1 + "% en " + days1 + " jours\n";
+            addComment("Perte de poids supérieure à " + loss1 + "% en " + days1 + " jours\n");
             weightLoss = true;
         }
         if (evo2 != null && evo2 <= -loss2) {
-            COMMENTAIRE += "Perte de poids supérieure à " + loss2 + "% en " + days2 + " jours\n";
+            addComment("Perte de poids supérieure à " + loss2 + "% en " + days2 + " jours\n");
             weightLoss = true;
         }
         if (weightLoss3(list, loss3)) {
-            COMMENTAIRE += "Perte de poids supérieure à " + loss3 + "% par rapport au poids habituel avant le début de la maladie\n";
+            addComment("Perte de poids supérieure à " + loss3 + "% par rapport au poids habituel avant le début de la maladie\n");
             weightLoss = true;
         }
         return weightLoss;
@@ -347,14 +347,20 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean phe2(List<SuividonneesDTO> list) {
+        if (age == null) {
+            addComment("ATTENTION : Veuillez attribuer un âge à ce patient pour une meilleure détection\n");
+            return false;
+        }
         if (age < 70)
             return IMC(list, 18.5f);
         return IMC(list, 22f);
     }
 
     public boolean phe3() {
+        if (sarcopenie == null)
+            return false;
         if (sarcopenie) {
-            COMMENTAIRE += "Sarcopénie confirmée\n";
+            addComment("Sarcopénie confirmée\n");
             return true;
         }
         return false;
@@ -366,28 +372,32 @@ public class PatientDTO implements Serializable {
         float loss1 = 0.5f;
         Float evo1 = evolution(list, Donnee.CALORIES, days1);
         if (evo1 != null && evo1 <= -loss1) {
-            COMMENTAIRE += "Réduction de la prise alimentaire supérieure à " + loss1 + "% en " + days1 + " jours";
+            addComment("Réduction de la prise alimentaire supérieure à " + loss1 + "% en " + days1 + " jours");
             critere = true;
         }
         Float evo2 = evolution(list, Donnee.CALORIES, days2);
         if (evo2 != null && evo2 < 0) {
-            COMMENTAIRE += "Réduction de la prise alimentaire en " + days2 + " jours";
+            addComment("Réduction de la prise alimentaire en " + days2 + " jours");
             critere = true;
         }
         return critere;
     }
 
     public boolean eti2() {
+        if (absorptionreduite == null)
+            return false;
         if (absorptionreduite) {
-            COMMENTAIRE += "Absorption réduite\n";
+            addComment("Absorption réduite\n");
             return true;
         }
         return false;
     }
 
     public boolean eti3() {
+        if (agression == null)
+            return false;
         if (agression) {
-            COMMENTAIRE += "Situation d'agression\n";
+            addComment("Situation d'agression\n");
             return true;
         }
         return false;
@@ -398,6 +408,10 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean sev2(List<SuividonneesDTO> list) {
+        if (age == null) {
+            addComment("ATTENTION : Veuillez attribuer un âge à ce patient pour une meilleure détection\n");
+            return false;
+        }
         if (age < 70)
             return IMC(list, 17);
         return IMC(list, 20);
@@ -405,7 +419,7 @@ public class PatientDTO implements Serializable {
 
     public boolean sev3() {
         if (albumine <= 30) {
-            COMMENTAIRE += "Albuminémie < 30g/L\n";
+            addComment("Albuminémie < 30g/L\n");
             return true;
         }
         return false;
@@ -468,6 +482,22 @@ public class PatientDTO implements Serializable {
         return alerteDTO;
     }
 
+    private void addComment(String comment) {
+        System.out.println("1 : " + COMMENTAIRE.length());
+        if (COMMENTAIRE.length() + comment.length() <= 255) {
+            COMMENTAIRE += comment + "\n";
+            return;
+        }
+        int i = 0;
+        while (COMMENTAIRE.length() < 250) {
+            COMMENTAIRE += comment.charAt(i);
+            i++;
+        }
+        System.out.println("2 : " + COMMENTAIRE.length());
+        while (COMMENTAIRE.length() < 255)
+            COMMENTAIRE += ".";
+        System.out.println("3 : " + COMMENTAIRE.length());
+    }
 
 
 }
