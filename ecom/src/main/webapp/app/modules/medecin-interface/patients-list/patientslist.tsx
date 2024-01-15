@@ -13,7 +13,6 @@ export const PatientsList = props => {
   };
 
   const patients = props.patients;
-  // let EPAarray : { [key: string]: number }= {};
 
   const [EPA, setEPA] = useState<{ [key: string]: number }>({});
 
@@ -48,7 +47,7 @@ export const PatientsList = props => {
 
             </Link>
             <div className='display-EPA'>
-            EPA : {EPA && EPA[patient.id.toString()]}
+            {EPA && ("EPA : " + EPA[patient.id.toString()])}
             </div>
           </div>
         ))}
