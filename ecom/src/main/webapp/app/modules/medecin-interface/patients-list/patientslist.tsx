@@ -7,10 +7,10 @@ import axios from 'axios';
 export const PatientsList = props => {
 
   const getColor = (denutrition, severite) => {
-    if (denutrition == null) {
+    if (denutrition == false) {
       return '#5EC286';
     }
-    if (severite) {
+    if (severite==true) {
       return '#C25E5E';
     }
     return '#FAE282';
@@ -27,7 +27,6 @@ export const PatientsList = props => {
 
   useEffect(() => {
     patients.map(patient => {
-      console.log(patient);
       axios
         .get('api/patients/' + patient.id + '/epa')
         .then(response => {

@@ -25,7 +25,7 @@ export const Task = (props) => {
 
     const handleFreqChange = (e) => {
         freq = e.target.value;
-        console.log(freq)
+        // console.log(freq)
     };
 
 
@@ -98,7 +98,7 @@ export const Task = (props) => {
                     </div>
 
                     <Input
-                        onChange={(e) => { console.log(e.target.value) }}
+                        // onChange={(e) => { console.log(e.target.value) }}
                         id="exampleSelect"
                         name="select"
                         type="select"

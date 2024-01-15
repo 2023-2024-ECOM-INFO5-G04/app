@@ -20,7 +20,6 @@ export const VisualisationPage = () => {
       axios
         .get('api/patients')
         .then(response => {
-          console.log("Réponse de l'API :", response.data);
           resp = donneesPatient(response.data);
         })
         .then(patientData => setPatientData(resp))

@@ -54,7 +54,6 @@ export const SelectionPatient = props => {
   });
 
   useEffect(() => {
-    console.log('Appel noms');
     const promessesRequetes = etablissementsTemp.map(etablissement => {
       return axios.get('api/etablissements/' + etablissement.id)
         .then(response => {

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Line} from "react-chartjs-2";
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
 import axios from "axios";
 import { Chart, CategoryScale, LinearScale, BarElement } from 'chart.js'
 import 'chart.js/auto'
@@ -9,14 +9,14 @@ Chart.register(zoomPlugin);
 Chart.register(CategoryScale, LinearScale, BarElement)
 
 const LineChart = (props) => {
-const [showDataset1, setShowDataset1] = useState(true);
-const [showDataset2, setShowDataset2] = useState(true);
-const [showDataset3, setShowDataset3] = useState(true);
-const id = props.id;
+  const [showDataset1, setShowDataset1] = useState(true);
+  const [showDataset2, setShowDataset2] = useState(true);
+  const [showDataset3, setShowDataset3] = useState(true);
+  const id = props.id;
 
-const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+  const [chartData, setChartData] = useState({ labels: [], datasets: [] });
   const getLineColor = (key) => {
-    if (key === 'poids'){
+    if (key === 'poids') {
       return 'red';
     } else if (key === 'epa') {
       return 'green';
@@ -55,31 +55,31 @@ const [chartData, setChartData] = useState({ labels: [], datasets: [] });
     Data();
   }, [showDataset1, showDataset2, showDataset3, id]);
 
-const options = {
-  maintainAspectRatio: true,
-  responsive: true,
-  plugins: {
-    zoom: {
+  const options = {
+    maintainAspectRatio: true,
+    responsive: true,
+    plugins: {
       zoom: {
-        wheel: {
-          enabled: true
+        zoom: {
+          wheel: {
+            enabled: true
+          },
+          speed: 1,
         },
-        speed: 1,
-      },
-      pan: {
-        enabled: true,
-        speed: 100,
+        pan: {
+          enabled: true,
+          speed: 100,
+        }
       }
     }
   }
-}
 
   return (
 
-      <Line
-        data={chartData}
-        options={options}
-      />
+    <Line
+      data={chartData}
+      options={options}
+    />
 
   );
 };
@@ -92,7 +92,6 @@ const getDates = (startDate, endDate) => {
     dates.push(currentDate.toISOString().split('T')[0]); // Format de date AAAA-MM-JJ
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  console.log('les dates', dates)
   return dates;
 };
 export default LineChart;
