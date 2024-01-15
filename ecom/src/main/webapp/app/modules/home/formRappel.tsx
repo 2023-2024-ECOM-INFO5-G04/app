@@ -6,8 +6,8 @@ import './formRappel.css'
 
 const FormRappel = (props) => {
 
-    const dateOfToday = props.date;
-    let validData: boolean = false;
+
+
 
     let commentaire: string;
     let date: string;
@@ -15,14 +15,11 @@ const FormRappel = (props) => {
 
     const checkDate = (dateInput: string) => {
 
-        console.log('checkDate');
-
         const dateInputMS = (new Date(dateInput)).getTime();
         const dateMS = Date.now();
 
         if (dateInputMS - dateMS >= 0) { //valide
             date = dateInput;
-            console.log('date valide');
         }
         else {
             date = null;
@@ -34,8 +31,6 @@ const FormRappel = (props) => {
     }
 
     const sendForm = () => {
-
-        console.log('sendForm');
         if (date) {
             if (!commentaire) {
                 Swal.fire({
@@ -54,8 +49,6 @@ const FormRappel = (props) => {
 
             })
         }
-
-
     }
 
     return (
@@ -63,7 +56,7 @@ const FormRappel = (props) => {
             <Input onChange={(e) => commentaire = e.target.value}
                 placeholder="Description"
                 className="descritpion"
-               >
+            >
             </Input>
             <Input
                 name="date"
@@ -72,8 +65,8 @@ const FormRappel = (props) => {
                 className="date-Input"
             />
             <Button onClick={sendForm}
-            className="ajouter-bouton"
-            color="info">
+                className="ajouter-bouton"
+                color="info">
                 Ajouter
             </Button>
         </div>
