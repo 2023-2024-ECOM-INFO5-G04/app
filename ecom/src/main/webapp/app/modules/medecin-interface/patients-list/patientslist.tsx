@@ -5,12 +5,20 @@ import axios from 'axios';
 
 
 export const PatientsList = props => {
-  const getColor = denutrition => {
-    if (denutrition != null) {
+
+  const getColor = (denutrition, severite) => {
+    if (denutrition == null) {
+      return '#5EC286';
+    }
+    if (severite) {
       return '#C25E5E';
     }
-    return '#5EC286';
+    return '#FAE282';
   };
+
+  // #C25E5E rouge
+  // #5EC286 vert
+  // #FAE282 jaune
 
   const patients = props.patients;
 
@@ -19,6 +27,7 @@ export const PatientsList = props => {
 
   useEffect(() => {
     patients.map(patient => {
+      console.log(patient);
       axios
         .get('api/patients/' + patient.id + '/epa')
         .then(response => {
@@ -40,14 +49,14 @@ export const PatientsList = props => {
       <ul>
         {patients.map(patient => (
           <div key={patient.id}
-          className='container-patient'
+            className='container-patient'
           >
-            <Link className="patient-summary" to="/patientdetails" style={{ backgroundColor: getColor(patient.alerte) }} state={patient}>
+            <Link className="patient-summary" to="/patientdetails" style={{ backgroundColor: getColor(patient.alerte.denutrition, patient.alerte.severite) }} state={patient}>
               {patient.nom}
 
             </Link>
             <div className='display-EPA'>
-            {EPA && ("EPA : " + EPA[patient.id.toString()])}
+              {EPA && ("EPA : " + EPA[patient.id.toString()])}
             </div>
           </div>
         ))}
