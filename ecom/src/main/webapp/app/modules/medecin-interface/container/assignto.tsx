@@ -9,13 +9,13 @@ const AssignTo = (props) => {
     const [nameIsValid, setNameIsValid] = useState(null);
 
     const handleSelectionChange = (e) => {
+        props.getTypeTarget(e.target.value);
         setSelectedValue(e.target.value)
-        console.log(selectedValue)
     };
 
     const handleNameChange = (e) => {
 
-        console.log(e.target.value)
+        props.getTarget(e.target.value);
         if (e.target.value.length < 4) {
             setNameIsValid(false);
         }

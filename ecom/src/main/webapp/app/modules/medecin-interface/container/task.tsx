@@ -4,28 +4,192 @@ import { Col, Button, Alert, InputGroup, InputGroupText } from "reactstrap";
 import AssignTo from './assignto';
 import { FormGroup, Input, Label } from 'reactstrap';
 import { useState, useEffect } from 'react';
-import { width } from '@fortawesome/free-solid-svg-icons/faCogs';
 
-//TODO : 
-// utiliser requete pour verifier soignant et service
-
-//TODO : 
-// récuperer les données de tout le form et les verifier 
-
-//TODO :
-// feedback en alerte quand on valide et quitte la page
-
+import { useAppSelector } from 'app/config/store';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 
 export const Task = (props) => {
     const [printEndDate, setPrintEndDate] = useState(true);
     const [printFreq, setPrintFreq] = useState(true);
-    let freq: number;
 
-    const handleFreqChange = (e) => {
+    const authentication = useAppSelector(state => state.authentication);
+    const userID = authentication ? authentication.account.id : null;
+
+
+    const patientId = props.patient.id;
+    let medecinId;
+
+
+
+    let target: string;
+    let targetType: boolean = true;
+
+    let dateDeb: string;
+    let dateFin: string;
+
+    let freq: number;
+    let nbJour: number;
+
+    let commentaire: string;
+
+    useEffect(() => {
+        axios
+            .get('api/medecins/user/' + userID)
+            .then(response => {
+                medecinId = response.data.id;
+            })
+            .catch(error => {
+                console.error('Erreur lors de la requête pour l EPA :', error);
+                return null;
+            });
+    }, []);
+
+    useEffect(() => {
+        if (!printEndDate) {
+            dateFin = null;
+        }
+    }, [printEndDate])
+
+    useEffect(() => {
+        if (!printFreq) {
+            freq = null;
+        }
+    }, [printFreq])
+
+
+    const getTarget = (e) => {
+        target = e;
+    }
+
+    const getTypeTarget = (e) => {
+        if (e == 'soignant') {
+            targetType = true;
+            return
+        }
+        if (e == 'service') {
+            targetType = false;
+            return
+        }
+        else {
+            console.log('erreur radio bouton');
+        }
+    };
+
+    const getDateDebut = (e) => {
+        dateDeb = e;
+    };
+
+    const getDateFin = (e) => {
+        dateFin = e;
+    };
+
+    const getFreq = (e) => {
         freq = e.target.value;
-        // console.log(freq)
+
+    };
+
+    const getPeriode = (e) => {
+        if (e == 'jour') {
+            nbJour = 1;
+            return;
+        }
+        if (e == 'semaine') {
+            nbJour = 7;
+            return;
+        }
+        if (e == 'mois') {
+            nbJour = 30;
+            return;
+        }
+        if (e == 'an') {
+            nbJour = 364;
+            return;
+        }
+        console.log('erreur frequence');
+    }
+
+    const getCommentaire = (e) => {
+        commentaire = e;
+        console.log(commentaire);
+    }
+
+    const submitTask = () => {
+        console.log("submitted");
+
+        if (medecinId == null) {
+            msgError('Une erreur est survenue, veuillez réessayer.');
+            return;
+        }
+
+        if (patientId == null) {
+            msgError('Une erreur est survenue, veuillez réessayer.');
+            return;
+        }
+
+        if (target == null || target == '') {
+            msgError('nom du patient ou du service invalide');
+            return;
+        }
+        if (targetType == null) {
+            msgError('Veuillez selectionner une option : soignant/service');
+            return;
+        }
+
+        if (dateDeb == null || dateDeb == '') {
+            msgError('Veuillez renseigner une date de début');
+            return;
+        }
+
+        if (commentaire == null || commentaire ==''){
+            msgError('Veuillez décrire la tache à effectuer');
+            return;
+        }
+
+        let url = 'api/taches/form?medecin=' + medecinId + '&patient=' + patientId + '&soignant=' + targetType + '&nom=' + target + '&debut=' + dateDeb;
+
+        if (dateFin) {
+            url += '&fin=' + dateFin;
+        }
+        if (freq) {
+            url += '&frequence=' + freq;
+        }
+        if (nbJour) {
+            url += '&joursperiode=' + nbJour;
+        }
+        if (commentaire) {
+            url += '&commentaire=' + commentaire;
+        }
+        
+        axios.post(url)
+            .then(response => {
+                msgSucces('La tache a bien été assignée');
+            })
+            .catch(error => {
+                console.error('Erreur lors de la requête PATCH :', error);
+                msgError('Un problème est survenu, êtes-vous sûr que ce nom existe ?');
+            });
+    }
+
+   
+
+    const msgError = (msg: string) => {
+        Swal.fire({
+            text: msg,
+            icon: 'error'
+        })
+    };
+
+    const msgSucces = (msg: string) => {
+        Swal.fire({
+            text: msg,
+            icon: 'success',
+            timer: 1000
+
+        })
+
     };
 
 
@@ -36,7 +200,9 @@ export const Task = (props) => {
             </div >
             <div className='bodyT'>
 
-                <AssignTo />
+                <AssignTo
+                    getTypeTarget={getTypeTarget}
+                    getTarget={getTarget} />
             </div>
             <div className='bodyT'>
 
@@ -44,10 +210,9 @@ export const Task = (props) => {
                     date de début :
                     <br />
                     <Input
-                        id="exampleDate"
-                        name="date"
-                        placeholder="date placeholder"
+                        name="date-debut"
                         type="date"
+                        onChange={(e) => getDateDebut(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup className='date'
@@ -55,10 +220,9 @@ export const Task = (props) => {
                     date de fin :
                     <br />
                     <Input
-                        id="exampleDate"
-                        name="date"
-                        placeholder="date placeholder"
+                        name="date-fin"
                         type="date"
+                        onChange={(e) => getDateFin(e.target.value)}
                     />
                 </FormGroup>
                 <FormGroup check
@@ -71,7 +235,6 @@ export const Task = (props) => {
                     <Label
                         check
                         for="exampleCheck"
-
                     >
                         Sans fin
                     </Label>
@@ -85,7 +248,7 @@ export const Task = (props) => {
 
                     <Input
                         type='number'
-                        onChange={handleFreqChange} />
+                        onChange={getFreq} />
 
                 </FormGroup>
 
@@ -98,7 +261,9 @@ export const Task = (props) => {
                     </div>
 
                     <Input
-                        // onChange={(e) => { console.log(e.target.value) }}
+
+                        onChange={(e) => { getPeriode(e.target.value) }}
+
                         id="exampleSelect"
                         name="select"
                         type="select"
@@ -145,12 +310,13 @@ export const Task = (props) => {
                         name="text"
                         type="textarea"
                         placeholder='Ajoutez un commentaire'
+                        onChange={(e) => { getCommentaire(e.target.value) }}
                     />
                 </FormGroup>
 
                 <div className='thirdColEnd'>
 
-                    <Button onClick={props.handleClick}
+                    <Button onClick={submitTask}
                         className='valider-button'
                         color='success'>
                         Valider
