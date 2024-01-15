@@ -113,11 +113,9 @@ export const Task = (props) => {
 
     const getCommentaire = (e) => {
         commentaire = e;
-        console.log(commentaire);
     }
 
     const submitTask = () => {
-        console.log("submitted");
 
         if (medecinId == null) {
             msgError('Une erreur est survenue, veuillez réessayer.');
@@ -153,12 +151,11 @@ export const Task = (props) => {
         if (dateFin) {
             url += '&fin=' + dateFin;
         }
-        if (freq) {
+        if (freq && nbJour) {
             url += '&frequence=' + freq;
-        }
-        if (nbJour) {
             url += '&joursperiode=' + nbJour;
         }
+       
         if (commentaire) {
             url += '&commentaire=' + commentaire;
         }
