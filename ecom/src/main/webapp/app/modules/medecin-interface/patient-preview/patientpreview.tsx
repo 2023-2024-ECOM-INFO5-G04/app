@@ -4,7 +4,6 @@ import axios from 'axios';
 import './patientpreview.css';
 import { Note } from '../note/note';
 import { useAppSelector } from 'app/config/store';
-import { useSearchParams } from 'react-router-dom';
 
 export const PatientPreview = props => {
   const patient = props.patient;
@@ -12,18 +11,20 @@ export const PatientPreview = props => {
 
   const authentication = useAppSelector(state => state.authentication);
   const userID = authentication ? authentication.account.id : null;
-  console.log('userID', userID);
 
-  const [url, setUrl] = useState('')
-
+  const [url, setUrl] = useState(null);
+  const [medecin, setMedecin] = useState(null);
+  let patientAssocies;
 
   const [donnees, setDonnees] = useState(null);
+
+
 
   useEffect(() => {
     axios
       .get('api/medecins/user/' + userID)
       .then(response => {
-        setUrl('api/notes?medecin=' + response.data.id + '&patient=' + patientId)
+        setMedecin(response.data);
       })
       .catch(error => {
         console.error('Erreur lors de la requête pour l EPA :', error);
@@ -31,21 +32,38 @@ export const PatientPreview = props => {
       });
   }, []);
 
+  useEffect(() => {
+    if (medecin) {
+      if (medecin.patients) {
+        patientAssocies = medecin.patients;
+        patientAssocies.map((patient) => {
+          if (patient.id == patientId) {
+            setUrl('api/notes?medecin=' + medecin.id + '&patient=' + patientId);
+            return
+          }
+        });
+      }
+    }
+
+  }, medecin)
+
 
   useEffect(() => {
-    const effectFunction = async () => {
-      try {
+    if (url) {
+      const effectFunction = async () => {
+        try {
 
-        const reponse = await axios.get(url);
-        const reponseData = reponse.data[0];
-        ;
-        setDonnees(reponseData);
-      } catch (erreur) {
-        console.error('Erreur lors de la requête :', erreur);
-      }
-    };
+          const reponse = await axios.get(url);
+          const reponseData = reponse.data[0];
+          ;
+          setDonnees(reponseData);
+        } catch (erreur) {
+          console.error('Erreur lors de la requête :', erreur);
+        }
+      };
 
-    effectFunction();
+      effectFunction();
+    }
   }, [url]);
 
   return (

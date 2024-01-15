@@ -24,12 +24,10 @@ export const VisualisationPatientDetail = () => {
 
   const handleClickT = () => {
     setFenetre(true);
-    console.log(fenetre);
   }
 
   const handleClickF = () => {
     setFenetre(false);
-    console.log(fenetre);
   }
 
    const component1 = <GraphWindow

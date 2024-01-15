@@ -10,9 +10,9 @@ export class RappelData {
     
 }
 
-export function donneesRappel(jsonObject) {
+export function donneesRappel (jsonObject: any): RappelData[] {
     
-    return(plainToClass(RappelData, jsonObject))
+    return jsonObject.map(item => plainToClass(RappelData, item));
 
 }
 

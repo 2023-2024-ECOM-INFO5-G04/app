@@ -11,19 +11,20 @@ import { RappelData } from '../medecin-interface/classes/rappels-class';
 
 export const Rappel = props => {
 
-    const [rappels, setRappels] = useState<RappelData[]>(props.rappels || []);
+    const raappels = props.rappels || [];
+
     return (
-        <div style={{width:'80%'}}>
+        <div style={{ width: '80%' }}>
 
             <UncontrolledAccordion
 
                 open={[
-                    
+
                 ]}
                 stayOpen
             >
-                {rappels.map(rappel => (
-                    
+                {raappels.map(rappel => (
+
                     <AccordionItem key={rappel.id.toString()}>
                         <AccordionHeader targetId={rappel.id.toString()} className='rappels'>{rappel.date}</AccordionHeader>
                         <AccordionBody accordionId={rappel.id.toString()}>

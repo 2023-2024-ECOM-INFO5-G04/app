@@ -11,11 +11,9 @@ export const Note = (props) => {
 
   const name = props.patient.nom;
   const noteId = props.note.id;
-  console.log('noteID', noteId);
 
 
   const urlNotePatch = 'api/notes/' + noteId + '/commentaire?commentaire=';
-  //normalement les données de mise à jour sont dans le corps pour une requête patch
 
   const modifierContenu = () => {
     setContenuModifiable(contenu);
@@ -29,7 +27,7 @@ export const Note = (props) => {
 
     axios.patch(urlRequest)
       .then(response => {
-        console.log('Réponse de la requête PATCH :', response.data);
+        // console.log('Réponse de la requête PATCH :', response.data);
       })
       .catch(error => {
         console.error('Erreur lors de la requête PATCH :', error);

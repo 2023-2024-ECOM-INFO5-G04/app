@@ -19,6 +19,8 @@ export class Alerte {
   date: string;
   commentaire: string;
   severite: boolean;
+  denutrition: boolean;
+  consulte: boolean;
 }
 
 export class Etablissement {

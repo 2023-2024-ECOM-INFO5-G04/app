@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PatientsList from './patients-list/patientslist';
 import SelectionPatient from './patient-selection/patientselection';
 import axios from 'axios';
 import './medecinhome.css';
@@ -21,7 +20,6 @@ export const VisualisationPage = () => {
       axios
         .get('api/patients')
         .then(response => {
-          console.log("Réponse de l'API :", response.data);
           resp = donneesPatient(response.data);
         })
         .then(patientData => setPatientData(resp))

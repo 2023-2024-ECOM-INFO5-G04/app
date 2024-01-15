@@ -4,9 +4,11 @@ import { Col, Button, Alert, InputGroup, InputGroupText } from "reactstrap";
 import AssignTo from './assignto';
 import { FormGroup, Input, Label } from 'reactstrap';
 import { useState, useEffect } from 'react';
+
 import { useAppSelector } from 'app/config/store';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+
 
 
 export const Task = (props) => {
@@ -86,6 +88,7 @@ export const Task = (props) => {
 
     const getFreq = (e) => {
         freq = e.target.value;
+
     };
 
     const getPeriode = (e) => {
@@ -186,6 +189,7 @@ export const Task = (props) => {
             timer: 1000
 
         })
+
     };
 
 
@@ -257,7 +261,9 @@ export const Task = (props) => {
                     </div>
 
                     <Input
+
                         onChange={(e) => { getPeriode(e.target.value) }}
+
                         id="exampleSelect"
                         name="select"
                         type="select"
