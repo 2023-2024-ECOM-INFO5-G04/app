@@ -347,6 +347,10 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean phe2(List<SuividonneesDTO> list) {
+        if (age == null) {
+            COMMENTAIRE += "ATTENTION : Veuillez attribuer un âge à ce patient pour une meilleure détection\n";
+            return false;
+        }
         if (age < 70)
             return IMC(list, 18.5f);
         return IMC(list, 22f);
@@ -398,6 +402,10 @@ public class PatientDTO implements Serializable {
     }
 
     public boolean sev2(List<SuividonneesDTO> list) {
+        if (age == null) {
+            COMMENTAIRE += "ATTENTION : Veuillez attribuer un âge à ce patient pour une meilleure détection\n";
+            return false;
+        }
         if (age < 70)
             return IMC(list, 17);
         return IMC(list, 20);
