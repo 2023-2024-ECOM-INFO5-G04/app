@@ -39,7 +39,8 @@ export const VisualisationPatientDetail = () => {
 
 
   const component2 = <Task
-    handleClick={handleClickT} />
+    handleClick={handleClickT}
+    patient={patient}/>
 
 
   return (
